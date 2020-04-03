@@ -1,0 +1,8 @@
+<section id="modal" *ngIf="modals().includes(currentModal)">
+    <div class="modal-mask" (click)="changeModal('none')"></div>
+    <app-modal-welcome></app-modal-welcome>
+    <app-modal-sign-in></app-modal-sign-in>
+    <app-modal-sign-up></app-modal-sign-up>
+    <app-modal-account-settings></app-modal-account-settings>
+
+</section>

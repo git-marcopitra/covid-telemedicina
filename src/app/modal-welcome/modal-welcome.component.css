@@ -1,0 +1,14 @@
+.welcome-image {
+    display: flex;
+    align-items: center;
+    width: 70%;
+    padding: 1rem;
+}
+
+.welcome-image img {
+    width: 100%;
+}
+
+.welcome-img {
+    filter: grayscale(0.8);
+}

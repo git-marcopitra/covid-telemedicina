@@ -1,0 +1,29 @@
+<section class="modal" *ngIf="currentModal == 'sign-up'">
+    <header class="modal-header">
+        <i id="modal-info" class="fal fa-info-circle modal-icon"></i>
+        <h4 class="modal-title">Registar</h4>
+        <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
+    </header>
+    <div class="modal-body">
+        <div class="modal-content">
+            <label for="signup-name" id="label-signup-name" class="invisible">Nome Completo</label>
+            <input type="text" placeholder="Nome Completo" id="signup-name" class="field" required>
+
+            <label for="signup-id" id="label-signup-id" class="invisible">Número de BI ou passaporte</label>
+            <input type="text" placeholder="Número de BI ou Passporte" id="signup-id" class="field" required>
+
+            <label for="signup-age" id="label-signup-age" class="invisible">Idade</label>
+            <input type="number" placeholder="Idade" id="signup-age" class="field" required>
+
+            <label for="signup-pass" id="label-signup-pass" class="invisible">Palavra-passe</label>
+            <input type="password" placeholder="Palavra-passe" class="field" id="signup-pass" required>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-button button-secondary" (click)="changeModal('sign-in')"> Entrar </button>
+            <button class="modal-button button-primary"> Registar </button>
+        </div>
+        <div class="modal-buttons">
+            <button value="facebook" class="modal-button button-facebook"> Registar com o facebook </button>
+        </div>
+    </div>
+</section>

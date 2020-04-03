@@ -1,0 +1,22 @@
+<section class="modal" *ngIf="currentModal == 'sign-in'">
+    <header class="modal-header">
+        <i id="modal-info" class="fal fa-info-circle modal-icon"></i>
+        <h4 class="modal-title">Entrar</h4>
+        <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
+    </header>
+    <div class="modal-body">
+        <div class="modal-content">
+            <label for="signin-id" id="label-signin-id" class="invisible">Número de BI ou Passaporte</label>
+            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-id" required>
+            <label for="signin-pass" id="label-signin-pass" class="invisible">Palavra-passe</label>
+            <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" required>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>
+            <button class="modal-button button-primary"> Entrar </button>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-button button-facebook"> Entrar com o facebook </button>
+        </div>
+    </div>
+</section>

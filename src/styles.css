@@ -1,0 +1,446 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+@import url('./assets/dist/font-awesome-5-pro/css/all.css');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100vw
+}
+
+body {
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 2.5px;
+    margin: 7px 0 10px;
+    padding: .7rem 1rem;
+}
+
+label {
+    display: block;
+    font-weight: 400;
+    text-align: left;
+    font-size: .9rem;
+    color: #3d71ff
+}
+
+button {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin: 7px 5px;
+    padding: .8rem 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 300ms;
+}
+
+button:hover {
+    margin: 2px 5px 12px;
+}
+
+.invisible {
+    display: none!important;
+}
+
+.transparent {
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    font-size: inherit;
+}
+
+.transparent:hover {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+main {
+    margin: 1rem auto;
+    max-width: 1440px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-around;
+    align-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+    order: 0;
+}
+
+.option {
+    display: flex;
+    height: 10rem;
+    margin: 1rem .5rem .5rem;
+    min-width: 310px;
+    width: calc(50% - 1rem);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgb(0, 0, 0, .5);
+}
+
+.option:hover .option-mask {
+    margin-left: -2%;
+}
+
+.option:hover .option-face {
+    margin-right: -98%;
+}
+
+.option-mask,
+.option-face {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: all 200ms;
+    cursor: pointer;
+}
+
+.option-mask {
+    padding: 2rem 3rem;
+    margin-left: -98%;
+}
+
+.option-face {
+    padding: 2rem;
+    margin-right: -2%;
+}
+
+.mask-icon {
+    font-size: 3rem;
+    padding-right: 1rem;
+}
+
+.option-desc {
+    width: 100%;
+}
+
+.content-head {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.head-image {
+    padding: 2rem;
+    height: 50vh;
+    max-width: 40vw;
+    min-width: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.head-image img {
+    height: 80%;
+    animation: rotateVirus 3s linear 0s infinite;
+}
+
+.head-text {
+    display: flex;
+    width: 60vh;
+    min-width: 300px;
+    padding: 2rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.head-title-xl {
+    font-size: 6vh;
+    line-height: 10vh;
+}
+
+.head-title-l {
+    font-size: 3.5vh;
+    line-height: 6vh;
+}
+
+.head-text-l {
+    font-size: 2vh;
+    line-height: 3vh;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.main-title {
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 4vh;
+}
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.team-member {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    width: 250px;
+    margin: 3rem 0 0;
+}
+
+.team-member:hover .team-member-image {
+    transform: scale(1.2);
+}
+
+.team-member-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    align-items: flex-end;
+    justify-content: center;
+    display: flex;
+    transition: transform 800ms;
+}
+
+.team-member-image img {
+    width: 100%;
+}
+
+.team-member-content {
+    padding: 1rem;
+}
+
+.team-member-name {
+    height: 3.5rem;
+    padding: .5rem 0;
+}
+
+.team-member-function {
+    height: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-member-social {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.3rem
+}
+
+.contributors-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.contributor-card {
+    width: 300px;
+    padding: 2rem 1rem;
+    border-radius: 10px;
+    margin: 1rem 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contributor-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 240px;
+    height: 240px;
+    overflow: hidden;
+}
+
+.contributor-card:hover img {
+    transform: scale(1.2);
+}
+
+.contributor-image img {
+    width: 82%;
+    transition: all 500ms;
+}
+
+.contributor-name {
+    padding: 1rem
+}
+
+.line {
+    font-size: 0.85rem;
+    line-height: 1rem;
+    padding: .5rem;
+}
+
+
+/* Animações */
+
+@keyframes rotateVirus {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* CUSTOM */
+
+:root {
+    --primary-color: rgb(95, 202, 68);
+    --primary-color-04: rgba(95, 202, 68, .4);
+    --primary-color-01: rgba(95, 202, 68, .1);
+    --warning-color: rgb(202, 68, 68);
+    --background-color-1: rgb(40, 40, 40);
+    --background-color-2: rgb(60, 60, 60);
+    --background-color-3: rgb(50, 50, 50);
+    --font-color-1: rgb(255, 255, 255);
+}
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    background-color: var(--background-color-2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+}
+
+.button-warning {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.button-facebook {
+    background-color: rgb(23, 63, 241);
+    color: white;
+}
+
+.button-secondary {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.enphase {
+    color: var(--primary-color);
+}
+
+.main-header {
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    background-color: var(--background-color-1);
+    border-bottom: 5px solid var(--primary-color);
+    color: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+}
+
+.main-header-item {
+    font-size: 1.5rem;
+}
+
+.option {
+    background-color: var(--primary-color);
+}
+
+.option-mask {
+    background-color: var(--background-color-3);
+    color: var(--font-color-1)
+}
+
+.head-title-xl {
+    color: var(--primary-color)
+}
+
+.head-text-l,
+.head-title-l {
+    color: var(--font-color-1)
+}
+
+.main-title {
+    color: var(--primary-color)
+}
+
+.team-member {
+    color: var(--font-color-1);
+}
+
+.team-member-image {
+    background-color: var(--background-color-3);
+    animation: pulse 1s linear 0s infinite;
+}
+
+.team-member-name {
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.team-member-function {
+    text-align: center;
+}
+
+.contributor-card {
+    color: var(--font-color-1);
+    background-color: var(--background-color-3);
+}
+
+
+/* Animations */
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 var(--primary-color);
+    }
+    30% {
+        box-shadow: 0 0 1rem var(--primary-color-04);
+    }
+    100% {
+        box-shadow: 0 0 2rem var(--primary-color-01);
+    }
+}

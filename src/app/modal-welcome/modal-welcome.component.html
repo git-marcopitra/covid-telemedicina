@@ -1,0 +1,20 @@
+<section class="modal" *ngIf="currentModal == 'welcome'">
+    <header class=" modal-header ">
+        <i class="fal fa-info-circle modal-icon "></i>
+        <h4 class="modal-title ">Muito bem-vindo</h4>
+        <i class="fal fa-times modal-icon " (click)="changeModal('sign-in')"></i>
+    </header>
+    <div class="modal-body ">
+        <div class="welcome-image ">
+            <img class="welcome-img " src="./assets/images/welcome-illustration.png " alt="Imagem de Boas vindas ">
+        </div>
+        <div class="modal-content ">
+            <p class="modal-text "> Seja bem-vindo ao Teste de COVID-19 em Angola. Se ainda não tem uma conta
+                <b>registe-se já</b>, é rápidinho... </p>
+        </div>
+        <div class="modal-buttons ">
+            <button id="change-modal " class="modal-button button-secondary " (click)="changeModal('sign-in')"> Já tenho </button>
+            <button id="change-modal " class="modal-button button-primary " (click)="changeModal('sign-up')"> Registar </button>
+        </div>
+    </div>
+</section>

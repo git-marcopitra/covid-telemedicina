@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "telecovidcina"
+  },
+  "targets": {
+    "telecovidcina": {
+      "hosting": {
+        "telecovidcina": [
+          "telecovidcina"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<section class="modal" *ngIf="currentModal == 'account-settings'">
+    <header class="modal-header">
+        <i id="modal-info" class="fal fa-info-circle modal-icon"></i>
+        <h4 class="modal-title"> Conta </h4>
+        <i (click)="changeModal('none')" class="fal fa-times modal-icon"></i>
+    </header>
+    <div class="modal-body">
+        <div class="welcome-image">
+            <img src="./assets/images/account-settings-illustration.png" alt="Configuração da sua conta">
+        </div>
+        <div class="modal-buttons">
+            <button id="change-modal" value="signup" class="modal-button button-secondary"> Definições de conta </button>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-button button-warning"> Terminar Sessão </button>
+        </div>
+    </div>
+</section>

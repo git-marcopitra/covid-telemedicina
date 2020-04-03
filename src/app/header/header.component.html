@@ -1,0 +1,30 @@
+<header class="main-header">
+    <i class="fas fa-bars main-header-item" (click)="toggleMenu(true)" *ngIf="!menu"></i>
+    <i class="fas fa-times main-header-item" (click)="toggleMenu(false)" *ngIf="menu"></i>
+    <h2 class="main-header-brand">COVID Telemedicina</h2>
+    <i id="user-icon" class="fal fa-user-circle main-header-item" (click)="changeModal('sign-in')" *ngIf="!logged"></i>
+    <i id="user-icon" class="fas fa-user-circle main-header-item" (click)="changeModal('account-settings')" *ngIf="logged"></i>
+
+</header>
+
+<nav id="main-menu" class="main-menu" *ngIf="menu">
+    <ul class="menu-list">
+        <li class="menu-item">
+            <a href="http://covidango.web.app" target="_blank">
+                <h3><i class="fal fa-window-alt"></i> Portal Informativo </h3>
+            </a>
+        </li>
+        <li class="menu-item">
+            <h3 (click)="routeTo('home')"><i class="fal fa-home "></i> Página Inicial </h3>
+        </li>
+        <li class="menu-item">
+            <h3 (click)="routeTo('team')"><i class="fal fa-users-class "></i> Nossa Equipa </h3>
+        </li>
+        <li class="menu-item">
+            <h3 (click)="routeTo('contributors')"><i class="fal fa-handshake-alt"></i> Colaboradores </h3>
+        </li>
+        <li class="menu-item">
+            <h3 (click)="routeTo('aboutus')"><i class="fal fa-handshake-alt"></i> Sobre Nós </h3>
+        </li>
+    </ul>
+</nav>
