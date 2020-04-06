@@ -52,12 +52,16 @@
     line-height: 1.5rem;
 }
 
+.test-phase-text ul{
+    margin-top: 10px;
+}
+
 .test-phase h2 {
     padding: 20px 0;
 }
 
 .test-phase-icon {
-    padding: 0 1rem;
+    padding: 0 0.6rem 0 0;
 }
 
 .test-buttons {
@@ -68,6 +72,11 @@
 
 .test-buttons button {
     width: 100%;
+}
+
+.laughing{
+    padding: 0 0.6rem 0 0;
+    font-size: 20px;
 }
 
 @keyframes jokeTest {

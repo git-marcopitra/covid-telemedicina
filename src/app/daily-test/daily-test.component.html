@@ -40,10 +40,15 @@
                     <h2 class="color-primary"> Dados importantes </h2>
                     <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
                     <select id="gender" formControlName="gender" class="field">
-                        <option value='' selected disabled> Selecione o seu Gênero </option>
-                        <option value="M"> Masculino </option>
-                        <option value="F"> Feminino </option>
+                        <option value='' selected disabled> Tipo sanguíneo (opcional) </option>
+                        <option value="Tipo 1"> A </option>
+                        <option value="Tipo 2"> B </option>
+                        <option value="Tipo 3"> AB </option>
+                        <option value="Tipo 4"> O </option>
+                        <option value="Tipo 5"> Não sei </option>
                     </select>
+                    <label for="docId" *ngIf="fc.docId.value != ''"> Qualquer </label>
+                    <input id="docId" formControlName="docId" placeholder="Qualquer dado importante">
 
                     <div class="test-buttons">
                         <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
