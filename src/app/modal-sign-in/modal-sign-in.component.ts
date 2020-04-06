@@ -26,11 +26,11 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
     super(modalService)
     this.fc = this.signinForm.controls
-    this.userService.getAll().subscribe(doc => {
+    /*this.userService.getAll().subscribe(doc => {
       if(doc){
         this.users = doc
       }
-    })
+    })*/
   }
 
   ngOnInit(): void {
