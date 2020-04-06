@@ -24,7 +24,7 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 999;
-    color: white
+    color: var(--font-color-1)
 }
 
 .menu-item {
@@ -34,6 +34,7 @@
     transition: all 300ms;
     cursor: pointer;
     text-align: center;
+    color: var(--background-color-2);
 }
 
 .menu-item:hover {

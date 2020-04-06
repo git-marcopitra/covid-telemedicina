@@ -12,7 +12,6 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    border: 1px solid red;
 }
 
 .test-left {
@@ -28,7 +27,6 @@
 .test-img {
     width: 320px;
     height: 320px;
-    border: 1px solid blue;
 }
 
 .test-img img {
@@ -40,7 +38,7 @@
 
 .test-phase {
     padding: 2rem;
-    color: white;
+    color: var(--font-color-1);
     max-width: 600px;
 }
 
