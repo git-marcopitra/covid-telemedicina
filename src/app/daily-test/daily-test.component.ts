@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-daily-test',
   templateUrl: './daily-test.component.html',
@@ -23,6 +24,7 @@ export class DailyTestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
   }
 
   ngDoCheck(): void {
