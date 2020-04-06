@@ -17,6 +17,8 @@ import { HeaderComponent } from './header/header.component';
 import { DailyTestComponent } from './daily-test/daily-test.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from './map/map.component';
+import { TelemedicinaComponent } from './telemedicina/telemedicina.component';
+import { TelemedicinaModule } from './telemedicina/telemedicina.module';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,14 @@ import { MapComponent } from './map/map.component';
     ModalAccountSettingsComponent,
     HeaderComponent,
     DailyTestComponent,
-    MapComponent
+    MapComponent,
+    TelemedicinaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TelemedicinaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

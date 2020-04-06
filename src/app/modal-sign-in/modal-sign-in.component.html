@@ -6,8 +6,8 @@
     </header>
     <form class="modal-body" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
         <div class="modal-content">
-            <label for="signin-id" *ngIf="fc.id.value != ''">Número de BI ou Passaporte</label>
-            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-id" formControlName="id">
+            <label for="signin-email" *ngIf="fc.email.value != ''">Email</label>
+            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-email" formControlName="email">
             <label for="signin-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password">
         </div>

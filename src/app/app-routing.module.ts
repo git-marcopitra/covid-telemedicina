@@ -6,6 +6,7 @@ import { ContributorsComponent } from './contributors/contributors.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { DailyTestComponent } from './daily-test/daily-test.component';
 import { MapComponent } from './map/map.component';
+import { TelemedicinaComponent } from './telemedicina/telemedicina.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'team', component: TeamComponent },
   { path: 'contributors', component: ContributorsComponent  },
   { path: 'aboutus', component: AboutusComponent },
-  { path: 'dailytest', component: DailyTestComponent }
+  { path: 'dailytest', component: DailyTestComponent },
+  { path: 'telemedicina', component: TelemedicinaComponent }
 ];
 
 @NgModule({
