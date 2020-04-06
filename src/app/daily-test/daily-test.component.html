@@ -29,6 +29,8 @@
                         <option value="M"> Masculino </option>
                         <option value="F"> Feminino </option>
                     </select>
+                    <label for="age" id="label-signup-age" *ngIf="fc.age.value != null">Idade</label>
+                    <input type="number" placeholder="Idade" id="age" formControlName="age" class="field">
                     <label for="docId" *ngIf="fc.docId.value != ''"> Número de BI ou Passaporte </label>
                     <input id="docId" formControlName="docId" placeholder="Número de BI ou Passaporte">
                     <div class="test-buttons">

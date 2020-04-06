@@ -16,10 +16,10 @@
 
 
  function initMap() {
-    
+
      var mapa = new google.maps.Map(document.getElementById('mapa'), {
-         zoom: 2,
-         center: { lat: -33.865427, lng: 151.196123 },
+         zoom: 10,
+         center: { lat: -8.8368200, lng: 13.2343200 },
          mapTypeId: 'terrain'
      });
      var dados = getDados();
@@ -42,19 +42,18 @@
          "features": []
      };
      geoJson["features"].push({
-        "type": "Feature",
-        "properties": {
-            "mag": "5",
-            "color": "yellow",
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [
-                -9.0023740,
-                13.2767496
-            ]
-        }
-    });
+         "type": "Feature",
+         "properties": {
+             "mag": "5",
+             "color": "yellow",
+         },
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-9.0023740,
+                 13.2767496
+             ]
+         }
+     });
 
      /*firebase.database().ref('/users/').once('value').then(function(snapshot) {
          // Adicionar dados

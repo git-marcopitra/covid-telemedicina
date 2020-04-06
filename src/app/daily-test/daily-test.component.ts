@@ -13,6 +13,7 @@ export class DailyTestComponent implements OnInit {
 
   testForm = this.fb.group({
     gender: ['', Validators.required],
+    age: ['', Validators.required],
     docId: ['', Validators.required]
   })
 

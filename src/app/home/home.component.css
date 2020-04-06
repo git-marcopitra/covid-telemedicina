@@ -40,11 +40,13 @@
 .option-mask {
     padding: 2rem 3rem;
     margin-left: -98%;
+    background-color: var(--primary-color);
 }
 
 .option-face {
     padding: 2rem;
     margin-right: -2%;
+    background-color: var(--background-color-2);
 }
 
 .mask-icon {

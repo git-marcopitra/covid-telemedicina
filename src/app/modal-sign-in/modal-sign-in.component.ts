@@ -13,7 +13,7 @@ import { UserCredential } from '../user';
 export class ModalSignInComponent extends ModalComponent implements OnInit {
 
   signinForm = this.fb.group({
-    id: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required]
   })
   signinErrors = {

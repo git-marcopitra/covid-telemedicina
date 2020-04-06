@@ -14,9 +14,8 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
 
   signupForm = this.fb.group({
     name: ['', Validators.required],
-    id: ['', Validators.required],
+    email: ['', Validators.required],
     phone: ['', Validators.required],
-    age: [null, Validators.required],
     password: ['', Validators.required]
   })
 
