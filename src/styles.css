@@ -27,7 +27,9 @@ ul {
     list-style: none;
 }
 
-input {
+input,
+select {
+    display: block;
     width: 100%;
     border: none;
     outline: none;
@@ -41,7 +43,6 @@ label {
     font-weight: 400;
     text-align: left;
     font-size: .9rem;
-    color: #3d71ff
 }
 
 button {
@@ -83,110 +84,6 @@ main {
     max-width: 1440px;
 }
 
-.options {
-    display: flex;
-    justify-content: space-around;
-    align-content: flex-start;
-    width: 100%;
-    flex-wrap: wrap;
-    order: 0;
-}
-
-.option {
-    display: flex;
-    height: 10rem;
-    margin: 1rem .5rem .5rem;
-    min-width: 310px;
-    width: calc(50% - 1rem);
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgb(0, 0, 0, .5);
-}
-
-.option:hover .option-mask {
-    margin-left: -2%;
-}
-
-.option:hover .option-face {
-    margin-right: -98%;
-}
-
-.option-mask,
-.option-face {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: all 200ms;
-    cursor: pointer;
-}
-
-.option-mask {
-    padding: 2rem 3rem;
-    margin-left: -98%;
-}
-
-.option-face {
-    padding: 2rem;
-    margin-right: -2%;
-}
-
-.mask-icon {
-    font-size: 3rem;
-    padding-right: 1rem;
-}
-
-.option-desc {
-    width: 100%;
-}
-
-.content-head {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: wrap;
-}
-
-.head-image {
-    padding: 2rem;
-    height: 50vh;
-    max-width: 40vw;
-    min-width: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.head-image img {
-    height: 80%;
-    animation: rotateVirus 3s linear 0s infinite;
-}
-
-.head-text {
-    display: flex;
-    width: 60vh;
-    min-width: 300px;
-    padding: 2rem;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.head-title-xl {
-    font-size: 6vh;
-    line-height: 10vh;
-}
-
-.head-title-l {
-    font-size: 3.5vh;
-    line-height: 6vh;
-}
-
-.head-text-l {
-    font-size: 2vh;
-    line-height: 3vh;
-}
-
 .main-content {
     display: flex;
     flex-direction: column;
@@ -198,63 +95,6 @@ main {
     margin-bottom: 3rem;
     text-align: center;
     font-size: 4vh;
-}
-
-.team-members {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.team-member {
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    width: 250px;
-    margin: 3rem 0 0;
-}
-
-.team-member:hover .team-member-image {
-    transform: scale(1.2);
-}
-
-.team-member-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    align-items: flex-end;
-    justify-content: center;
-    display: flex;
-    transition: transform 800ms;
-}
-
-.team-member-image img {
-    width: 100%;
-}
-
-.team-member-content {
-    padding: 1rem;
-}
-
-.team-member-name {
-    height: 3.5rem;
-    padding: .5rem 0;
-}
-
-.team-member-function {
-    height: 2.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.team-member-social {
-    padding: 1rem;
-    display: flex;
-    justify-content: space-around;
-    font-size: 1.3rem
 }
 
 .contributors-content {
@@ -351,14 +191,18 @@ h6 {
     background-color: var(--primary-color);
 }
 
+.color-primary {
+    color: var(--primary-color);
+}
+
 .button-warning {
     background-color: var(--warning-color);
     color: white;
 }
 
 .button-facebook {
-    background-color: rgb(23, 63, 241);
-    color: white;
+    background-color: white;
+    color: blue;
 }
 
 .button-secondary {
@@ -383,6 +227,11 @@ h6 {
 
 .main-header-item {
     font-size: 1.5rem;
+}
+
+.laughing {
+    font-size: 2rem;
+    color: rgb(255, 217, 0);
 }
 
 .option {
@@ -431,16 +280,31 @@ h6 {
 }
 
 
-/* Animations */
+/* Let's get this party started */
 
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 var(--primary-color);
-    }
-    30% {
-        box-shadow: 0 0 1rem var(--primary-color-04);
-    }
-    100% {
-        box-shadow: 0 0 2rem var(--primary-color-01);
-    }
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(209, 209, 209, 0.8);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(32, 32, 32, 0.4);
 }

@@ -4,5 +4,9 @@ export interface UserCredential {
 }
 
 export interface User {
+    id: string;
     name: string;
+    password: string;
+    birthYear: string;
+    phone: string;
 }

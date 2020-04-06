@@ -3,11 +3,10 @@
     background-color: rgb(60, 60, 60);
     color: white;
     border-radius: 10px;
-    width: 350px;
+    width: 320px;
     padding: 1rem;
     min-height: 350px;
-    max-height: 80vh;
-    overflow-y: auto;
+    max-height: 90vh;
     z-index: 1;
 }
 
@@ -15,12 +14,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem 1.5rem;
+    padding: 0 .5rem 1rem;
     border-bottom: 2px solid rgba(50, 50, 50, 0.4);
 }
 
 .modal-icon {
     cursor: pointer;
+    padding: .5rem
 }
 
 .modal-body {
@@ -30,10 +30,13 @@
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem 1rem;
+    max-height: calc(90vh - 3rem - 2.5rem);
+    overflow-y: auto;
 }
 
 .modal-content {
     padding: 1rem 0;
+    height: 100%;
 }
 
 .modal-text {
@@ -48,4 +51,9 @@
 
 .modal-button {
     width: 100%;
+}
+
+.field {
+    display: block;
+    width: calc(320px - 4rem);
 }

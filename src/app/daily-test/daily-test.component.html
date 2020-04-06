@@ -1,0 +1,56 @@
+<section class="test">
+    <aside class="test-left">
+        <div class="test-img">
+            <img src="./assets/images/test-illustration.png" alt="Imagem do teste">
+        </div>
+    </aside>
+    <aside class="test-right">
+        <div class="test-phases">
+            <div class="test-phase" *ngIf="phase == 0">
+                <h2 class="color-primary"> Seja bem-vindo ao teste de COVID-19 </h2>
+                <div class="test-phase-text">Para continuar o teste vamos precisar de: <br />
+                    <ul>
+                        <li> <i class="fal fa-id-card color-primary test-phase-icon"> </i> Documento de identifição (BI ou Passaporte);</li>
+                        <li> <i class="fal fa-location-arrow color-primary test-phase-icon"> </i> Acesso a sua localização.</li>
+                    </ul>
+                </div>
+
+                <p> <i class="fas fa-grin-beam laughing"></i> Por favor... seja sincero e salve vidas, o futuro também depende de si. Juntos somos mais fortes.</p>
+                <div class="test-buttons">
+                    <button class="button-primary" (click)="nextPhase()">Continuar</button>
+                </div>
+            </div>
+            <form [formGroup]="testForm">
+                <div class="test-phase" *ngIf="phase == 1">
+                    <h2 class="color-primary"> Informações pessoais </h2>
+                    <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
+                    <select id="gender" formControlName="gender" class="field">
+                        <option value='' selected disabled> Selecione o seu Gênero </option>
+                        <option value="M"> Masculino </option>
+                        <option value="F"> Feminino </option>
+                    </select>
+                    <label for="docId" *ngIf="fc.docId.value != ''"> Número de BI ou Passaporte </label>
+                    <input id="docId" formControlName="docId" placeholder="Número de BI ou Passaporte">
+                    <div class="test-buttons">
+                        <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
+                        <button class="button-primary" (click)="nextPhase()"> Continuar </button>
+                    </div>
+                </div>
+                <div class="test-phase" *ngIf="phase == 2">
+                    <h2 class="color-primary"> Dados importantes </h2>
+                    <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
+                    <select id="gender" formControlName="gender" class="field">
+                        <option value='' selected disabled> Selecione o seu Gênero </option>
+                        <option value="M"> Masculino </option>
+                        <option value="F"> Feminino </option>
+                    </select>
+
+                    <div class="test-buttons">
+                        <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
+                        <button class="button-primary" (click)="nextPhase()"> Continuar </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </aside>
+</section>

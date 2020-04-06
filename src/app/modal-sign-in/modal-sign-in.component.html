@@ -4,19 +4,19 @@
         <h4 class="modal-title">Entrar</h4>
         <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
     </header>
-    <div class="modal-body">
+    <form class="modal-body" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
         <div class="modal-content">
-            <label for="signin-id" id="label-signin-id" class="invisible">Número de BI ou Passaporte</label>
-            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-id" required>
-            <label for="signin-pass" id="label-signin-pass" class="invisible">Palavra-passe</label>
-            <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" required>
+            <label for="signin-id" *ngIf="fc.id.value != ''">Número de BI ou Passaporte</label>
+            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-id" formControlName="id">
+            <label for="signin-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
+            <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password">
         </div>
         <div class="modal-buttons">
             <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>
-            <button class="modal-button button-primary"> Entrar </button>
+            <button class="modal-button button-primary" type="submit" [disabled]="!signinForm.valid"> Entrar </button>
         </div>
         <div class="modal-buttons">
-            <button class="modal-button button-facebook"> Entrar com o facebook </button>
+            <button value="google" class="modal-button button-facebook"> <i class="fab fa-google"></i> Registar com o Google </button>
         </div>
-    </div>
+    </form>
 </section>

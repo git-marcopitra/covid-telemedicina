@@ -19,9 +19,7 @@ export class ModalService {
   }
 
   setModal($modal: string): void {
-    console.log("Eu era ::: ", this.currentModal)
     this.currentModal = $modal;
-    console.log('Agora sou ::: ', this.currentModal)
   }
   
   getFirstTime(): boolean {

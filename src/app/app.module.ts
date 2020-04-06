@@ -16,7 +16,9 @@ import { ModalAccountSettingsComponent } from './modal-account-settings/modal-ac
 import { HeaderComponent } from './header/header.component';
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { DailyTestComponent } from './daily-test/daily-test.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,13 +33,15 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
     ModalSignInComponent,
     ModalSignUpComponent,
     ModalAccountSettingsComponent,
-    HeaderComponent
+    HeaderComponent,
+    DailyTestComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFireDatabaseModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
