@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 declare function initMap(): any;
 
 @Component({
@@ -12,7 +13,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(initMap())
+    initMap();
   }
 
 }
