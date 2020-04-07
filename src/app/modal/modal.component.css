@@ -8,7 +8,7 @@
     padding: 1rem;
     min-height: 350px;
     max-height: 90vh;
-    z-index: 1;
+    z-index: 101;
 }
 
 .modal-header {

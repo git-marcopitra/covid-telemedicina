@@ -3,6 +3,7 @@
     display: flex;
     position: sticky;
     padding: 1rem 2rem;
+    z-index: 99;
 }
 
 .main-header-brand {

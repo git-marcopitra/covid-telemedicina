@@ -1,3 +1,35 @@
+.head-title-xl {
+    color: var(--primary-color)
+}
+
+.head-text-l,
+.head-title-l {
+    color: var(--font-color-1)
+}
+
+.main-title {
+    color: var(--primary-color)
+}
+
+.team-member {
+    color: var(--font-color-1);
+}
+
+.team-member-image {
+    margin: auto;
+    background-color: var(--background-color-3);
+    animation: pulse 1s linear 0s infinite;
+}
+
+.team-member-name {
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.team-member-function {
+    text-align: center;
+}
+
 .team-members {
     display: flex;
     flex-wrap: wrap;
@@ -6,7 +38,7 @@
 
 .team-member {
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     flex-direction: column;
     display: flex;
     width: 250px;
@@ -49,10 +81,18 @@
 }
 
 .team-member-social {
-    padding: 1rem;
+    padding: 1rem 2.5rem;
     display: flex;
     justify-content: space-around;
-    font-size: 1.3rem
+    font-size: 1.3rem;
+}
+
+.team-member-social a {
+    transition: color 200ms ease-out;
+}
+
+.team-member-social a:hover {
+    color: var(--primary-color)
 }
 
 @keyframes pulse {
