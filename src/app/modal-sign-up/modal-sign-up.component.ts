@@ -38,14 +38,15 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     let user: User
     user = {
       name: this.fc.name.value,
-      email: this.fc.id.value,
+      email: this.fc.email.value,
       phone: this.fc.phone.value,
       password: this.fc.password.value,
       doc: '',
       gender: '',
       birthYear:''
     }
-    this.userService.signUp(user)
+   this.userService.signUp(user)
+    
   }
 
   googleSignUp(): void {
