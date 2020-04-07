@@ -13,24 +13,25 @@ import { UserCredential } from '../user';
 export class ModalSignInComponent extends ModalComponent implements OnInit {
 
   signinForm = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
+    email: ['', Validators.email],
+    password: ['', Validators.minLength(8)]
   })
   signinErrors = {
-    id: 'Insira um número de identificação válido',
+    email: 'Insira um número de identificação válido',
     password: 'Insira a sua palavra-passe'
   }
+  googleSigninForm = this.fb.group({})
+
   fc: any
   users: any[]
+  google: boolean
+  error: string
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
     super(modalService)
     this.fc = this.signinForm.controls
-    /*this.userService.getAll().subscribe(doc => {
-      if(doc){
-        this.users = doc
-      }
-    })*/
+    this.google = true
+    this.error = ''
   }
 
   ngOnInit(): void {
@@ -40,10 +41,27 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   onSubmit(): void {
     let userCred: UserCredential
     userCred = {
-      id: this.fc.id.value,
+      email: this.fc.email.value,
       password: this.fc.password.value
     }
-    /*console.log(this.userService.login(userCred))*/
+    if(this.userService.signIn(userCred)){
+      this.changeModal('none')
+    } else {
+      this.error = 'Email ou senha inválido'
+    }
   }
+
+  cleanError() {
+    this.error = ''
+  }
+
+  googleLogin(): void {
+    if(this.userService.googleSignIn()){
+      this.changeModal('none')
+    } else {
+      this.error = 'Login inválido'
+    }
+  }
+
 
 }

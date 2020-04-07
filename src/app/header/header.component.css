@@ -1,5 +1,7 @@
 .main-header {
+    top: 0;
     display: flex;
+    position: sticky;
     padding: 1rem 2rem;
 }
 

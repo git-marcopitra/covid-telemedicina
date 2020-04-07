@@ -1,4 +1,60 @@
 #mapa {
-    width: 1000px;
-    height: 500px;
+    position: absolute;
+    top: 5rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.map-legend {
+    position: relative;
+    bottom: 0;
+}
+
+.map-color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-color-item {
+    display: flex;
+    align-items: center;
+    opacity: .9;
+}
+
+.green {
+    color: rgba(0, 255, 0)
+}
+
+.yellow {
+    color: rgba(255, 255, 0)
+}
+
+.red {
+    color: rgba(255, 50, 50)
+}
+
+.green-box {
+    display: inline-block;
+    padding: 0.5rem;
+    margin: .5rem;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 0)
+}
+
+.yellow-box {
+    display: inline-block;
+    padding: 0.5rem;
+    margin: .5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 0)
+}
+
+.red-box {
+    display: inline-block;
+    padding: 0.5rem;
+    margin: .5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 50, 50)
 }

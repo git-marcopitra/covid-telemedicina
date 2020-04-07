@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngDoCheck(): void {
+    this.logged = this.userService.getState();
   }
 
   toggleMenu($active: boolean): void {

@@ -61,6 +61,14 @@ button:hover {
     margin: 2px 5px 12px;
 }
 
+button:disabled {
+    opacity: .7;
+}
+
+button:disabled:hover {
+    margin: 7px 5px;
+}
+
 .invisible {
     display: none!important;
 }
@@ -200,7 +208,7 @@ h6 {
 
 .button-warning {
     background-color: var(--warning-color);
-    color: var(--font-color-1);
+    color: var(--background-color-1);
 }
 
 .button-facebook {
@@ -212,6 +220,10 @@ h6 {
     background-color: transparent;
     border: 1px solid var(--font-color-1);
     color: var(--font-color-1);
+}
+
+.warning {
+    color: var(--warning-color);
 }
 
 .enphase {
@@ -293,7 +305,7 @@ h6 {
 /* Track */
 
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     -webkit-border-radius: 0;
     border-radius: 0;
 }
@@ -305,7 +317,7 @@ h6 {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: rgba(209, 209, 209, 0.8);
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {

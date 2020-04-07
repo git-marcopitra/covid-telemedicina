@@ -13,9 +13,16 @@ export class DailyTestComponent implements OnInit {
 
   testForm = this.fb.group({
     gender: ['', Validators.required],
-    age: ['', Validators.required],
-    docId: ['', Validators.required]
+    age: [null, Validators.required],
+    docId: ['', Validators.required],
+    travel: [0],
+    people: [0]
   })
+
+  geoLocation: {
+    lat: number,
+    long: number
+  }
 
   fc: any
 
@@ -35,7 +42,32 @@ export class DailyTestComponent implements OnInit {
     this.phase++
   }
   
+  firstPhase() {
+    this.nextPhase()
+    this.findMe()
+  }
+
   prevPhase(): void {
     this.phase--
+  }
+
+  findMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setPosition(position);
+      });
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  setPosition(position: any) {
+    this.geoLocation = {
+      lat: position.coords.latitude,
+      long: position.coords.longitude
+    }
+  }
+  onSubmit() {
+
   }
 }

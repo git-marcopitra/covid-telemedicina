@@ -13,17 +13,22 @@ import { UserService } from '../user.service';
 export class ModalSignUpComponent extends ModalComponent implements OnInit {
 
   signupForm = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', Validators.required],
-    phone: ['', Validators.required],
-    password: ['', Validators.required]
+    name: ['', Validators.minLength(2)],
+    email: ['', Validators.email],
+    phone: ['', Validators.minLength(9)],
+    password: ['', Validators.minLength(8)]
   })
+
+  googleSignUpForm = this.fb.group({})
+
+  google: boolean
 
   fc: any
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
     super(modalService)
     this.fc = this.signupForm.controls
+    this.google = true
   }
   
   ngOnInit(): void {
@@ -33,12 +38,18 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     let user: User
     user = {
       name: this.fc.name.value,
-      id: this.fc.id.value,
+      email: this.fc.id.value,
       phone: this.fc.phone.value,
-      birthYear: ((new Date().getFullYear()) -this.fc.age.value).toString(),
-      password: this.fc.password.value
+      password: this.fc.password.value,
+      doc: '',
+      gender: '',
+      birthYear:''
     }
-    /*this.userService.insert(user)*/
+    this.userService.signUp(user)
+  }
+
+  googleSignUp(): void {
+    this.userService.googleSignUp()
   }
 
 }

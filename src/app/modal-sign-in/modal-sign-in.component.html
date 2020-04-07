@@ -5,18 +5,24 @@
         <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
     </header>
     <form class="modal-body" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+
+        <p class="warning">{{ error }}</p>
+
         <div class="modal-content">
             <label for="signin-email" *ngIf="fc.email.value != ''">Email</label>
-            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-email" formControlName="email">
+            <input type="text" placeholder="Número de BI ou Passaporte" class="field" id="signin-email" formControlName="email" (keyup)="cleanError()">
             <label for="signin-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
-            <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password">
+            <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password" (keyup)="cleanError()">
         </div>
         <div class="modal-buttons">
             <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>
             <button class="modal-button button-primary" type="submit" [disabled]="!signinForm.valid"> Entrar </button>
         </div>
-        <div class="modal-buttons">
-            <button value="google" class="modal-button button-facebook"> <i class="fab fa-google"></i> Entrar com o Google </button>
+
+    </form>
+    <form [formGroup]="googleSigninForm" (ngSubmit)="googleLogin()">
+        <div class="modal-buttons" *ngIf="google">
+            <button type="submit" class="modal-button button-facebook"> <i class="fab fa-google"></i> Entrar com o Google </button>
         </div>
     </form>
 </section>

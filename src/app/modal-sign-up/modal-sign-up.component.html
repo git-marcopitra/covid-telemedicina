@@ -6,24 +6,26 @@
     </header>
     <form class="modal-body" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="modal-content">
-            <label for="signup-name" id="label-signup-name" *ngIf="fc.name.value != ''">Nome Completo</label>
+            <label for="signup-name" *ngIf="fc.name.value != ''">Nome Completo</label>
             <input type="text" placeholder="Nome Completo" id="signup-name" formControlName="name" class="field">
 
-            <label for="signup-id" id="label-signup-id" *ngIf="fc.id.value != ''">Número de BI ou passaporte</label>
-            <input type="text" placeholder="Número de BI ou Passporte" id="signup-id" formControlName="id" class="field">
+            <label for="signup-email" *ngIf="fc.email.value != ''">Email</label>
+            <input type="text" placeholder="Email" id="signup-email" formControlName="email" class="field">
 
-            <label for="signup-phone" id="label-signup-phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
+            <label for="signup-phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
             <input type="text" placeholder="Número de Telefone" id="signup-phone" formControlName="phone" class="field">
 
-            <label for="signup-pass" id="label-signup-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
+            <label for="signup-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="signup-pass">
         </div>
         <div class="modal-buttons">
             <button class="modal-button button-secondary" (click)="changeModal('sign-in')"> Entrar </button>
             <button type="submit" class="modal-button button-primary" [disabled]="!signupForm.valid"> Registar </button>
         </div>
-        <div class="modal-buttons">
-            <button value="google" class="modal-button button-facebook"> <i class="fab fa-google"></i> Registar com o Google </button>
+    </form>
+    <form [formGroup]="googleSignUpForm" (ngSubmit)="googleSignUp()">
+        <div class="modal-buttons" *ngIf="google">
+            <button class="modal-button button-facebook"> <i class="fab fa-google"></i> Registar com o Google </button>
         </div>
     </form>
 </section>

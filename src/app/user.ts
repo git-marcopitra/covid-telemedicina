@@ -1,12 +1,18 @@
 export interface UserCredential {
-    id: string;
+    email: string;
     password: string;
 }
 
 export interface User {
-    id: string;
+    email: string;
     name: string;
-    password: string;
+    password?: string;
     birthYear: string;
+    gender: string;
+    doc: string;
     phone: string;
+    geoLocation?: {
+        lat: number,
+        long: number
+    }
 }

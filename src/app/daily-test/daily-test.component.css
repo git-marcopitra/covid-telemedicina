@@ -68,6 +68,26 @@
     width: 100%;
 }
 
+.check-item {
+    display: flex;
+    align-items: center;
+    margin: .5rem 0 0;
+}
+
+.check-item label {
+    cursor: pointer;
+}
+
+.check-item input {
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--font-color-1-05);
+    border-radius: 2px;
+    outline: none;
+    display: inline-block;
+    margin: 10px;
+}
+
 @keyframes jokeTest {
     0% {
         transform: rotate(0deg) scale(0.7);
