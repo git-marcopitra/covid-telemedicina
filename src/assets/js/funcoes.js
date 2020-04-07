@@ -12,7 +12,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
- var name, bi, phone, age, genre, address;
+ var name, bi, phone, age, genre, address,email;
 
 
  function initMap() {
@@ -39,38 +39,25 @@
          "type": "FeatureCollection",
          "features": []
      };
-     /*    geoJson["features"].push({
-         "type": "Feature",
-         "properties": {
-             "mag": "5",
-             "color": "yellow",
-         },
-         "geometry": {
-             "type": "Point",
-             "coordinates": [-8.8368200,
-                13.2343200
-             ]
-         }
-     });
-*/
-     firebase.database().ref('/user/').once('value').then(snapshot => {
-         // Adicionar dados
-         // add dados vindos do firebase no campo "coordinates" do dicionario
-         geoJson["features"].push({
-             "type": "Feature",
-             "properties": {
-                 "mag": "5",
-                 "color": "yellow",
-             },
-             "geometry": {
-                 "type": "Point",
-                 "coordinates": [
-                     snapshot.val().geo.lat,
-                     snapshot.val().geo.long
-                 ]
-             }
-         });
-     });
+     
+     firebase.database().ref('/users/').on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            geoJson["features"].push({
+                "type": "Feature",
+                "properties": {
+                    "mag": "5",
+                    "color": "yellow",
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        childSnapshot.child(childSnapshot.key).val().geo.lat,
+                        childSnapshot.child(childSnapshot.key).val().geo.long
+                    ]
+                }
+            });
+        });
+    });
      return geoJson;
  }
 
@@ -102,7 +89,7 @@
 
      firebase.auth().onAuthStateChanged(function(user) {
          if (user) {
-             firebase.database().ref('user/' + user.uid).set({
+             firebase.database().ref('user/' + user.uid+"/geo").set({
                  lat: position.coords.latitude,
                  long: position.coords.longitude
              });
@@ -115,40 +102,44 @@
  }
 
 
-
-
  //------------------------------------Inicio------------------------------------------------
  //---------------------------------Secção Utilizador--------------------------------------    
  //iniciar a Sessão
+
+ 
  function login(email, pass) {
      firebase.auth().signInWithEmailAndPassword(email, pass)
          .then(result => {
-             //fixe
+             return true;
          }).catch(error => {
-             //erro
+             return false;
          });
  }
+
+
 
  function googleLogin() {
      var provedor = new firebase.auth.GoogleAuthProvider();
      firebase.auth().signInWithPopup(provedor).then(result => {
-         true
+        return true;
      }).catch(error => {
-         false
+         return false;
      });
  }
 
 
  // função para Registar Utilizador
  function logup(user) {
-     firebase.auth().createUserWithEmailAndPassword(email, senha).catch(error => {
+     
+     firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(error => {
          var errorCode = error.code;
          return false;
      });
 
      firebase.auth().onAuthStateChanged(newUser => {
          if (newUser) {
-             firebase.database().ref('user/' + newUser.uid).set({
+
+             firebase.database().ref('users/' + newUser.uid).set({
                  name: user.name,
                  phone: user.phone,
                  email: user.email,
@@ -160,13 +151,11 @@
                      long: null
                  }
              }).then(() => {
-                 newUser.updateProfile({
-                     displayName: nome
-                 });
-                 return true
+            
+                 return true;
              });
          }
-         return false
+         return false;
      });
  }
 
@@ -174,16 +163,39 @@
      var provedor = new firebase.auth.GoogleAuthProvider();
 
      firebase.auth().signInWithPopup(provedor).then(result => {
-         return true
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user){
+            
+                firebase.database().ref('users/' + user.uid).set({
+                    name: user.displayName,
+                    phone: '',
+                    email: user.email,
+                    level: 0,
+                    birthYear: '',
+                    gender: '',
+                    geo: {
+                        lat: null,
+                        long: null
+                    }
+                }).then(() => {
+               
+                    return true;
+                });
+            }
+        });
+        
      }).catch(error => {
-         return false
+         return false;
      });
+
+
 
  }
 
 
  function actualizarDados(user) {
-     firebase.database().ref('user/' + user.uid).update({
+     
+     firebase.database().ref('users/' + user.uid).update({
          doc: user.doc,
          gender: user.gender,
          phone: user.phone,
@@ -207,7 +219,7 @@
      firebase.auth().signOut().then(() => {
          return true;
      }).catch(error => {
-         return false
+         return false;
      });
  }
 
