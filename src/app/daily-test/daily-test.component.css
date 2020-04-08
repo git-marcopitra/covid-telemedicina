@@ -75,7 +75,6 @@
 .check-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin: .5rem 0 0;
 }
 
@@ -83,7 +82,7 @@
     cursor: pointer;
 }
 
-.check-item input {
+input[type="checkbox"] {
     width: 15px;
     height: 15px;
     border: 1px solid var(--font-color-1-05);
@@ -91,6 +90,19 @@
     outline: none;
     display: inline-block;
     margin: 10px;
+}
+
+.check-item-double {
+    display: grid;
+    grid-template-columns: calc(100% / 2) calc(100% / 2);
+}
+
+.test-subtitle {
+    margin: 1rem
+}
+
+.test-phase-text {
+    font-size: 1.3rem;
 }
 
 @keyframes jokeTest {

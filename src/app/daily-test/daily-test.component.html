@@ -14,12 +14,12 @@
                         <li> <i class="fal fa-location-arrow color-primary test-phase-icon"> </i> Acesso a sua localização.</li>
                     </ul>
                 </div>
-                <p> <i class="fas fa-grin-beam laughing"></i> Por favor... seja sincero e salve vidas, o futuro também depende de si. Juntos somos mais fortes.</p>
+                <p class="test-phase-text"> <i class="fas fa-grin-beam laughing"></i> Por favor... seja sincero e salve vidas, o futuro também depende de si. Juntos somos mais fortes.</p>
                 <div class="test-buttons">
                     <button class="button-primary" (click)="firstPhase()">Continuar</button>
                 </div>
             </div>
-            <form [formGroup]="testForm">
+            <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
                 <div class="test-phase" *ngIf="phase == 1">
                     <h2 class="color-primary"> Informações pessoais </h2>
                     <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
@@ -39,47 +39,112 @@
                 </div>
                 <div class="test-phase" *ngIf="phase == 2">
                     <h2 class="color-primary"> Informações importantes </h2>
-                    <h4 class=""> Marque as opções verdadeiras </h4>
+                    <h4 class="test-subtitle"> Marque as opções verdadeiras </h4>
                     <div class="check-item">
-                        <input type="checkbox" value="5" id="travel" formControlName="travel">
-                        <label class="btn btn-primary active" for="travel"> Viajou para países em actual estado de emergência no último mês de Março</label>
+                        <label class="check-item-block"> Viajou para países em actual estado de emergência no último mês de Março?
+                            <input type="checkbox" value=5 id="travel" formControlName="travel">
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                     <div class="check-item">
-                        <input type="checkbox" value="10" id="people" formControlName="people">
-                        <label class="btn btn-primary active" for="people"> Esteve em lugares com mais de 50 pessoas nos últimos 14 dias</label>
+                        <label class="check-item-block"> Esteve em lugares com mais de 50 pessoas nos últimos 14 dias?
+                            <input type="checkbox" value=5 id="people" formControlName="people">              
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                     <div class="check-item">
-                        <input type="checkbox" value="10" id="people" formControlName="people">
-                        <label class="btn btn-primary active" for="people"> Esteve em contacto com pessoas infectadas com o COVID-19? </label>
+                        <label class="check-item-block"> Esteve em contacto com pessoas infectadas com o COVID-19?
+                            <input type="checkbox" value="10" id="covid" formControlName="covid">
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
 
                     <div class="test-buttons">
-                        <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
                         <button class="button-primary" (click)="nextPhase()"> Continuar </button>
                     </div>
                 </div>
                 <div class="test-phase" *ngIf="phase == 3">
-                    <h2 class="color-primary"> Informações sintoáticas </h2>
-                    <h4 class=""> Qual dos sintomas abaixo sentiu nos últimos dias </h4>
-                    <div class="check-item">
+                    <h2 class="color-primary"> Informações sintomáticas </h2>
+                    <h4 class="test-subtitle"> Qual dos sintomas abaixo sentiu nos últimos dias </h4>
+                    <div class="check-item check-item-double">
                         <div class="check-item">
-                            <input type="checkbox" value="10" id="febre" formControlName="people">
-                            <label class="btn btn-primary active" for="febre"> Febre</label>
+                            <label class="check-item-block"> Febre
+                                <input type="checkbox" value="13.12" formControlName="febre">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                         <div class="check-item">
-                            <input type="checkbox" value="10" id="tosse" formControlName="people">
-                            <label class="btn btn-primary active" for="tosse"> Tosse </label>
+                            <label class="check-item-block">  Tosse
+                                <input type="checkbox" value="13.12" formControlName="tosse">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="check-item check-item-double">
+                        <div class="check-item">
+                            <label class="check-item-block"> Fadiga
+                                <input type="checkbox" value="13.12" formControlName="fadiga">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="check-item">
+                            <label class="check-item-block"> Dificuldade de respirar
+                                <input type="checkbox" value="6.56" formControlName="respiracao">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="check-item check-item-double">
+                        <div class="check-item">
+                            <label class="check-item-block"> Dor de garganta
+                                <input type="checkbox" value="6.56" formControlName="garganta">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="check-item">
+                            <label class="check-item-block"> Calafrios
+                                <input type="checkbox" value="6.56" formControlName="calafrios">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="check-item check-item-double">
+                        <div class="check-item">
+                            <label class="check-item-block"> Dor no Corpo
+                                <input type="checkbox" value="6.56" formControlName="corpo">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="check-item">
+                            <label class="check-item-block"> Dor de cabeça 
+                                <input type="checkbox" value="6.56" formControlName="cabeca">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </div>
 
-                    <div class="check-item">
-                        <input type="checkbox" value="10" id="people" formControlName="people">
-                        <label class="btn btn-primary active" for="people"> Esteve em contacto com pessoas infectadas com o COVID-19? </label>
+                    <div class="check-item check-item-double">
+                        <div class="check-item">
+                            <label class="check-item-block"> Nariz escorrendo (Coriza)
+                                <input type="checkbox" value="3.93" formControlName="coriza">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="check-item">
+                            <label class="check-item-block"> Espirros
+                                <input type="checkbox" value="3.93" formControlName="espirros">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
                     </div>
+
+
 
                     <div class="test-buttons">
                         <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
-                        <button class="button-primary" (click)="nextPhase()"> Continuar </button>
+                        <button class="button-primary" type="submit"> Continuar </button>
                     </div>
                 </div>
             </form>
