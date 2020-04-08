@@ -38,13 +38,14 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
     
   }
 
-  onSubmit(): void {
+  async onSubmit() {
     let userCred: UserCredential
     userCred = {
       email: this.fc.email.value,
       password: this.fc.password.value
     }
-    if(this.userService.signIn(userCred)){
+    
+    if(await this.userService.signIn(userCred)){
       this.changeModal('none')
     } else {
       this.error = 'Email ou senha inválido'
@@ -55,8 +56,8 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
     this.error = ''
   }
 
-  googleLogin(): void {
-    if(this.userService.googleSignIn()){
+  async googleLogin() {
+    if(await this.userService.googleSignIn()){
       this.changeModal('none')
     } else {
       this.error = 'Login inválido'

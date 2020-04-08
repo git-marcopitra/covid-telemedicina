@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { UserCredential, User } from './user';
 
-declare function login(email:string, password: string): boolean;
-declare function googleLogin(): boolean;
+declare function login(email:string, password: string): any;
+declare function googleLogin(): any;
 declare function logup(user: User): boolean | any;
 declare function googleLogup(): boolean;
-declare function logout(): boolean;
+declare function logout(): any;
+declare function conectado(): any;
 
 
 @Injectable({
@@ -14,22 +15,29 @@ declare function logout(): boolean;
 export class UserService {
   
   logged: boolean
+  teste: boolean
+  async signIn(user: UserCredential) {
+ 
+ return await login(user.email, user.password).then(resul => { 
+  conectado()
+  this.logged = true  
+  return  true
+  }).catch(error => {  
+   return false
+  })
 
-  signIn(user: UserCredential): boolean {
-    if(login(user.email, user.password)){
-      this.logged = true
-      return true
-    }
-    return false
   }
-
-  googleSignIn(): boolean {
+ 
+ 
+  async googleSignIn() {
     
-    if(googleLogin()){
-      this.logged = true
-      return true
-    } else
-      return false
+    return await googleLogin().then(resul => { 
+      conectado()
+      this.logged = true  
+      return  true
+      }).catch(error => {  
+       return false
+      })
   }
   
   signUp(user: User) {
@@ -42,9 +50,14 @@ export class UserService {
       this.logged = true
   }
 
-  signOut() {
-    if(logout())
+  async signOut() {
+    logout().then(() => {
       this.logged = false
+      return true;
+  }).catch(error => {
+      return false;
+  });
+      
   }
 
   getState() {
