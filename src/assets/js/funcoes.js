@@ -12,8 +12,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
- var name, bi, phone, age, genre, address,email;
-
+ var name, phone, age, genre, birthYear,email,lat,long,level;
 
  function initMap() {
      var mapa = new google.maps.Map(document.getElementById('mapa'), {
@@ -107,24 +106,20 @@
  //iniciar a Sessão
 
  
- function login(email, pass) {
-     firebase.auth().signInWithEmailAndPassword(email, pass)
-         .then(result => {
-             return true;
-         }).catch(error => {
-             return false;
-         });
+   function login(email, pass) {    
+        return firebase.auth().signInWithEmailAndPassword(email, pass);
  }
 
 
 
+
+
+ 
+ 
+
  function googleLogin() {
      var provedor = new firebase.auth.GoogleAuthProvider();
-     firebase.auth().signInWithPopup(provedor).then(result => {
-        return true;
-     }).catch(error => {
-         return false;
-     });
+    return firebase.auth().signInWithPopup(provedor);
  }
 
 
@@ -195,7 +190,7 @@
 
  function actualizarDados(user) {
      
-     firebase.database().ref('users/' + user.uid).update({
+      return firebase.database().ref('users/' + user.uid).update({
          doc: user.doc,
          gender: user.gender,
          phone: user.phone,
@@ -207,8 +202,6 @@
              lat: user.lat,
              long: user.long
          }
-     }).then(function() {
-         // concluido
      });
  }
 
@@ -216,19 +209,29 @@
 
  // Terminar a Sessão
  function logout() {
-     firebase.auth().signOut().then(() => {
-         return true;
-     }).catch(error => {
-         return false;
-     });
+    return firebase.auth().signOut();
  }
 
  //Verifica se o utilizador está conectado
  function conectado() {
      //Verifica se o utilizador está conectado
      firebase.auth().onAuthStateChanged(function(user) {
-         if (user)
-             return true;
+         if (user){
+            firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+                setName(snapshot.val().name);
+                setGenre(snapshot.val().genre);
+                setPhone(snapshot.val().phone);
+                setEmail(snapshot.val().email);
+                setBirthYear(snapshot.val().birthYear);
+                setLevel(snapshot.val().level);
+               
+                
+              }).then(result=>{
+           
+              });
+            return true;
+         }
+             
 
          return false;
 
@@ -256,44 +259,68 @@
  //--------------------------------------Dados utilizador ----------------------------------
 
  function getName() {
-     return this.name;
- }
+    return this.name;
+}
 
- function getBi() {
-     return this.bi;
- }
+function getPhone() {
+    return this.phone;
+}
 
- function getPhone() {
-     return this.phone;
- }
+function getGenre() {
+    return this.genre;
+}
 
- function getGenre() {
-     return this.genre;
- }
+function getEmail(){
+   return this.email;
+} 
 
- function getAddress() {
-     return this.address;
- }
+function getLevel(){
+   return this.level;
+}
 
- function setName(name) {
-     this.name = name;
- }
+function getBirthYear(){
+   return this.birthYear;
+}
 
- function setBi(bi) {
-     this.bi = bi;
- }
+function getLat(){
+   return this.lat;
+}
 
- function setPhone(phone) {
-     this.phone = phone;
- }
+function getLong(){
+   return this.long;
+}
 
- function setGenre(genre) {
-     this.genre = genre;
- }
+function setName(name) {
+    this.name = name;
+}
 
- function setAddress(address) {
-     this.address = address;
- }
+function setPhone(phone) {
+    this.phone = phone;
+}
+
+function setGenre(genre) {
+    this.genre = genre;
+}
+
+function setBirthYear(birthYear) {
+    this.birthYear = birthYear;
+}
+
+function setEmail(email){
+    this.email=email;
+}
+function setLevel(level){
+    this.level=level;
+}
+
+function setLat(lat){
+    this.lat=lat;
+}
+
+function setLong(long){
+   this.long=long;
+}
+
 
  //--------------------------------------Dados Utilizador ------------------------------------
  //------------------------------------------FIM--------------------------------------------
