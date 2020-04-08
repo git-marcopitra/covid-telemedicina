@@ -258,37 +258,6 @@ h6 {
     color: var(--font-color-1)
 }
 
-.head-title-xl {
-    color: var(--primary-color)
-}
-
-.head-text-l,
-.head-title-l {
-    color: var(--font-color-1)
-}
-
-.main-title {
-    color: var(--primary-color)
-}
-
-.team-member {
-    color: var(--font-color-1);
-}
-
-.team-member-image {
-    background-color: var(--background-color-3);
-    animation: pulse 1s linear 0s infinite;
-}
-
-.team-member-name {
-    color: var(--primary-color);
-    text-align: center;
-}
-
-.team-member-function {
-    text-align: center;
-}
-
 .contributor-card {
     color: var(--font-color-1);
     background-color: var(--background-color-3);
