@@ -9,7 +9,8 @@ declare function logout(): any;
 declare function updateUser(User: any): any;
 declare function conectado(): any;
 declare function getUser(): any;
-declare function ResetPassword(email: string): any;
+declare function getAllDataUser(): any;
+declare function resetPassword(email: string): any;
 
 
 @Injectable({
@@ -28,7 +29,7 @@ export class UserService {
 
   async signIn(user: UserCredential) {
     return await login(user.email, user.password).then(() => { 
-        conectado()
+      getAllDataUser()
         this.logged = true  
         return  true
       }).catch(() => {  
@@ -40,7 +41,7 @@ export class UserService {
   async googleSignIn() {
     return await googleLogin()
     .then(() => { 
-      conectado()
+      getAllDataUser()
       this.logged = true  
       return  true
       })
@@ -50,15 +51,13 @@ export class UserService {
   }
   
   async signUp(user: User) {
-    return await logup(user)
-    .then(() =>{
-      conectado()
+    if(await logup(user)){
+      getAllDataUser()
       this.logged = true
       return true
-    })
-    .catch(()=>{
+    }else{
       return false
-    })
+    }
 
   }
   async updateThisUser(user: User) {
@@ -75,7 +74,7 @@ export class UserService {
   async googleSignUp() {
     return await googleLogup()
     .then(()=>{
-      conectado()
+      getAllDataUser()
         this.logged = true
         return true
       })
@@ -96,7 +95,7 @@ export class UserService {
   }
 
   async passwordRescue(email: string) {
-    return await ResetPassword(email)
+    return await resetPassword(email)
     .then(() => {
       return true
     })
@@ -110,5 +109,18 @@ export class UserService {
   }
   getCurrentUser(): User{
     return getUser()
+  }
+
+  async sessao(){
+  return await conectado().onAuthStateChanged(user => {
+    if (user) {
+    this.logged = true
+     getAllDataUser()
+     return true;
+    }else{
+    return false;
+    }
+
+});
   }
 }
