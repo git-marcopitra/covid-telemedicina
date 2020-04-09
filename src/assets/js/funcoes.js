@@ -198,7 +198,7 @@
  //Verifica se o utilizador está conectado
 
  function conectado() {
-     return firebase.auth();
+     return firebase.auth()
  }
 
 
@@ -210,8 +210,28 @@
              gender: snapshot.val().gender,
              phone: snapshot.val().phone,
              email: snapshot.val().email,
+             doc: snapshot.val().doc,
              birthYear: snapshot.val().birthYear,
-             level: snapshot.val().name,
+             level: snapshot.val().level,
+             geo: snapshot.val().geo
+         }
+         setUser(currentUser);
+     }).catch(error => {
+         console.log(error);
+     });
+ }
+
+ function getDataUser(uid) {
+     firebase.database().ref('/users/' + uid).once('value').then(snapshot => {
+         currentUser = {
+             uid: uid,
+             name: snapshot.val().name,
+             gender: snapshot.val().gender,
+             phone: snapshot.val().phone,
+             email: snapshot.val().email,
+             doc: snapshot.val().doc,
+             birthYear: snapshot.val().birthYear,
+             level: snapshot.val().level,
              geo: snapshot.val().geo
          }
          setUser(currentUser);

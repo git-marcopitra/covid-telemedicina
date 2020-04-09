@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../modal.service';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-header',
@@ -13,17 +12,24 @@ export class HeaderComponent implements OnInit {
 
   menu: boolean
   logged: boolean
+  welcome: boolean
   constructor(private modalService: ModalService, private router: Router, private userService: UserService) {
     this.menu = false
-    // this.logged = this.userService.getStatus()
-    this.modalService.setModal('welcome')
+    this.welcome = true
    }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
-  ngDoCheck(): void {
+  ngDoCheck() {
     this.logged = this.userService.getState();
+    if(this.logged === true){
+      this.welcome = false
+    }
+    else if(this.logged === false && this.modalService.firstTime && this.welcome) {
+      this.welcome = false
+      this.modalService.setModal('welcome')
+    }
   }
 
   toggleMenu($active: boolean): void {
@@ -39,5 +45,4 @@ export class HeaderComponent implements OnInit {
     this.toggleMenu(false)
     this.router.navigate([$route])
   }
-
 }
