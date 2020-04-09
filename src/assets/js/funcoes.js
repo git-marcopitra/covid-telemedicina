@@ -28,22 +28,23 @@
      firebase.database().ref('/users/').on('value', snapshot => {
          snapshot.forEach(childSnapshot => {
              let user = childSnapshot.val()
-             if (user.geo.lat !== 0 && user.geo.long !== 0) {
-                 geoJson["features"].push({
-                     "type": "Feature",
-                     "properties": {
-                         "mag": "5",
-                         "color": user.level < 35 ? "green" : user.level < 65 ? "yellow" : "red",
-                     },
-                     "geometry": {
-                         "type": "Point",
-                         "coordinates": [
-                             user.geo.lat,
-                             user.geo.long
-                         ]
-                     }
-                 });
-             }
+             if (user.geo)
+                 if (user.geo.lat !== 0 && user.geo.long !== 0) {
+                     geoJson["features"].push({
+                         "type": "Feature",
+                         "properties": {
+                             "mag": "5",
+                             "color": user.level < 35 ? "green" : user.level < 65 ? "yellow" : "red",
+                         },
+                         "geometry": {
+                             "type": "Point",
+                             "coordinates": [
+                                 user.geo.lat,
+                                 user.geo.long
+                             ]
+                         }
+                     });
+                 }
          });
 
          mapa.data.addGeoJson(geoJson);
@@ -173,7 +174,7 @@
  }
 
 
- function updateUser(uid, user) {
+ function updateUser(user) {
 
      return firebase.database().ref('users/'+this.user.uid).update({
          doc: user.doc,
@@ -222,12 +223,7 @@
  }
 
  function ResetPassword(email) {
-
-     firebase.auth().sendPasswordResetEmail(email).then(function() {
-         // Feito
-     }).catch(function(error) {
-         // Erro
-     });
+     return firebase.auth().sendPasswordResetEmail(email)
  }
 
  function changePassword(password){

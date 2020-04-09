@@ -20,6 +20,7 @@ import { MapComponent } from './map/map.component';
 import { TelemedicinaComponent } from './telemedicina/telemedicina.component';
 import { TelemedicinaModule } from './telemedicina/telemedicina.module';
 import { ModalProfileComponent } from './modal-profile/modal-profile.component';
+import { ModalPasswordRescueComponent } from './modal-password-rescue/modal-password-rescue.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ModalProfileComponent } from './modal-profile/modal-profile.component';
     DailyTestComponent,
     MapComponent,
     TelemedicinaComponent,
-    ModalProfileComponent
+    ModalProfileComponent,
+    ModalPasswordRescueComponent
   ],
   imports: [
     BrowserModule,

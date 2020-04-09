@@ -19,13 +19,13 @@
 
         <form class="modal-content" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
             <label for="signup-name" *ngIf="fc.name.value != ''">Nome Completo</label>
-            <input type="text" placeholder="Nome Completo" id="signup-name" formControlName="name" class="field">
+            <input type="text" placeholder="Nome Completo" [value]="user.name" id="signup-name" formControlName="name" class="field">
 
             <label for="signup-email" *ngIf="fc.email.value != ''">Email</label>
-            <input type="text" placeholder="Email" id="signup-email" formControlName="email" class="field">
+            <input type="text" placeholder="Email" id="signup-email" [value]="user.email" disabled formControlName="email" class="field">
 
             <label for="signup-phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
-            <input type="text" placeholder="Número de Telefone" id="signup-phone" formControlName="phone" class="field">
+            <input type="text" placeholder="Número de Telefone" id="signup-phone" [value]="user.phone" formControlName="phone" class="field">
 
             <label for="signup-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="signup-pass">

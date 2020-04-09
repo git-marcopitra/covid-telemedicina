@@ -5,11 +5,13 @@ declare function login(email:string, password: string): any;
 declare function googleLogin(): any;
 declare function logup(user: User): any;
 declare function googleLogup(): any;
-declare function googleCloseSignUp(providerUser: any): any;
 declare function logout(): any;
+declare function updateUser(User: any): any;
 declare function conectado(): any;
 declare function getUser(): any;
 declare function getAllDataUser(): any;
+declare function resetPassword(email: string): any;
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,12 @@ export class UserService {
   
   logged: boolean
   teste: boolean
+
+  constructor(){
+    if(getUser()){
+      this.logged = true
+    }
+  }
 
   async signIn(user: UserCredential) {
     return await login(user.email, user.password).then(() => { 
@@ -47,9 +55,20 @@ export class UserService {
       getAllDataUser()
       this.logged = true
       return true
-    } else {
+    }else{
       return false
     }
+
+  }
+  async updateThisUser(user: User) {
+    return await updateUser(user)
+    .then(() => {
+      conectado()
+      return true
+    }) 
+    .catch(()=> {
+      return false
+    })
 
   }
 
@@ -75,6 +94,16 @@ export class UserService {
       return false;
     });
       
+  }
+
+  async passwordRescue(email: string) {
+    return await resetPassword(email)
+    .then(() => {
+      return true
+    })
+    .catch(()=> {
+      return false
+    })
   }
 
   getState() {
