@@ -26,12 +26,14 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   users: any[]
   google: boolean
   error: string
+  wait: boolean
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
     super(modalService)
     this.fc = this.signinForm.controls
     this.google = true
     this.error = ''
+    this.wait = false
   }
 
   ngOnInit(): void {
@@ -39,15 +41,17 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.wait = true;
     let userCred: UserCredential
     userCred = {
       email: this.fc.email.value,
       password: this.fc.password.value
     }
-    
     if(await this.userService.signIn(userCred)){
+      this.wait = false;
       this.changeModal('none')
     } else {
+      this.wait = false;
       this.error = 'Email ou senha inválido'
     }
   }
@@ -57,9 +61,14 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   }
 
   async googleLogin() {
+    this.wait = true;
     if(await this.userService.googleSignIn()){
+      
+      this.wait = false;
       this.changeModal('none')
     } else {
+      
+      this.wait = false;
       this.error = 'Login inválido'
     }
   }

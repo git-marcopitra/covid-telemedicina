@@ -22,19 +22,23 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
   googleSignUpForm = this.fb.group({})
 
   google: boolean
-
+  wait: boolean
   fc: any
+  error: string
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
     super(modalService)
     this.fc = this.signupForm.controls
     this.google = true
+    this.wait = false
+    this.error = ''
   }
   
   ngOnInit(): void {
   }  
 
-  onSubmit(): void {
+  async onSubmit() {
+    this.wait = true
     let user: User
     user = {
       name: this.fc.name.value,
@@ -45,12 +49,28 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
       gender: '',
       birthYear:''
     }
-   this.userService.signUp(user)
+    if(await this.userService.signUp(user)){
+      this.wait = false
+      this.changeModal('none')
+    }
+    else{
+      this.wait = false
+      this.error = "Erro ao cadastrar"
+    }
+
     
   }
 
-  googleSignUp(): void {
-    this.userService.googleSignUp()
+  async googleSignUp() {
+    this.wait = true
+    if(await this.userService.googleSignUp()){
+      this.wait = false
+      this.changeModal('profile')
+    }
+    else{
+      this.wait = false
+      this.error = "Erro ao cadastrar tente manualmente"
+    }
   }
 
 }

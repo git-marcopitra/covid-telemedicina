@@ -7,8 +7,7 @@ export class ModalService {
 
   currentModal: string
   firstTime: boolean
-  modals = ['sign-in', 'sign-up', 'welcome', 'account-settings']
-
+  modals = ['sign-in', 'sign-up', 'welcome', 'account-settings', 'profile']
 
   constructor() { 
     this.firstTime = true

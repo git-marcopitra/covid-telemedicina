@@ -3,6 +3,7 @@
     align-items: center;
     width: 70%;
     padding: 1rem;
+    margin: auto
 }
 
 .welcome-image img {

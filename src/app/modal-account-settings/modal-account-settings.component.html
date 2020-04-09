@@ -5,14 +5,25 @@
         <i (click)="changeModal('none')" class="fal fa-times modal-icon"></i>
     </header>
     <div class="modal-body">
-        <div class="welcome-image">
+
+        <div class="process" *ngIf="wait">
+            <span class="progressing">
+            <span class="bubble"></span>
+            <span class="bubble-group">
+                <span class="bubble"></span>
+            <span class="bubble"></span>
+            </span>
+            <span class="bubble"></span>
+            </span>
+        </div>
+        <div class="welcome-image" *ngIf="!wait">
             <img src="./assets/images/account-settings-illustration.png" alt="Configuração da sua conta">
         </div>
-        <div class="modal-buttons">
-            <button id="change-modal" value="signup" class="modal-button button-secondary"> Definições de conta </button>
+        <div class="modal-buttons" *ngIf="!wait">
+            <button id="change-modal" value="signup" class="modal-button button-secondary" (click)="changeModal('profile')"> Editar de conta </button>
         </div>
-        <div class="modal-buttons">
-            <button class="modal-button button-warning"> Terminar Sessão </button>
+        <div class="modal-buttons" *ngIf="!wait">
+            <button class="modal-button button-warning" (click)="signOut()"> Terminar Sessão </button>
         </div>
     </div>
 </section>

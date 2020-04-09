@@ -4,25 +4,35 @@
         <h4 class="modal-title">Entrar</h4>
         <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
     </header>
-    <form class="modal-body" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+        <div class="process" *ngIf="wait">
+            <span class="progressing">
+            <span class="bubble"></span>
+            <span class="bubble-group">
+                <span class="bubble"></span>
+            <span class="bubble"></span>
+            </span>
+            <span class="bubble"></span>
+            </span>
+        </div>
 
-        <p class="warning">{{ error }}</p>
+        <form class="modal-content" [formGroup]="signinForm" (ngSubmit)="onSubmit()" *ngIf="!wait">
 
-        <div class="modal-content">
+            <p class="warning">{{ error }}</p>
             <label for="signin-email" *ngIf="fc.email.value != ''">Email</label>
             <input type="text" placeholder="Email" class="field" id="signin-email" formControlName="email" (keyup)="cleanError()">
             <label for="signin-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password" (keyup)="cleanError()">
-        </div>
-        <div class="modal-buttons">
-            <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>
-            <button class="modal-button button-primary" type="submit" [disabled]="!signinForm.valid"> Entrar </button>
-        </div>
+            <div class="modal-buttons">
+                <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>
+                <button class="modal-button button-primary" type="submit" [disabled]="!signinForm.valid"> Entrar </button>
+            </div>
 
-    </form>
-    <form [formGroup]="googleSigninForm" (ngSubmit)="googleLogin()">
-        <div class="modal-buttons" *ngIf="google">
-            <button type="submit" class="modal-button button-facebook"> <i class="fab fa-google"></i> Entrar com o Google </button>
-        </div>
-    </form>
+        </form>
+        <form [formGroup]="googleSigninForm" (ngSubmit)="googleLogin()" *ngIf="!wait">
+            <div class="modal-buttons" *ngIf="google">
+                <button type="submit" class="modal-button button-facebook"> <i class="fab fa-google"></i> Entrar com o Google </button>
+            </div>
+        </form>
+    </div>
 </section>

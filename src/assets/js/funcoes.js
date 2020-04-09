@@ -12,55 +12,58 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
- var name, phone, age, genre, birthYear,email,lat,long,level;
+ var user;
+ var geoJson = {
+     "type": "FeatureCollection",
+     "features": []
+ };
 
- function initMap() {
+
+ async function initMap() {
      var mapa = new google.maps.Map(document.getElementById('mapa'), {
          zoom: 10,
          center: { lat: -8.8368200, lng: 13.2343200 },
          mapTypeId: 'terrain'
      });
-     var dados = getDados();
-     mapa.data.addGeoJson(dados);
-     mapa.data.setStyle((feature) => {
-         var magnitude = feature.getProperty('mag');
-         var cor = feature.getProperty('color');
-         return {
-             icon: getCircle(magnitude, cor)
-         };
+     firebase.database().ref('/users/').on('value', snapshot => {
+         snapshot.forEach(childSnapshot => {
+             let user = childSnapshot.val()
+             if (user.geo.lat !== 0 && user.geo.long !== 0) {
+                 geoJson["features"].push({
+                     "type": "Feature",
+                     "properties": {
+                         "mag": "5",
+                         "color": user.level < 35 ? "green" : user.level < 65 ? "yellow" : "red",
+                     },
+                     "geometry": {
+                         "type": "Point",
+                         "coordinates": [
+                             user.geo.lat,
+                             user.geo.long
+                         ]
+                     }
+                 });
+             }
+         });
+
+         mapa.data.addGeoJson(geoJson);
+
+         mapa.data.setStyle((feature) => {
+             var magnitude = feature.getProperty('mag');
+             var cor = feature.getProperty('color');
+             return {
+                 icon: getCircle(magnitude, cor)
+             };
+         });
      });
+
  }
 
 
  //Função que vai carregar as coordenadas
- function getDados() {
-     var geoJson = {
-         "type": "FeatureCollection",
-         "features": []
-     };
-     
-     firebase.database().ref('/users/').on('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            geoJson["features"].push({
-                "type": "Feature",
-                "properties": {
-                    "mag": "5",
-                    "color": "yellow",
-                },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                        childSnapshot.child(childSnapshot.key).val().geo.lat,
-                        childSnapshot.child(childSnapshot.key).val().geo.long
-                    ]
-                }
-            });
-        });
-    });
-     return geoJson;
+ function getGeoData() {
+
  }
-
-
 
 
  function getCircle(magnitude, cor) {
@@ -88,7 +91,7 @@
 
      firebase.auth().onAuthStateChanged(function(user) {
          if (user) {
-             firebase.database().ref('user/' + user.uid+"/geo").set({
+             firebase.database().ref('user/' + user.uid + "/geo").set({
                  lat: position.coords.latitude,
                  long: position.coords.longitude
              });
@@ -105,92 +108,68 @@
  //---------------------------------Secção Utilizador--------------------------------------    
  //iniciar a Sessão
 
- 
-   function login(email, pass) {    
-        return firebase.auth().signInWithEmailAndPassword(email, pass);
+
+ function login(email, pass) {
+     return firebase.auth().signInWithEmailAndPassword(email, pass);
  }
-
-
-
-
-
- 
- 
 
  function googleLogin() {
      var provedor = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provedor);
+     return firebase.auth().signInWithPopup(provedor);
  }
 
 
  // função para Registar Utilizador
  function logup(user) {
-     
+
      firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(error => {
          var errorCode = error.code;
-         return false;
      });
 
-     firebase.auth().onAuthStateChanged(newUser => {
+     return firebase.auth().onAuthStateChanged(newUser => {
          if (newUser) {
-
              firebase.database().ref('users/' + newUser.uid).set({
                  name: user.name,
                  phone: user.phone,
                  email: user.email,
+                 doc: '',
                  level: 0,
                  birthYear: '',
                  gender: '',
                  geo: {
-                     lat: null,
-                     long: null
+                     lat: 0,
+                     long: 0
                  }
-             }).then(() => {
-            
-                 return true;
-             });
+             })
          }
-         return false;
-     });
+     })
  }
-
- function googleLogup() {
+ async function googleLogup() {
      var provedor = new firebase.auth.GoogleAuthProvider();
-
-     firebase.auth().signInWithPopup(provedor).then(result => {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user){
-            
-                firebase.database().ref('users/' + user.uid).set({
-                    name: user.displayName,
-                    phone: '',
-                    email: user.email,
-                    level: 0,
-                    birthYear: '',
-                    gender: '',
-                    geo: {
-                        lat: null,
-                        long: null
-                    }
-                }).then(() => {
-               
-                    return true;
-                });
-            }
-        });
-        
-     }).catch(error => {
-         return false;
+     await firebase.auth().signInWithPopup(provedor)
+     return firebase.auth().onAuthStateChanged(user => {
+         if (user) {
+             firebase.database().ref('users/' + user.uid).set({
+                 name: user.displayName,
+                 phone: (user.phoneNumber === null) ? 0 : user.numberPhone,
+                 email: user.email,
+                 doc: '',
+                 level: 0,
+                 birthYear: '',
+                 gender: '',
+                 geo: {
+                     lat: 0,
+                     long: 0
+                 }
+             })
+         }
      });
-
-
-
  }
 
 
- function actualizarDados(user) {
-     
-      return firebase.database().ref('users/' + user.uid).update({
+ function updateUser(uid, user) {
+
+     return firebase.database().ref(`users/${uid}`).update({
          doc: user.doc,
          gender: user.gender,
          phone: user.phone,
@@ -209,30 +188,32 @@
 
  // Terminar a Sessão
  function logout() {
-    return firebase.auth().signOut();
+     return firebase.auth().signOut();
  }
 
  //Verifica se o utilizador está conectado
+
  function conectado() {
      //Verifica se o utilizador está conectado
-     firebase.auth().onAuthStateChanged(function(user) {
-         if (user){
-            firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-                setName(snapshot.val().name);
-                setGenre(snapshot.val().genre);
-                setPhone(snapshot.val().phone);
-                setEmail(snapshot.val().email);
-                setBirthYear(snapshot.val().birthYear);
-                setLevel(snapshot.val().level);
-               
-                
-              }).then(result=>{
-           
-              });
-            return true;
+     let currentUser;
+     firebase.auth().onAuthStateChanged(user => {
+         if (user) {
+             firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
+                 currentUser = {
+                     uid: user.uid,
+                     name: snapshot.val().name,
+                     gender: snapshot.val().gender,
+                     phone: snapshot.val().phone,
+                     email: snapshot.val().email,
+                     birthYear: snapshot.val().birthYear,
+                     level: snapshot.val().name,
+                     geo: snapshot.val().geo
+                 }
+                 setUser(currentUser)
+             }).then(() => {
+                 return true;
+             });
          }
-             
-
          return false;
 
      });
@@ -257,69 +238,13 @@
 
  //---------------------------------------Inicio-------------------------------------------
  //--------------------------------------Dados utilizador ----------------------------------
+ function getUser() {
+     return this.user
+ }
 
- function getName() {
-    return this.name;
-}
-
-function getPhone() {
-    return this.phone;
-}
-
-function getGenre() {
-    return this.genre;
-}
-
-function getEmail(){
-   return this.email;
-} 
-
-function getLevel(){
-   return this.level;
-}
-
-function getBirthYear(){
-   return this.birthYear;
-}
-
-function getLat(){
-   return this.lat;
-}
-
-function getLong(){
-   return this.long;
-}
-
-function setName(name) {
-    this.name = name;
-}
-
-function setPhone(phone) {
-    this.phone = phone;
-}
-
-function setGenre(genre) {
-    this.genre = genre;
-}
-
-function setBirthYear(birthYear) {
-    this.birthYear = birthYear;
-}
-
-function setEmail(email){
-    this.email=email;
-}
-function setLevel(level){
-    this.level=level;
-}
-
-function setLat(lat){
-    this.lat=lat;
-}
-
-function setLong(long){
-   this.long=long;
-}
+ function setUser(user) {
+     this.user = user
+ }
 
 
  //--------------------------------------Dados Utilizador ------------------------------------

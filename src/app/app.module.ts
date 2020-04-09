@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from './map/map.component';
 import { TelemedicinaComponent } from './telemedicina/telemedicina.component';
 import { TelemedicinaModule } from './telemedicina/telemedicina.module';
+import { ModalProfileComponent } from './modal-profile/modal-profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TelemedicinaModule } from './telemedicina/telemedicina.module';
     HeaderComponent,
     DailyTestComponent,
     MapComponent,
-    TelemedicinaComponent
+    TelemedicinaComponent,
+    ModalProfileComponent
   ],
   imports: [
     BrowserModule,

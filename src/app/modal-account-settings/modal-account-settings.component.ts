@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { ModalService } from '../modal.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-modal-account-settings',
@@ -9,11 +10,23 @@ import { ModalService } from '../modal.service';
 })
 export class ModalAccountSettingsComponent extends ModalComponent  implements OnInit {
 
-  constructor(modalService: ModalService) { 
+  wait:boolean
+
+  constructor(modalService: ModalService, private userService:UserService) { 
     super(modalService)
+    this.wait = false
   }
 
   ngOnInit(): void {
+  }
+
+  async signOut() {
+    this.wait = true
+
+    if(await this.userService.signOut()) {
+      this.wait = false
+      this.changeModal('none')
+    }
   }
 
 }
