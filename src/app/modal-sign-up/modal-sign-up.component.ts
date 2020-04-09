@@ -65,6 +65,7 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     this.wait = true
     if(await this.userService.googleSignUp()){
       this.wait = false
+      this.changeModal('none')
       this.changeModal('profile')
     }
     else{

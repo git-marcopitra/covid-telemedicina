@@ -40,11 +40,19 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
   }
 
+  ngAfterContentChecked() {
+    this.profileForm.patchValue({
+      name: this.user !== undefined ? this.user.name : '',
+      email: this.user !== undefined ? this.user.email : '',
+      phone: this.user !== undefined ? this.user.phone : '',
+    })
+  }
   
 
   async onSubmit() {
     let user: User
     user = {
+      uid: this.user.uid,
       name: this.fc.name.value,
       email: this.fc.email.value,
       phone: this.fc.phone.value,
@@ -53,7 +61,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
       gender: '',
       birthYear:''
     }
-    console.log(await this.userService.signUp(user))
+    console.log(await this.userService.updateThisUser(user))
 
     
   }
