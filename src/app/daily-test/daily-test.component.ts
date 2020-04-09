@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
+import { User } from '../user';
 
 
 @Component({
@@ -10,7 +12,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class DailyTestComponent implements OnInit {
 
   phase: number
-
+  level: number 
+  
   testForm = this.fb.group({
     gender: ['', Validators.required],
     age: [null, Validators.required],
@@ -34,16 +37,20 @@ export class DailyTestComponent implements OnInit {
     lat: number,
     long: number
   }
-
+  user: User
   fc: any
+  wait: boolean;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private userService: UserService) { 
     this.phase = 0
     this.fc = this.testForm.controls
+    this.wait = false
   }
 
   ngOnInit(): void {
-  
+    if(this.user.doc !== ''){
+      this.phase = 2
+    }
   }
 
   ngDoCheck(): void {
@@ -78,7 +85,11 @@ export class DailyTestComponent implements OnInit {
       long: position.coords.longitude
     }
   }
-  onSubmit() {
+  async onSubmit() {
+    this.nextPhase()
+    this.wait = true
+    
+
     let travel = this.fc.travel.value ? 5 : 0
     let people = this.fc.people.value ? 5 : 0
     let covid = this.fc.covid.value ? 10 : 0
@@ -107,7 +118,28 @@ export class DailyTestComponent implements OnInit {
                 coriza + 
                 espirros
 
+    this.level = level
 
-
+    let user: User
+    
+    this.user = this.userService.getCurrentUser()
+    console.log(this.user)
+    user = {
+      uid: this.user.uid,
+      name: this.user.name,
+      email: this.user.email,
+      phone: this.user.phone,
+      level: level,
+      doc: this.fc.docId.value,
+      gender: this.fc.gender.value,
+      birthYear: ((new Date().getFullYear()) - (this.fc.age.value)).toString(),
+      geo: this.geoLocation
+    }
+    
+    if(await this.userService.updateThisUser(user)){
+      this.wait = false
+    } else {
+      this.wait = false
+    }
   }
 }

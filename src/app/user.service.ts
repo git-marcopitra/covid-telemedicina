@@ -10,6 +10,7 @@ declare function updateUser(User: any): any;
 declare function conectado(): any;
 declare function getUser(): any;
 declare function getAllDataUser(): any;
+declare function getDataUser(uid: string): any;
 declare function resetPassword(email: string): any;
 
 
@@ -21,10 +22,8 @@ export class UserService {
   logged: boolean
   teste: boolean
 
-  constructor(){
-    if(getUser()){
-      this.logged = true
-    }
+  constructor() {
+    this.session()
   }
 
   async signIn(user: UserCredential) {
@@ -111,16 +110,21 @@ export class UserService {
     return getUser()
   }
 
-  async sessao(){
-  return await conectado().onAuthStateChanged(user => {
-    if (user) {
-    this.logged = true
-     getAllDataUser()
-     return true;
-    }else{
-    return false;
+  async session(){
+    return await conectado().onAuthStateChanged(newUser => {
+      if (newUser){
+          getDataUser(newUser.uid)
+          
+        this.logged = true
+        return true
+      }
+          
+    else {
+      this.logged = false
+      return true
     }
+    })
 
-});
+    
   }
 }

@@ -148,6 +148,27 @@
                     </div>
                 </div>
             </form>
+            <div class="test-phase" *ngIf="phase == 4">
+                <h2 class="color-primary" *ngIf="wait"> Verificando o reultado do seu teste </h2>
+
+                <div class="process" *ngIf="wait">
+                    <span class="progressing">
+                    <span class="bubble"></span>
+                    <span class="bubble-group">
+                        <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    </span>
+                    <span class="bubble"></span>
+                    </span>
+                </div>
+                <div class="sec-level">
+                    <p class="level-desc"> Sua probabilidade de ter COVID-19 é de</p>
+                    <span class="level">{{level}}% </span>
+                </div>
+                <div class="test-buttons" *ngIf="!wait">
+                    <button class="button-primary" (click)="nextPhase()"> Continuar </button>
+                </div>
+            </div>
         </div>
     </aside>
 </section>

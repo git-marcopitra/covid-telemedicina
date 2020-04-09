@@ -210,31 +210,50 @@
  //Verifica se o utilizador está conectado
 
  function conectado() {
-     return firebase.auth();
+     return firebase.auth()
  }
 
 
  function getAllDataUser() {
-     firebase.auth().onAuthStateChanged(user=>{
+    firebase.auth().onAuthStateChanged(user=>{
         if(user){
         this.user["uid"]=user.uid;
-        
-        firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
-            currentUser = {
-                uid: user.uid,
-                name: snapshot.val().name,
-                gender: snapshot.val().gender,
-                phone: snapshot.val().phone,
-                email: snapshot.val().email,
-                birthYear: snapshot.val().birthYear,
-                level: snapshot.val().name,
-                geo: snapshot.val().geo
-            }
-            setUser(currentUser);
-        }).catch(error => {
-            console.log(error);
-        });
+     firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
+         currentUser = {
+             uid: user.uid,
+             name: snapshot.val().name,
+             gender: snapshot.val().gender,
+             phone: snapshot.val().phone,
+             email: snapshot.val().email,
+             doc: snapshot.val().doc,
+             birthYear: snapshot.val().birthYear,
+             level: snapshot.val().level,
+             geo: snapshot.val().geo
+         }
+         setUser(currentUser);
+     }).catch(error => {
+         console.log(error);
+     });
     }
+        });
+ }
+
+ function getDataUser(uid) {
+     firebase.database().ref('/users/' + uid).once('value').then(snapshot => {
+         currentUser = {
+             uid: uid,
+             name: snapshot.val().name,
+             gender: snapshot.val().gender,
+             phone: snapshot.val().phone,
+             email: snapshot.val().email,
+             doc: snapshot.val().doc,
+             birthYear: snapshot.val().birthYear,
+             level: snapshot.val().level,
+             geo: snapshot.val().geo
+         }
+         setUser(currentUser);
+     }).catch(error => {
+         console.log(error);
      });
 
      

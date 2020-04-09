@@ -105,6 +105,11 @@ input[type="checkbox"] {
     font-size: 1.3rem;
 }
 
+.level {
+    font-size: 3rem;
+    color: var(--primary-color)
+}
+
 @keyframes jokeTest {
     0% {
         transform: rotate(0deg) scale(0.7);

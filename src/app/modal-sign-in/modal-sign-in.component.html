@@ -23,7 +23,7 @@
             <input type="text" placeholder="Email" class="field" id="signin-email" formControlName="email" (keyup)="cleanError()">
             <label for="signin-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password" (keyup)="cleanError()">
-            <p class="recuver-login" (click)="changeModal('password-rescue')"> Esqueceu a sua senha? </p>
+            <p class="recuver-login" (click)="changeModal('password-rescue')"> Esqueceu a sua senha? <span class="enphase">Recupere</span></p>
             <div class="modal-buttons">
                 <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>
                 <button class="modal-button button-primary" type="submit" [disabled]="!signinForm.valid"> Entrar </button>
