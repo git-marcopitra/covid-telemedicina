@@ -9,7 +9,7 @@ declare function googleCloseSignUp(providerUser: any): any;
 declare function logout(): any;
 declare function conectado(): any;
 declare function getUser(): any;
-
+declare function getAllDataUser(): any;
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class UserService {
 
   async signIn(user: UserCredential) {
     return await login(user.email, user.password).then(() => { 
-        conectado()
+      getAllDataUser()
         this.logged = true  
         return  true
       }).catch(() => {  
@@ -33,7 +33,7 @@ export class UserService {
   async googleSignIn() {
     return await googleLogin()
     .then(() => { 
-      conectado()
+      getAllDataUser()
       this.logged = true  
       return  true
       })
@@ -44,7 +44,7 @@ export class UserService {
   
   async signUp(user: User) {
     if(await logup(user)){
-      conectado()
+      getAllDataUser()
       this.logged = true
       return true
     } else {
@@ -56,7 +56,7 @@ export class UserService {
   async googleSignUp() {
     return await googleLogup()
     .then(()=>{
-      conectado()
+      getAllDataUser()
         this.logged = true
         return true
       })
@@ -82,5 +82,18 @@ export class UserService {
   }
   getCurrentUser(): User{
     return getUser()
+  }
+
+  async sessao(){
+  return await conectado().onAuthStateChanged(user => {
+    if (user) {
+    this.logged = true
+     getAllDataUser()
+     return true;
+    }else{
+    return false;
+    }
+
+});
   }
 }

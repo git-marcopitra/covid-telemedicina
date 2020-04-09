@@ -20,4 +20,5 @@ export class ModalWelcomeComponent extends ModalComponent implements OnInit {
     this.endFirstTime()
   }
 
+  
 }

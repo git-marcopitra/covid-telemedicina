@@ -128,19 +128,22 @@
 
      return firebase.auth().onAuthStateChanged(newUser => {
          if (newUser) {
-             firebase.database().ref('users/' + newUser.uid).set({
-                 name: user.name,
-                 phone: user.phone,
-                 email: user.email,
-                 doc: '',
-                 level: 0,
-                 birthYear: '',
-                 gender: '',
-                 geo: {
-                     lat: 0,
-                     long: 0
-                 }
-             })
+            currentUser = {      
+                name: newUser.displayName,
+                gender: '',
+                phone: (newUser.phoneNumber === null) ? 0 : newUser.numberPhone,
+                email: newUser.email,
+                birthYear: '',
+                level: 0,
+                doc: '',
+                geo: {
+                    lat: 0,
+                    long: 0
+                }
+            }
+             firebase.database().ref('users/' + newUser.uid).set(currentUser);
+             currentUser["uid"]=newUser.uid;
+             setUser(currentUser);
          }
      })
  }
@@ -149,19 +152,22 @@
      await firebase.auth().signInWithPopup(provedor)
      return firebase.auth().onAuthStateChanged(user => {
          if (user) {
-             firebase.database().ref('users/' + user.uid).set({
-                 name: user.displayName,
-                 phone: (user.phoneNumber === null) ? 0 : user.numberPhone,
-                 email: user.email,
-                 doc: '',
-                 level: 0,
-                 birthYear: '',
-                 gender: '',
-                 geo: {
-                     lat: 0,
-                     long: 0
-                 }
-             })
+            currentUser = {      
+                name: user.displayName,
+                gender: '',
+                phone: (user.phoneNumber === null) ? 0 : user.numberPhone,
+                email: user.email,
+                birthYear: '',
+                level: 0,
+                doc: '',
+                geo: {
+                    lat: 0,
+                    long: 0
+                }
+            }
+             firebase.database().ref('users/' + user.uid).set(currentUser);
+             currentUser["uid"]=user.uid;
+             setUser(currentUser);
          }
      });
  }
@@ -169,7 +175,7 @@
 
  function updateUser(uid, user) {
 
-     return firebase.database().ref(`users/${uid}`).update({
+     return firebase.database().ref('users/'+this.user.uid).update({
          doc: user.doc,
          gender: user.gender,
          phone: user.phone,
@@ -192,34 +198,28 @@
  }
 
  //Verifica se o utilizador está conectado
-
- function conectado() {
-     //Verifica se o utilizador está conectado
-     let currentUser;
-     firebase.auth().onAuthStateChanged(user => {
-         if (user) {
-             firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
-                 currentUser = {
-                     uid: user.uid,
-                     name: snapshot.val().name,
-                     gender: snapshot.val().gender,
-                     phone: snapshot.val().phone,
-                     email: snapshot.val().email,
-                     birthYear: snapshot.val().birthYear,
-                     level: snapshot.val().name,
-                     geo: snapshot.val().geo
-                 }
-                 setUser(currentUser)
-             }).then(() => {
-                 return true;
-             });
-         }
-         return false;
-
-     });
+ function conectado() { 
+      return firebase.auth();
  }
 
 
+ function getAllDataUser(){
+    firebase.database().ref('/users/'+this.user.uid).once('value').then(snapshot => {
+        currentUser = {
+            uid: user.uid,
+            name: snapshot.val().name,
+            gender: snapshot.val().gender,
+            phone: snapshot.val().phone,
+            email: snapshot.val().email,
+            birthYear: snapshot.val().birthYear,
+            level: snapshot.val().name,
+            geo: snapshot.val().geo
+        }
+        setUser(currentUser);
+    }).catch(error=>{
+        console.log(error);
+    });
+ }
 
  function ResetPassword(email) {
 
@@ -227,6 +227,14 @@
          // Feito
      }).catch(function(error) {
          // Erro
+     });
+ }
+
+ function changePassword(password){
+     firebase.auth().currentUser.updatePassword(password).then(result=>{
+
+     }).catch(error=>{
+
      });
  }
 
