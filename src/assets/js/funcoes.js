@@ -12,7 +12,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
- var user;
+ var user={};
  var geoJson = {
      "type": "FeatureCollection",
      "features": []
@@ -130,7 +130,7 @@
      return firebase.auth().onAuthStateChanged(newUser => {
          if (newUser) {
              currentUser = {
-                 name: newUser.displayName,
+                 name: user.name,
                  gender: '',
                  phone: (newUser.phoneNumber === null) ? 0 : newUser.numberPhone,
                  email: newUser.email,
@@ -145,6 +145,9 @@
              firebase.database().ref('users/' + newUser.uid).set(currentUser);
              currentUser["uid"] = newUser.uid;
              setUser(currentUser);
+             newUser.updateProfile({
+                displayName: user.name,
+            });
          }
      })
  }
@@ -176,8 +179,17 @@
 
  function updateUser(user) {
 
+    firebase.auth().onAuthStateChanged(user1 => {
+        if (user1) {
+            user1.updateProfile({
+                displayName: user.name,
+            });
+        }
+    });
+  
+
      return firebase.database().ref('users/' + this.user.uid).update({
-         doc: user.doc,
+         doc: (user.doc==null)? '':user.doc,
          gender: user.gender,
          phone: user.phone,
          email: user.email,
@@ -203,21 +215,29 @@
 
 
  function getAllDataUser() {
-     firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
-         currentUser = {
-             uid: user.uid,
-             name: snapshot.val().name,
-             gender: snapshot.val().gender,
-             phone: snapshot.val().phone,
-             email: snapshot.val().email,
-             birthYear: snapshot.val().birthYear,
-             level: snapshot.val().name,
-             geo: snapshot.val().geo
-         }
-         setUser(currentUser);
-     }).catch(error => {
-         console.log(error);
+     firebase.auth().onAuthStateChanged(user=>{
+        if(user){
+        this.user["uid"]=user.uid;
+        
+        firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
+            currentUser = {
+                uid: user.uid,
+                name: snapshot.val().name,
+                gender: snapshot.val().gender,
+                phone: snapshot.val().phone,
+                email: snapshot.val().email,
+                birthYear: snapshot.val().birthYear,
+                level: snapshot.val().name,
+                geo: snapshot.val().geo
+            }
+            setUser(currentUser);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
      });
+
+     
  }
 
  function resetPassword(email) {

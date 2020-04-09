@@ -52,7 +52,7 @@ export class UserService {
   
   async signUp(user: User) {
     if(await logup(user)){
-      getAllDataUser()
+      
       this.logged = true
       return true
     }else{
@@ -63,7 +63,7 @@ export class UserService {
   async updateThisUser(user: User) {
     return await updateUser(user)
     .then(() => {
-      conectado()
+      
       return true
     }) 
     .catch(()=> {
