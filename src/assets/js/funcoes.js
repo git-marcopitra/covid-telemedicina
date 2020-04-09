@@ -23,24 +23,27 @@
      var mapa = new google.maps.Map(document.getElementById('mapa'), {
          zoom: 10,
          center: { lat: -8.8368200, lng: 13.2343200 },
-         mapTypeId: 'terrain'
+         mapTypeId: 'terrain',
+         minZoom: 10, 
+         maxZoom: 13
      });
      firebase.database().ref('/users/').on('value', snapshot => {
          snapshot.forEach(childSnapshot => {
              let user = childSnapshot.val()
+          
              if (user.geo)
                  if (user.geo.lat !== 0 && user.geo.long !== 0) {
                      geoJson["features"].push({
                          "type": "Feature",
                          "properties": {
-                             "mag": "5",
+                             "mag": "4",
                              "color": user.level < 35 ? "green" : user.level < 65 ? "yellow" : "red",
                          },
                          "geometry": {
                              "type": "Point",
                              "coordinates": [
-                                 user.geo.lat,
-                                 user.geo.long
+                                 user.geo.long,
+                                 user.geo.lat
                              ]
                          }
                      });
