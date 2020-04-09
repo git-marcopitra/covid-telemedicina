@@ -12,27 +12,36 @@ import { UserService } from '../user.service';
 export class ModalPasswordRescueComponent extends ModalComponent implements OnInit {
 
   rescueForm = this.fb.group({
-    email: ['', Validators.email]
+    email: ['', Validators.compose([Validators.email, Validators.required]) ]
   })
   fc: any
   wait: boolean;
+  phase: number;
+  error: string;
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) {
     super(modalService)
     this.fc = this.rescueForm.controls
     this.wait = false
+    this.phase = 1
    }
 
   ngOnInit(): void {
+  }
+
+  clearError(){
+    this.error = ''
   }
 
   onSubmit() {
     this.wait = true
     if(this.userService.passwordRescue(this.fc.email.value)){
       this.wait = false
+      this.phase++
     }
     else{
       this.wait = false
+      this.error = "Ocorreu algum erro tente noutra altura"
     }
   }
 

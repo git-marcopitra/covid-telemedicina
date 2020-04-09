@@ -16,6 +16,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
   user: User
   fc: any
   wait: boolean
+  error: string
 
   profileForm = this.fb.group({
     name: ['', Validators.minLength(2)],
@@ -23,12 +24,14 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
     phone: ['', Validators.minLength(9)],
     password: ['', Validators.minLength(8)]
   })
+  alter: boolean;
 
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private modalsService:ModalService) { 
     super(modalService)
     this.fc = this.profileForm.controls
     this.google = true
+    this.alter = true
   }
   
   ngOnInit(): void {
@@ -41,15 +44,20 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
   }
 
   ngAfterContentChecked() {
-    this.profileForm.patchValue({
-      name: this.user !== undefined ? this.user.name : '',
-      email: this.user !== undefined ? this.user.email : '',
-      phone: this.user !== undefined ? this.user.phone : '',
-    })
+    if(this.user !== undefined && this.alter){
+      this.alter = false
+      this.profileForm.setValue({
+        name: this.user.name,
+        email: this.user.email,
+        phone: this.user.phone,
+        password: ''
+      })
+    }
   }
   
 
   async onSubmit() {
+    this.wait = true
     let user: User
     user = {
       uid: this.user.uid,
@@ -57,11 +65,20 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
       email: this.fc.email.value,
       phone: this.fc.phone.value,
       password: this.fc.password.value,
-      doc: '',
-      gender: '',
-      birthYear:''
+      level: this.user.level,
+      doc: this.user.doc,
+      gender: this.user.gender,
+      birthYear: this.user.birthYear,
+      geo: this.user.geo
     }
-    console.log(await this.userService.updateThisUser(user))
+    if(await this.userService.updateThisUser(user)){
+      this.wait = false
+      this.changeModal('none')
+    }
+    else {
+      this.wait = false
+      this.error = 'Erro inesperado, tente noutra altura'
+    }
 
     
   }

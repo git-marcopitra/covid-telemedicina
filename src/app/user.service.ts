@@ -9,7 +9,7 @@ declare function logout(): any;
 declare function updateUser(User: any): any;
 declare function conectado(): any;
 declare function getUser(): any;
-declare function resetPassword(email: string): any;
+declare function ResetPassword(email: string): any;
 
 
 @Injectable({
@@ -70,7 +70,6 @@ export class UserService {
     .catch(()=> {
       return false
     })
-
   }
 
   async googleSignUp() {
@@ -94,11 +93,10 @@ export class UserService {
     .catch(() => {
       return false;
     });
-      
   }
 
   async passwordRescue(email: string) {
-    return await resetPassword(email)
+    return await ResetPassword(email)
     .then(() => {
       return true
     })

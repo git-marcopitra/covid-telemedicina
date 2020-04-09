@@ -12,7 +12,8 @@ export interface User {
     gender: string;
     doc: string;
     phone: string;
-    geoLocation?: {
+    level?: number;
+    geo?: {
         lat: number,
         long: number
     }

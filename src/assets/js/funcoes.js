@@ -169,7 +169,6 @@
 
 
  function updateUser(user) {
-
      return firebase.database().ref(`users/${user.uid}`).update({
          doc: user.doc,
          gender: user.gender,
@@ -178,10 +177,7 @@
          name: user.name,
          birthYear: user.birthYear,
          level: user.level,
-         geo: {
-             lat: user.lat,
-             long: user.long
-         }
+         geo: user.geo
      });
  }
 
@@ -204,6 +200,7 @@
                      uid: user.uid,
                      name: snapshot.val().name,
                      gender: snapshot.val().gender,
+                     doc: snapshot.val().doc,
                      phone: snapshot.val().phone,
                      email: snapshot.val().email,
                      birthYear: snapshot.val().birthYear,

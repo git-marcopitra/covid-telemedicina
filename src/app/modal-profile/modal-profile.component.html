@@ -17,7 +17,8 @@
             </span>
         </div>
 
-        <form class="modal-content" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <form class="modal-content" [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!wait">
+            <p class="warning">{{error}}</p>
             <label for="signup-name" *ngIf="fc.name.value != ''">Nome Completo</label>
             <input type="text" placeholder="Nome Completo" [value]="user.name" id="signup-name" formControlName="name" class="field">
 

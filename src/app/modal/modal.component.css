@@ -6,7 +6,7 @@
     border-radius: 10px;
     width: 320px;
     padding: 1rem;
-    min-height: 350px;
+    min-height: 200px;
     max-height: 90vh;
     z-index: 101;
 }
