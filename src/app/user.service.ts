@@ -21,7 +21,6 @@ declare function resetPassword(email: string): any;
 export class UserService {
   
   logged: boolean
-  teste: boolean
   redirectUrl = ''
 
   constructor(private router: Router) {
