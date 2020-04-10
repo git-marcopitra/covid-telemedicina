@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../user';
- declare function getConsulta(user: any): any;
 
 @Component({
   selector: 'app-daily-test',
@@ -172,11 +171,18 @@ export class DailyTestComponent implements OnInit {
    });
 -----------------------------------------------------
        if(level>=65)
-    setConsulta(test,user)
+   await setConsulta(test,user).then(result=>{
+    REgistou
+    }).catch(error=>{
+      Não Registou  
+    })
    ------------------------------------------------------------------ 
      var regexp = new RegExp('\^([0-9]{9})+([A-Za-z]{2})+([0-9]{3})$');
-    
+     --------------------------------------------------------------
+    cancelarConsulta(uid)
     */
+
+ 
 
     if(await this.userService.updateThisUser(user)){
    

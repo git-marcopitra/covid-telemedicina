@@ -257,9 +257,8 @@
      }).catch(error => {
          console.log(error);
      });
-
-
  }
+
 
  function resetPassword(email) {
      return firebase.auth().sendPasswordResetEmail(email)
@@ -276,7 +275,7 @@
  function setConsulta(test,user){
     var date = new Date();
   
-    firebase.firestore().collection("consultas").add({
+   return firebase.firestore().collection("consultas").add({
      test: test,
      user:user,   
      year: date.getFullYear(),
@@ -292,6 +291,15 @@
      
    return firebase.firestore().collection("consultas").where("user.uid","==",uid).get();
  
+ }
+
+ function cancelarConsulta(uid){
+    firebase.firestore().collection("consultas")
+    .where('user.uid', '==', uid).get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            firebase.firestore().collection("consultas").doc(doc.id).delete().then(function() {}).catch(function(error) {});
+        });
+    });
  }
  //--------------------------------------Dados utilizador ----------------------------------
  function getUser() {
