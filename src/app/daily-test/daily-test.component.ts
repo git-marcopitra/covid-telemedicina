@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../user';
-
+ declare function getConsulta(user: any): any;
 
 @Component({
   selector: 'app-daily-test',
@@ -142,8 +142,44 @@ export class DailyTestComponent implements OnInit {
       birthYear: this.user.birthYear !== '' ? this.user.birthYear : (this.fc.age.value).toString(),
       geo: this.user.geo.lat !== 0 ? this.user.geo : this.geoLocation
     }
+    let test={
+    travel: this.fc.travel.value, 
+     people: this.fc.people.value, 
+     covid: this.fc.covid.value,
+     febre: this.fc.febre.value,
+     tosse: this.fc.tosse.value, 
+     fadiga: this.fc.fadiga.value, 
+     respiracao: this.fc.respiracao.value, 
+     garganta: this.fc.garganta.value,
+     calafrios: this.fc.calafrios.value,
+     corpo: this.fc.corpo.value, 
+     cabeca: this.fc.cabeca.value, 
+     coriza: this.fc.coriza.value, 
+     espirros: this.fc.espirros.value
+    }
+
+    /*
+    await getConsulta(user.uid).then((querySnapshot) => {
+      if(querySnapshot.size==0){
+          console.log("nao tem consulta")
+      }else{
+       querySnapshot.forEach((doc) => { 
+        console.log("tem consulta")
+
+       } 
+       );
+      }
+   });
+-----------------------------------------------------
+       if(level>=65)
+    setConsulta(test,user)
+   ------------------------------------------------------------------ 
+     var regexp = new RegExp('\^([0-9]{9})+([A-Za-z]{2})+([0-9]{3})$');
     
+    */
+
     if(await this.userService.updateThisUser(user)){
+   
       this.wait = false
     } else {
       this.wait = false

@@ -273,7 +273,26 @@
      });
  }
 
+ function setConsulta(test,user){
+    var date = new Date();
+  
+    firebase.firestore().collection("consultas").add({
+     test: test,
+     user:user,   
+     year: date.getFullYear(),
+     month: date.getMonth(),
+     day: date.getDay(),
+     hour: date.getHours(),
+     minute: date.getMinutes()
+    });
+ 
+ }
 
+ function getConsulta(uid){
+     
+   return firebase.firestore().collection("consultas").where("user.uid","==",uid).get();
+ 
+ }
  //--------------------------------------Dados utilizador ----------------------------------
  function getUser() {
      return this.user
