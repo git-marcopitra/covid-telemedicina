@@ -257,7 +257,10 @@ main {
     --primary-color: rgb(95, 202, 68);
     --primary-color-04: rgba(95, 202, 68, .4);
     --primary-color-01: rgba(95, 202, 68, .1);
+    --yellow-color: rgb(238, 220, 55);
+    --yellow-color-05: rgba(238, 220, 55, 0.5);
     --warning-color: rgb(202, 68, 68);
+    --warning-color-05: rgba(202, 68, 68, 0.5);
     --background-color-1: rgb(250, 250, 250);
     --background-color-2: rgb(230, 230, 230);
     --background-color-3: rgb(240, 240, 240);
@@ -272,6 +275,8 @@ main {
 }
 
 body {
+    width: 100vw;
+    overflow-x: hidden;
     background-color: var(--background-color-2);
 }
 

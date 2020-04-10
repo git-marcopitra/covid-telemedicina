@@ -1,0 +1,31 @@
+.statistic-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.statistic-number {
+    border-radius: 5px;
+    padding: 1rem 1.5rem;
+    color: var(--background-color-1);
+    margin: .5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.all {
+    background-color: var(--font-color-1-05);
+}
+
+.low {
+    background-color: var(--primary-color);
+}
+
+.med {
+    background-color: var(--yellow-color);
+}
+
+.high {
+    background-color: var(--warning-color);
+}
