@@ -12,7 +12,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
- var user={};
+ var user = {};
  var geoJson = {
      "type": "FeatureCollection",
      "features": []
@@ -24,13 +24,13 @@
          zoom: 10,
          center: { lat: -8.8368200, lng: 13.2343200 },
          mapTypeId: 'terrain',
-         minZoom: 10, 
+         minZoom: 10,
          maxZoom: 13
      });
      firebase.database().ref('/users/').on('value', snapshot => {
          snapshot.forEach(childSnapshot => {
              let user = childSnapshot.val()
-          
+
              if (user.geo)
                  if (user.geo.lat !== 0 && user.geo.long !== 0) {
                      geoJson["features"].push({
@@ -108,7 +108,6 @@
  }
 
 
- //------------------------------------Inicio------------------------------------------------
  //---------------------------------Secção Utilizador--------------------------------------    
  //iniciar a Sessão
 
@@ -149,8 +148,8 @@
              currentUser["uid"] = newUser.uid;
              setUser(currentUser);
              newUser.updateProfile({
-                displayName: user.name,
-            });
+                 displayName: user.name,
+             });
          }
      })
  }
@@ -182,17 +181,17 @@
 
  function updateUser(user) {
 
-    firebase.auth().onAuthStateChanged(user1 => {
-        if (user1) {
-            user1.updateProfile({
-                displayName: user.name,
-            });
-        }
-    });
-  
+     firebase.auth().onAuthStateChanged(user1 => {
+         if (user1) {
+             user1.updateProfile({
+                 displayName: user.name,
+             });
+         }
+     });
+
 
      return firebase.database().ref('users/' + this.user.uid).update({
-         doc: (user.doc==null)? '':user.doc,
+         doc: (user.doc == null) ? '' : user.doc,
          gender: user.gender,
          phone: user.phone,
          email: user.email,
@@ -218,27 +217,27 @@
 
 
  function getAllDataUser() {
-    firebase.auth().onAuthStateChanged(user=>{
-        if(user){
-        this.user["uid"]=user.uid;
-     firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
-         currentUser = {
-             uid: user.uid,
-             name: snapshot.val().name,
-             gender: snapshot.val().gender,
-             phone: snapshot.val().phone,
-             email: snapshot.val().email,
-             doc: snapshot.val().doc,
-             birthYear: snapshot.val().birthYear,
-             level: snapshot.val().level,
-             geo: snapshot.val().geo
+     firebase.auth().onAuthStateChanged(user => {
+         if (user) {
+             this.user["uid"] = user.uid;
+             firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
+                 currentUser = {
+                     uid: user.uid,
+                     name: snapshot.val().name,
+                     gender: snapshot.val().gender,
+                     phone: snapshot.val().phone,
+                     email: snapshot.val().email,
+                     doc: snapshot.val().doc,
+                     birthYear: snapshot.val().birthYear,
+                     level: snapshot.val().level,
+                     geo: snapshot.val().geo
+                 }
+                 setUser(currentUser);
+             }).catch(error => {
+                 console.log(error);
+             });
          }
-         setUser(currentUser);
-     }).catch(error => {
-         console.log(error);
      });
-    }
-        });
  }
 
  function getDataUser(uid) {
@@ -259,7 +258,7 @@
          console.log(error);
      });
 
-     
+
  }
 
  function resetPassword(email) {
@@ -275,12 +274,6 @@
  }
 
 
-
- //---------------------------------Secção Utilizador-------------------------------------- 
- //------------------------------------FIM---------------------------------------------------
-
-
- //---------------------------------------Inicio-------------------------------------------
  //--------------------------------------Dados utilizador ----------------------------------
  function getUser() {
      return this.user
@@ -289,7 +282,3 @@
  function setUser(user) {
      this.user = user
  }
-
-
- //--------------------------------------Dados Utilizador ------------------------------------
- //------------------------------------------FIM--------------------------------------------

@@ -9,14 +9,13 @@
 .test-left,
 .test-right {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     margin: auto;
 }
 
 .test-left {
-    width: calc(100% - 600px);
-    min-width: 320px;
+    width: 320px;
 }
 
 .test-right {
@@ -105,9 +104,19 @@ input[type="checkbox"] {
     font-size: 1.3rem;
 }
 
+.sec-level {
+    text-align: center;
+}
+
 .level {
-    font-size: 3rem;
-    color: var(--primary-color)
+    font-size: 4rem;
+    margin: 1.5rem 0;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.level-desc {
+    font-size: 1.2rem;
 }
 
 @keyframes jokeTest {

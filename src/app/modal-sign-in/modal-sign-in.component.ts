@@ -4,6 +4,7 @@ import { ModalService } from '../modal.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { UserCredential } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-sign-in',
@@ -28,7 +29,7 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   error: string
   wait: boolean
 
-  constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
+  constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private router: Router) { 
     super(modalService)
     this.fc = this.signinForm.controls
     this.google = true
@@ -50,6 +51,11 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
     if(await this.userService.signIn(userCred)){
       this.wait = false;
       this.changeModal('none')
+      if(this.userService.redirectUrl != ''){
+        let url = this.userService.redirectUrl
+        this.userService.redirectUrl = ''
+        this.router.navigate([url])
+      }
     } else {
       this.wait = false;
       this.error = 'Email ou senha inválido'
@@ -63,11 +69,14 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
   async googleLogin() {
     this.wait = true;
     if(await this.userService.googleSignIn()){
-      
       this.wait = false;
       this.changeModal('none')
+      if(this.userService.redirectUrl != ''){
+        let url = this.userService.redirectUrl
+        this.userService.redirectUrl = ''
+        this.router.navigate([url])
+      }
     } else {
-      
       this.wait = false;
       this.error = 'Login inválido'
     }

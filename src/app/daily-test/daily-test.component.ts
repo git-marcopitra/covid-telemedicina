@@ -10,7 +10,7 @@ import { User } from '../user';
   styleUrls: ['./daily-test.component.css']
 })
 export class DailyTestComponent implements OnInit {
-
+  checkPhase: boolean
   phase: number
   level: number 
   
@@ -45,15 +45,22 @@ export class DailyTestComponent implements OnInit {
     this.phase = 0
     this.fc = this.testForm.controls
     this.wait = false
+    this.checkPhase = false
   }
 
   ngOnInit(): void {
-    if(this.user.doc !== ''){
-      this.phase = 2
-    }
   }
 
   ngDoCheck(): void {
+    if(!this.checkPhase){
+      this.user = this.userService.getCurrentUser()
+      if(this.user !== undefined){
+        this.checkPhase = true
+        if(this.user.doc !== ''){
+          this.phase = 2
+        }
+      }
+    }
   }
 
   nextPhase(): void {
@@ -123,17 +130,17 @@ export class DailyTestComponent implements OnInit {
     let user: User
     
     this.user = this.userService.getCurrentUser()
-    console.log(this.user)
+    
     user = {
       uid: this.user.uid,
       name: this.user.name,
       email: this.user.email,
       phone: this.user.phone,
       level: level,
-      doc: this.fc.docId.value,
-      gender: this.fc.gender.value,
-      birthYear: ((new Date().getFullYear()) - (this.fc.age.value)).toString(),
-      geo: this.geoLocation
+      doc: this.user.doc !== '' ? this.user.doc : this.fc.docId.value,
+      gender: this.user.gender !== '' ? this.user.gender : this.fc.gender.value,
+      birthYear: this.user.birthYear !== '' ? this.user.birthYear : (this.fc.age.value).toString(),
+      geo: this.user.geo.lat !== 0 ? this.user.geo : this.geoLocation
     }
     
     if(await this.userService.updateThisUser(user)){

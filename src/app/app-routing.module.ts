@@ -7,6 +7,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { DailyTestComponent } from './daily-test/daily-test.component';
 import { MapComponent } from './map/map.component';
 import { TelemedicinaComponent } from './telemedicina/telemedicina.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
@@ -16,8 +17,8 @@ const routes: Routes = [
   { path: 'team', component: TeamComponent },
   { path: 'contributors', component: ContributorsComponent  },
   { path: 'aboutus', component: AboutusComponent },
-  { path: 'dailytest', component: DailyTestComponent },
-  { path: 'telemedicina', component: TelemedicinaComponent }
+  { path: 'dailytest', canActivate: [AuthGuard],component: DailyTestComponent },
+  { path: 'telemedicina', canActivate: [AuthGuard], component: TelemedicinaComponent }
 ];
 
 @NgModule({

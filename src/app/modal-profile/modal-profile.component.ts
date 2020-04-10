@@ -4,6 +4,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { FormBuilder, Validators } from '@angular/forms'
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-profile',
@@ -21,13 +22,12 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
   profileForm = this.fb.group({
     name: ['', Validators.minLength(2)],
     email: ['', Validators.email],
-    phone: ['', Validators.minLength(9)],
-    password: ['', Validators.minLength(8)]
+    phone: ['', Validators.minLength(9)]
   })
   alter: boolean;
 
 
-  constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private modalsService:ModalService) { 
+  constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private modalsService:ModalService, private router: Router) { 
     super(modalService)
     this.fc = this.profileForm.controls
     this.google = true
@@ -49,8 +49,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
       this.profileForm.setValue({
         name: this.user.name,
         email: this.user.email,
-        phone: this.user.phone,
-        password: ''
+        phone: this.user.phone
       })
     }
   }
@@ -64,7 +63,6 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
       name: this.fc.name.value,
       email: this.fc.email.value,
       phone: this.fc.phone.value,
-      password: this.fc.password.value,
       level: this.user.level,
       doc: this.user.doc,
       gender: this.user.gender,
@@ -74,6 +72,11 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
     if(await this.userService.updateThisUser(user)){
       this.wait = false
       this.changeModal('none')
+      if(this.userService.redirectUrl != ''){
+        let url = this.userService.redirectUrl
+        this.userService.redirectUrl = ''
+        this.router.navigate([url])
+      }
     }
     else {
       this.wait = false

@@ -4,6 +4,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { FormBuilder, Validators } from '@angular/forms'
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-sign-up',
@@ -26,7 +27,7 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
   fc: any
   error: string
 
-  constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService) { 
+  constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private router: Router) { 
     super(modalService)
     this.fc = this.signupForm.controls
     this.google = true
@@ -52,12 +53,18 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     if(await this.userService.signUp(user)){
       this.wait = false
       this.changeModal('none')
+      if(this.userService.redirectUrl != ''){
+        let url = this.userService.redirectUrl
+        this.userService.redirectUrl = ''
+        this.router.navigate([url])
+      }
     }
     else{
       this.wait = false
       this.error = "Erro ao cadastrar"
     }
-
+    
+    
     
   }
 

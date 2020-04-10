@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserCredential, User } from './user';
+import { RouterStateSnapshot, Router } from '@angular/router';
 
 declare function login(email:string, password: string): any;
 declare function googleLogin(): any;
@@ -21,8 +22,9 @@ export class UserService {
   
   logged: boolean
   teste: boolean
+  redirectUrl = ''
 
-  constructor() {
+  constructor(private router: Router) {
     this.session()
   }
 
@@ -86,6 +88,7 @@ export class UserService {
     return await logout()
     .then(() => {
       this.logged = false
+      this.router.navigate(['/home'])
       return true;
     })
     .catch(() => {

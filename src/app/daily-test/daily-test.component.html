@@ -140,8 +140,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="test-buttons">
                         <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
                         <button class="button-primary" type="submit"> Continuar </button>
@@ -161,13 +159,17 @@
                     <span class="bubble"></span>
                     </span>
                 </div>
-                <div class="sec-level">
-                    <p class="level-desc"> Sua probabilidade de ter COVID-19 é de</p>
-                    <span class="level">{{level}}% </span>
+                <div class="sec-level" *ngIf="!wait">
+                    <p class="level-desc"> Sua probabilidade de ter COVID-19 é de: </p>
+                    <span class="level">{{level | toFixed: 3 }}% </span>
                 </div>
                 <div class="test-buttons" *ngIf="!wait">
-                    <button class="button-primary" (click)="nextPhase()"> Continuar </button>
+                    <button class="button-primary" routerLink="/home"> Voltar ao início </button>
                 </div>
+                <div class="test-buttons" *ngIf="!wait">
+                    <button class="button-secondary" routerLink="/telemedicina"> Opinião de um profissional </button>
+                </div>
+
             </div>
         </div>
     </aside>

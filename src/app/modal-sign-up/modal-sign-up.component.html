@@ -16,8 +16,9 @@
             <span class="bubble"></span>
             </span>
         </div>
-        <span class="warning">{{error}}</span>
         <form class="modal-content" [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf="!wait">
+
+            <span class="warning">{{error}}</span>
             <label for="signup-name" *ngIf="fc.name.value != ''">Nome Completo</label>
             <input type="text" placeholder="Nome Completo" id="signup-name" formControlName="name" class="field">
 
@@ -29,6 +30,7 @@
 
             <label for="signup-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="signup-pass">
+
             <div class="modal-buttons">
                 <button class="modal-button button-secondary" (click)="changeModal('sign-in')"> Entrar </button>
                 <button type="submit" class="modal-button button-primary" [disabled]="!signupForm.valid"> Registar </button>

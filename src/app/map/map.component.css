@@ -40,21 +40,27 @@
     padding: 0.5rem;
     margin: .5rem;
     border-radius: 50%;
-    background-color: rgba(0, 255, 0)
+    border: 2px solid white;
+    background-color: rgba(0, 255, 0);
+    opacity: 0.5;
 }
 
 .yellow-box {
     display: inline-block;
     padding: 0.5rem;
     margin: .5rem;
+    border: 2px solid white;
     border-radius: 50%;
-    background-color: rgba(255, 255, 0)
+    background-color: rgba(255, 255, 0);
+    opacity: 0.5;
 }
 
 .red-box {
     display: inline-block;
     padding: 0.5rem;
     margin: .5rem;
+    border: 2px solid white;
     border-radius: 50%;
-    background-color: rgba(255, 50, 50)
+    background-color: rgba(255, 50, 50);
+    opacity: 0.5;
 }

@@ -28,9 +28,6 @@
             <label for="signup-phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
             <input type="text" placeholder="Número de Telefone" id="signup-phone" [value]="user.phone" formControlName="phone" class="field">
 
-            <label for="signup-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
-            <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="signup-pass">
-
             <div class="modal-buttons">
                 <button type="submit" class="modal-button button-primary" [disabled]="!profileForm.valid"> Editar </button>
             </div>

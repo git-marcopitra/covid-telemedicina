@@ -23,8 +23,9 @@ export class HeaderComponent implements OnInit {
 
   ngDoCheck() {
     this.logged = this.userService.getState();
-    if(this.logged === true){
+    if(this.logged === true && this.modalService.firstTime && this.welcome){
       this.welcome = false
+      this.modalService.setModal('none')
     }
     else if(this.logged === false && this.modalService.firstTime && this.welcome) {
       this.welcome = false
