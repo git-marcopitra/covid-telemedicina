@@ -22,6 +22,7 @@ import { TelemedicinaModule } from './telemedicina/telemedicina.module';
 import { ModalProfileComponent } from './modal-profile/modal-profile.component';
 import { ModalPasswordRescueComponent } from './modal-password-rescue/modal-password-rescue.component';
 import { ToFixedPipe } from './to-fixed.pipe';
+import { StatisticComponent } from './statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ToFixedPipe } from './to-fixed.pipe';
     TelemedicinaComponent,
     ModalProfileComponent,
     ModalPasswordRescueComponent,
-    ToFixedPipe
+    ToFixedPipe,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
