@@ -309,3 +309,11 @@
  function setUser(user) {
      this.user = user
  }
+
+ //------------------------------------------Estatistica----------------------------------------
+ function statistic(){
+    
+    
+   return firebase.database().ref('/users/');
+
+}
