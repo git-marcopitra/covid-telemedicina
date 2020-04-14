@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { BrowserModule } from '@angular/platform-browser';
+
 declare function  statistic():any;
 @Component({
   selector: 'app-statistic',
@@ -6,6 +9,7 @@ declare function  statistic():any;
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
+  
 
   constructor() { }
 

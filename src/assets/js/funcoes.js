@@ -11,6 +11,8 @@
 
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
+ google.charts.load('current', {'packages':['corechart']});
+ google.charts.setOnLoadCallback(pieChart);
 
  var user = {};
  var geoJson = {
@@ -311,9 +313,55 @@
  }
 
  //------------------------------------------Estatistica----------------------------------------
- function statistic(){
+ function pieChart(){
+    var date=new Date()
+    var stateUsers={"baixo":{"F":{}, "M":{}},
+                    "medio": {"F":{}, "M":{}},
+                    "alto":{"F":{}, "M":{}}};
+    var dataPieChart={"baixo": 0,
+                       "medio": 0,
+                        "alto": 0}
+   // drawChart();
+    firebase.database().ref('/users/').on('value', snapshot => {
+    snapshot.forEach(childSnapshot => {
+        var user = childSnapshot.val();
+        var level=user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
+        var age= date.getFullYear()-user.birthYear<16 ? "criança" : date.getFullYear()-user.birthYear<20 ? "adolescente": date.getFullYear()-user.birthYear<65 ? "jovem": "adulto"; 
+
+        if(user.level>0){
+            dataPieChart[user.level]++;
+        if(stateUsers[level][user.gender][age]!=null)
+        stateUsers[level][user.gender][age]++;
+        else 
+        stateUsers[level][user.gender][age]=1;
+        }
+
+        
+      
+    })
+    //resultado
+    var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Alto',  10],
+        ['Medio', 5 ],
+        ['Baixo',  3]]);
+      var options = {
+        title: 'Teste',
+        colors: ['#ff0000', '#00ff00', '#0000ff'],
+        backgroundColor: '#E4E4E4',
+        legend: 'none'  
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
     
-    
-   return firebase.database().ref('/users/');
+});
 
 }
+
+
+function statistic(){
+
+    return firebase.database().ref('/users/');
+
+}
+
