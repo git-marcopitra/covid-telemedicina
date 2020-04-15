@@ -12,7 +12,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
  google.charts.load('current', {'packages':['corechart']});
- google.charts.setOnLoadCallback(pieChart);
+ google.charts.setOnLoadCallback(charts);
 
  var user = {};
  var geoJson = {
@@ -313,46 +313,91 @@
  }
 
  //------------------------------------------Estatistica----------------------------------------
- function pieChart(){
-    var date=new Date()
-    var stateUsers={"baixo":{"F":{}, "M":{}},
-                    "medio": {"F":{}, "M":{}},
-                    "alto":{"F":{}, "M":{}}};
-    var dataPieChart={"baixo": 0,
-                       "medio": 0,
-                        "alto": 0}
-   // drawChart();
+ function charts(){
+ 
+
+
+   
+   
     firebase.database().ref('/users/').on('value', snapshot => {
+        var kids=teenager=young=adult=0;
+        var female=male=0;
+        var dataPieChart={"baixo": 0,
+                           "medio": 0,
+                            "alto": 0}
     snapshot.forEach(childSnapshot => {
         var user = childSnapshot.val();
         var level=user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
-        var age= date.getFullYear()-user.birthYear<16 ? "criança" : date.getFullYear()-user.birthYear<20 ? "adolescente": date.getFullYear()-user.birthYear<65 ? "jovem": "adulto"; 
-
+         
+        
         if(user.level>0){
-            dataPieChart[user.level]++;
-        if(stateUsers[level][user.gender][age]!=null)
-        stateUsers[level][user.gender][age]++;
-        else 
-        stateUsers[level][user.gender][age]=1;
+            dataPieChart[level]++;
+            if(level=="alto"  ){
+                if(user.gender=="F")
+                female++;
+                else
+                male++
+                user.birthYear<16 ? kids++ : user.birthYear<21 ? teenager++: user.birthYear<65 ? young++: adult++;
+            }
+      
         }
 
         
       
     })
     //resultado
-    var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Alto',  10],
-        ['Medio', 5 ],
-        ['Baixo',  3]]);
-      var options = {
-        title: 'Teste',
+    var data=[];
+    var options =[];
+    
+        data.push(google.visualization.arrayToDataTable([
+        ['Nivel', 'Valor'],
+        ['Alto',  dataPieChart.alto],
+        ['Medio', dataPieChart.medio],
+        ['Baixo',  dataPieChart.baixo]]));
+       
+        data.push(google.visualization.arrayToDataTable([
+            ['Nivel', 'Valor'],
+            ['Crianças',  kids],
+            ['Adolescentes', teenager],
+            ['Jovens',  young],
+            ['Idosos', adult]]));
+
+        data.push( google.visualization.arrayToDataTable([
+            ["Genero", "valor", { role: "style" } ],
+            ["Masculino",male, "#ff0000"],
+            ["Feminino", female, "#ff0000"],
+          ]));
+        
+       options.push({
+        title: 'Geral',
         colors: ['#ff0000', '#00ff00', '#0000ff'],
         backgroundColor: '#E4E4E4',
         legend: 'none'  
-      };
-      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-      chart.draw(data, options);
+      });
+
+       options.push({
+        title: 'Idades',
+        colors: ['#ff0000', '#00ff00', '#0000ff'],
+        backgroundColor: '#E4E4E4',
+        legend: 'none'  
+      });
+
+       options.push({
+        title: 'Genero',
+        colors: ['#ff0000', '#00ff00', '#0000ff'],
+        backgroundColor: '#E4E4E4',
+        legend: 'none'  
+      });
+    
+       
+      var chart=[];
+        chart.push(new google.visualization.PieChart(document.getElementById('general')));
+        chart.push(new google.visualization.ColumnChart(document.getElementById('age')));
+        chart.push(new google.visualization.ColumnChart(document.getElementById('gender')));
+      chart[0].draw(data[0], options[0]);
+      chart[1].draw(data[1], options[1]);
+      chart[2].draw(data[2], options[2]);
+
     
 });
 
@@ -360,7 +405,7 @@
 
 
 function statistic(){
-
+pieChart();
     return firebase.database().ref('/users/');
 
 }
