@@ -2,19 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { BrowserModule } from '@angular/platform-browser';
 
-declare function  statistic():any;
+declare function statistic():any;
+declare var chartStatus:boolean;
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
-  
+
+  wait: boolean;
 
   constructor() { }
 
   ngOnInit(): void {  
     
+  }
+
+  ngDoCheck() {
+    this.wait = chartStatus ? false : true
+    console.log("Wait status ::: ",this.wait);
   }
 
   async teste(){

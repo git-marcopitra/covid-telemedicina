@@ -6,10 +6,20 @@
         <div class="statistic-number low">999 Baixo</div>
     </section>
     <section class="statistic-grafics">
-
-        <div id="general" style="width: 500px; height: 500px;"></div>
-        <div id="age" style="width: 500px; height: 500px;"></div>
-        <div id="gender" style="width: 500px; height: 500px;"></div>
+        <div class="wait" *ngIf="wait">
+            <div class="process">
+                <span class="progressing">
+                <span class="bubble"></span>
+                <span class="bubble-group">
+                    <span class="bubble"></span>
+                <span class="bubble"></span>
+                </span>
+                <span class="bubble"></span>
+                </span>
+            </div>
+        </div>
+        <div id="general" style="min-width: 320px; height: 320px;"></div>
+        <div id="age" style="min-width: 320px; height: 320px;"></div>
+        <div id="gender" style="min-width: 320; height: 320;"></div>
     </section>
-
 </section>

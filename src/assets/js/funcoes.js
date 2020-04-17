@@ -11,7 +11,7 @@
 
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
- google.charts.load('current', {'packages':['corechart']});
+ google.charts.load('current', { 'packages': ['corechart'] });
  google.charts.setOnLoadCallback(charts);
 
  var user = {};
@@ -274,34 +274,34 @@
      });
  }
 
- function setConsulta(test,user){
-    var date = new Date();
-  
-   return firebase.firestore().collection("consultas").add({
-     test: test,
-     user:user,   
-     year: date.getFullYear(),
-     month: date.getMonth(),
-     day: date.getDay(),
-     hour: date.getHours(),
-     minute: date.getMinutes()
-    });
- 
+ function setConsulta(test, user) {
+     var date = new Date();
+
+     return firebase.firestore().collection("consultas").add({
+         test: test,
+         user: user,
+         year: date.getFullYear(),
+         month: date.getMonth(),
+         day: date.getDay(),
+         hour: date.getHours(),
+         minute: date.getMinutes()
+     });
+
  }
 
- function getConsulta(uid){
-     
-   return firebase.firestore().collection("consultas").where("user.uid","==",uid).get();
- 
+ function getConsulta(uid) {
+
+     return firebase.firestore().collection("consultas").where("user.uid", "==", uid).get();
+
  }
 
- function cancelarConsulta(uid){
-    firebase.firestore().collection("consultas")
-    .where('user.uid', '==', uid).get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            firebase.firestore().collection("consultas").doc(doc.id).delete().then(function() {}).catch(function(error) {});
-        });
-    });
+ function cancelarConsulta(uid) {
+     firebase.firestore().collection("consultas")
+         .where('user.uid', '==', uid).get().then(function(querySnapshot) {
+             querySnapshot.forEach(function(doc) {
+                 firebase.firestore().collection("consultas").doc(doc.id).delete().then(function() {}).catch(function(error) {});
+             });
+         });
  }
  //--------------------------------------Dados utilizador ----------------------------------
  function getUser() {
@@ -313,100 +313,96 @@
  }
 
  //------------------------------------------Estatistica----------------------------------------
- function charts(){
- 
+ var chartStatus = false;
+
+ function charts() {
+     chartStatus = false;
+     firebase.database().ref('/users/').on('value', snapshot => {
+         var kids = teenager = young = adult = 0;
+         var female = male = 0;
+         var dataPieChart = {
+             "baixo": 0,
+             "medio": 0,
+             "alto": 0
+         }
+         snapshot.forEach(childSnapshot => {
+                 var user = childSnapshot.val();
+                 var level = user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
 
 
-   
-   
-    firebase.database().ref('/users/').on('value', snapshot => {
-        var kids=teenager=young=adult=0;
-        var female=male=0;
-        var dataPieChart={"baixo": 0,
-                           "medio": 0,
-                            "alto": 0}
-    snapshot.forEach(childSnapshot => {
-        var user = childSnapshot.val();
-        var level=user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
-         
-        
-        if(user.level>0){
-            dataPieChart[level]++;
-            if(level=="alto"  ){
-                if(user.gender=="F")
-                female++;
-                else
-                male++
-                user.birthYear<16 ? kids++ : user.birthYear<21 ? teenager++: user.birthYear<65 ? young++: adult++;
-            }
-      
-        }
+                 if (user.doc !== '') {
+                     dataPieChart[level]++;
+                     if (level == "alto") {
+                         if (user.gender == "F")
+                             female++;
+                         else
+                             male++
+                             user.birthYear < 16 ? kids++ : user.birthYear < 21 ? teenager++ : user.birthYear < 65 ? young++ : adult++;
 
-        
-      
-    })
-    //resultado
-    var data=[];
-    var options =[];
-    
-        data.push(google.visualization.arrayToDataTable([
-        ['Nivel', 'Valor'],
-        ['Alto',  dataPieChart.alto],
-        ['Medio', dataPieChart.medio],
-        ['Baixo',  dataPieChart.baixo]]));
-       
-        data.push(google.visualization.arrayToDataTable([
-            ['Nivel', 'Valor'],
-            ['Crianças',  kids],
-            ['Adolescentes', teenager],
-            ['Jovens',  young],
-            ['Idosos', adult]]));
+                     }
 
-        data.push( google.visualization.arrayToDataTable([
-            ["Genero", "valor", { role: "style" } ],
-            ["Masculino",male, "#ff0000"],
-            ["Feminino", female, "#ff0000"],
-          ]));
-        
-       options.push({
-        title: 'Geral',
-        colors: ['#ff0000', '#00ff00', '#0000ff'],
-        backgroundColor: '#E4E4E4',
-        legend: 'none'  
-      });
+                 }
+             })
+             //resultado
+         var data = [];
+         var options = [];
 
-       options.push({
-        title: 'Idades',
-        colors: ['#ff0000', '#00ff00', '#0000ff'],
-        backgroundColor: '#E4E4E4',
-        legend: 'none'  
-      });
+         data.push(google.visualization.arrayToDataTable([
+             ['Nivel', 'Valor'],
+             ['Alto', dataPieChart.alto],
+             ['Medio', dataPieChart.medio],
+             ['Baixo', dataPieChart.baixo]
+         ]));
 
-       options.push({
-        title: 'Genero',
-        colors: ['#ff0000', '#00ff00', '#0000ff'],
-        backgroundColor: '#E4E4E4',
-        legend: 'none'  
-      });
-    
-       
-      var chart=[];
-        chart.push(new google.visualization.PieChart(document.getElementById('general')));
-        chart.push(new google.visualization.ColumnChart(document.getElementById('age')));
-        chart.push(new google.visualization.ColumnChart(document.getElementById('gender')));
-      chart[0].draw(data[0], options[0]);
-      chart[1].draw(data[1], options[1]);
-      chart[2].draw(data[2], options[2]);
+         data.push(google.visualization.arrayToDataTable([
+             ['Nivel', 'Valor'],
+             ['Até 15', kids],
+             ['16 aos 20', teenager],
+             ['21 aos 65', young],
+             ['65 acima', adult]
+         ]));
 
-    
-});
+         data.push(google.visualization.arrayToDataTable([
+             ["Genero", "valor", { role: "style" }],
+             ["M", male, "#4444ff"],
+             ["F", female, "#ff4444"],
+         ]));
 
-}
+         options.push({
+             title: 'Geral',
+             colors: ['#ff4444', '#ffff44', '#44ff44'],
+             backgroundColor: '#E4E4E4',
+             legend: 'Representação dos testes no Geral'
+         });
+
+         options.push({
+             title: 'Idades',
+             colors: ['#ff0000', '#00ff00', '#0000ff'],
+             backgroundColor: '#E4E4E4',
+             legend: 'Representação dos testes por Idades'
+         });
+
+         options.push({
+             title: 'Gênero',
+             colors: ['#ff0000', '#00ff00', '#0000ff'],
+             backgroundColor: '#E4E4E4',
+             legend: 'Representação dos testes por gênero'
+         });
+
+         var chart = [];
+         chartStatus = true;
+         chart.push(new google.visualization.PieChart(document.getElementById('general')));
+         chart.push(new google.visualization.ColumnChart(document.getElementById('age')));
+         chart.push(new google.visualization.ColumnChart(document.getElementById('gender')));
+         chart[0].draw(data[0], options[0]);
+         chart[1].draw(data[1], options[1]);
+         chart[2].draw(data[2], options[2]);
+     });
+ }
 
 
-function statistic(){
-pieChart();
-    return firebase.database().ref('/users/');
+ function statistic() {
+     pieChart();
+     return firebase.database().ref('/users/');
 
-}
-
+ }
