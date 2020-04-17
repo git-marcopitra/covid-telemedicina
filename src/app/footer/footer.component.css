@@ -1,0 +1,58 @@
+.footer {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    background-color: var(--font-color-1);
+    border-top: 5px solid var(--primary-color);
+}
+
+.footer-item {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+}
+
+.footer-logo {
+    max-height: 300px;
+    width: 300px;
+}
+
+.footer-logo img {
+    margin: 1rem auto;
+    width: 60%;
+    max-height: 100%;
+    transition: all 300ms;
+    cursor: pointer;
+}
+
+.footer-logo img:hover {
+    margin: 0 auto 2rem;
+}
+
+.contacts-list {
+    padding: 1rem;
+    color: var(--background-color-1);
+}
+
+.contacts-list li {
+    padding: .5rem;
+}
+
+.fa-phone {
+    transform: scaleX(-1);
+}
+
+.social-list {
+    display: flex;
+}
+
+.social-list li {
+    padding: 1rem .5rem;
+    font-size: 1.5rem;
+    color: var(--background-color-1);
+    cursor: pointer;
+}

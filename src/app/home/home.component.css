@@ -63,10 +63,10 @@
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
+    padding: 0 2rem 2rem;
 }
 
 .head-image {
-    padding: 2rem;
     height: 50vh;
     max-width: 40vw;
     min-width: 50vh;
@@ -84,7 +84,6 @@
     display: flex;
     width: 60vh;
     min-width: 300px;
-    padding: 2rem;
     flex-direction: column;
     justify-content: center;
 }
