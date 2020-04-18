@@ -153,25 +153,28 @@
      var provedor = new firebase.auth.GoogleAuthProvider();
      await firebase.auth().signInWithPopup(provedor)
      return firebase.auth().onAuthStateChanged(user => {
-         let userVer = firebase.database().ref('users/' + user.uid)
-         if (!(userVer.val().name.length > 0)) {
-             currentUser = {
-                 name: user.displayName,
-                 gender: '',
-                 phone: (user.phoneNumber === null) ? 0 : user.numberPhone,
-                 email: user.email,
-                 birthYear: '',
-                 level: 0,
-                 doc: '',
-                 geo: {
-                     lat: 0,
-                     long: 0
+         console.log("User Getted ::::: ", user)
+         firebase.database().ref('users/' + user.uid).once('value').then(userVer => {
+             console.log("User Verified :::: ", userVer)
+             if (userVer.val() == null) {
+                 currentUser = {
+                     name: user.displayName,
+                     gender: '',
+                     phone: (user.phoneNumber === null) ? 0 : user.numberPhone,
+                     email: user.email,
+                     birthYear: '',
+                     level: 0,
+                     doc: '',
+                     geo: {
+                         lat: 0,
+                         long: 0
+                     }
                  }
+                 firebase.database().ref('users/' + user.uid).set(currentUser);
+                 currentUser["uid"] = user.uid;
+                 setUser(currentUser);
              }
-             firebase.database().ref('users/' + user.uid).set(currentUser);
-             currentUser["uid"] = user.uid;
-             setUser(currentUser);
-         }
+         })
      });
  }
 
@@ -238,18 +241,20 @@
 
  function getDataUser(uid) {
      firebase.database().ref('/users/' + uid).once('value').then(snapshot => {
-         currentUser = {
-             uid: uid,
-             name: snapshot.val().name,
-             gender: snapshot.val().gender,
-             phone: snapshot.val().phone,
-             email: snapshot.val().email,
-             doc: snapshot.val().doc,
-             birthYear: snapshot.val().birthYear,
-             level: snapshot.val().level,
-             geo: snapshot.val().geo
+         if (snapshot.val().name !== null) {
+             currentUser = {
+                 uid: uid,
+                 name: snapshot.val().name,
+                 gender: snapshot.val().gender,
+                 phone: snapshot.val().phone,
+                 email: snapshot.val().email,
+                 doc: snapshot.val().doc,
+                 birthYear: snapshot.val().birthYear,
+                 level: snapshot.val().level,
+                 geo: snapshot.val().geo
+             }
+             setUser(currentUser);
          }
-         setUser(currentUser);
      }).catch(error => {
          console.log(error);
      });

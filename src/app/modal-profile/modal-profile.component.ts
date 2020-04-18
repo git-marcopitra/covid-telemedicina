@@ -49,7 +49,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
       this.profileForm.setValue({
         name: this.user.name,
         email: this.user.email,
-        phone: this.user.phone
+        phone: parseInt(this.user.phone) > 0 ? this.user.phone : null 
       })
     }
   }
