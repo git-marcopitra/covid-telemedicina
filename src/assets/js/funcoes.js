@@ -8,7 +8,7 @@
      appId: "1:631562211191:web:a03ad2843550217d1b1b72",
      measurementId: "G-C0F0WPJ2J2"
  };
- google.charts.load('current', { 'packages': ['corechart'], "callback": charts });
+ google.charts.load("visualization", "1", { 'packages': ['controls','corechart']});
  google.charts.setOnLoadCallback(charts);
 
  firebase.initializeApp(firebaseConfig);
@@ -238,8 +238,10 @@
      });
  }
 
- function getDataUser(uid) {
-     firebase.database().ref('/users/' + uid).once('value').then(snapshot => {
+ function getDataUser() {
+    firebase.auth().onAuthStateChanged(user => {
+        if(user)
+     firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
          currentUser = {
              uid: uid,
              name: snapshot.val().name,
@@ -255,6 +257,7 @@
      }).catch(error => {
          console.log(error);
      });
+    });
  }
 
 
@@ -343,9 +346,10 @@
                  }
              })
              //resultado
-         var data = [];
-         var options = [];
-         var chart = [];
+        
+             var chart = [];
+             var data = [];
+             var options = [];
          data.push(google.visualization.arrayToDataTable([
              ['Nivel', 'Valor'],
              ['Alto', dataPieChart.alto],
@@ -400,3 +404,6 @@
  }
 
 
+
+
+ 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleChartsModule } from 'angular-google-charts';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 declare function statistic():any;
+declare function charts(): any;
 
 declare var chartStatus:boolean;
 @Component({
@@ -18,16 +18,11 @@ k: boolean;
   constructor() { }
 
   ngOnInit(): void {  
-    
+    charts()
   }
 
   ngDoCheck() {
     this.wait = chartStatus ? false : true
-    if(this.k){
-      statistic()
-      this.k=true
-    }
-  
   }
 
   async teste(){

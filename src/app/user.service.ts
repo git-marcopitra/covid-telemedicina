@@ -39,7 +39,7 @@ export class UserService {
  
  
   async googleSignIn() {
-    return await googleLogin()
+    return await googleLogup()
     .then(() => { 
       getAllDataUser()
       this.logged = true  
@@ -72,13 +72,15 @@ export class UserService {
   }
 
   async googleSignUp() {
-    return await googleLogin()
+    return await googleLogup()
     .then(()=>{
+      
       getAllDataUser()
         this.logged = true
         return true
       })
-    .catch(() => {
+    .catch(error => {
+      console.log(error)
         return false
       })
     }
