@@ -8,11 +8,12 @@
      appId: "1:631562211191:web:a03ad2843550217d1b1b72",
      measurementId: "G-C0F0WPJ2J2"
  };
+ google.charts.load("visualization", "1", { 'packages': ['controls', 'corechart'] });
+ google.charts.setOnLoadCallback(charts);
 
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
- google.charts.load('current', { 'packages': ['corechart'] });
- google.charts.setOnLoadCallback(charts);
+
 
  var user = {};
  var geoJson = {
@@ -149,9 +150,10 @@
          }
      })
  }
- async function googleLogin() {
+
+ function googleLogup() {
      var provedor = new firebase.auth.GoogleAuthProvider();
-     await firebase.auth().signInWithPopup(provedor)
+     firebase.auth().signInWithPopup(provedor);
      return firebase.auth().onAuthStateChanged(user => {
          console.log("User Getted ::::: ", user)
          firebase.database().ref('users/' + user.uid).once('value').then(userVer => {
@@ -312,6 +314,12 @@
  }
 
  //------------------------------------------Estatistica----------------------------------------
+ function statistic() {
+
+     return firebase.database().ref('/users/');
+ }
+
+
  var chartStatus = false;
 
  function charts() {
@@ -323,12 +331,10 @@
              "baixo": 0,
              "medio": 0,
              "alto": 0
-         }
+         };
          snapshot.forEach(childSnapshot => {
                  var user = childSnapshot.val();
                  var level = user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
-
-
                  if (user.doc !== '') {
                      dataPieChart[level]++;
                      if (level == "alto") {
@@ -337,15 +343,15 @@
                          else
                              male++
                              user.birthYear < 16 ? kids++ : user.birthYear < 21 ? teenager++ : user.birthYear < 65 ? young++ : adult++;
-
                      }
 
                  }
              })
              //resultado
+
+         var chart = [];
          var data = [];
          var options = [];
-
          data.push(google.visualization.arrayToDataTable([
              ['Nivel', 'Valor'],
              ['Alto', dataPieChart.alto],
@@ -363,32 +369,32 @@
 
          data.push(google.visualization.arrayToDataTable([
              ["Genero", "valor", { role: "style" }],
-             ["M", male, "#4444ff"],
-             ["F", female, "#ff4444"],
+             ["Homens", male, "#4444ff"],
+             ["Mulheres", female, "#ff4444"]
          ]));
 
          options.push({
-             title: 'Geral',
+             title: 'Representação das avaliações no geral',
              colors: ['#ff4444', '#ffff44', '#44ff44'],
              backgroundColor: '#E4E4E4',
              legend: 'Representação dos testes no Geral'
          });
 
          options.push({
-             title: 'Idades',
+             title: 'Representação das avaliações por idades',
              colors: ['#ff0000', '#00ff00', '#0000ff'],
              backgroundColor: '#E4E4E4',
-             legend: 'Representação dos testes por Idades'
+             legend: 'none'
          });
 
          options.push({
-             title: 'Gênero',
+             title: 'Representação dos testes por gênero',
              colors: ['#ff0000', '#00ff00', '#0000ff'],
              backgroundColor: '#E4E4E4',
-             legend: 'Representação dos testes por gênero'
+             legend: 'none'
          });
 
-         var chart = [];
+
          chartStatus = true;
          chart.push(new google.visualization.PieChart(document.getElementById('general')));
          chart.push(new google.visualization.ColumnChart(document.getElementById('age')));
@@ -397,11 +403,4 @@
          chart[1].draw(data[1], options[1]);
          chart[2].draw(data[2], options[2]);
      });
- }
-
-
- function statistic() {
-     pieChart();
-     return firebase.database().ref('/users/');
-
  }
