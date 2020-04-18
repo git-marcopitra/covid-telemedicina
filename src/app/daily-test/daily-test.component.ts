@@ -55,7 +55,7 @@ export class DailyTestComponent implements OnInit {
       this.user = this.userService.getCurrentUser()
       if(this.user !== undefined){
         this.checkPhase = true
-        if(this.user.doc !== ''){
+        if(this.user.doc.length > 0){
           this.phase = 2
         }
       }
@@ -136,8 +136,8 @@ export class DailyTestComponent implements OnInit {
       email: this.user.email,
       phone: this.user.phone,
       level: level,
-      doc: this.user.doc !== '' ? this.user.doc : this.fc.docId.value,
-      gender: this.user.gender !== '' ? this.user.gender : this.fc.gender.value,
+      doc: this.user.doc.length > 0 ? this.user.doc : this.fc.docId.value,
+      gender: this.user.gender.length > 0 ? this.user.gender : this.fc.gender.value,
       birthYear: this.user.birthYear !== '' ? this.user.birthYear : (this.fc.age.value).toString(),
       geo: this.user.geo.lat !== 0 ? this.user.geo : this.geoLocation
     }

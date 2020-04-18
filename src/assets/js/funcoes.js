@@ -118,12 +118,6 @@
      return firebase.auth().signInWithEmailAndPassword(email, pass);
  }
 
- function googleLogin() {
-     var provedor = new firebase.auth.GoogleAuthProvider();
-     return firebase.auth().signInWithPopup(provedor);
- }
-
-
  // função para Registar Utilizador
  function logup(user) {
 
@@ -155,11 +149,12 @@
          }
      })
  }
- async function googleLogup() {
+ async function googleLogin() {
      var provedor = new firebase.auth.GoogleAuthProvider();
      await firebase.auth().signInWithPopup(provedor)
      return firebase.auth().onAuthStateChanged(user => {
-         if (user) {
+         let userVer = firebase.database().ref('users/' + user.uid)
+         if (!(userVer.val().name.length > 0)) {
              currentUser = {
                  name: user.displayName,
                  gender: '',
@@ -182,7 +177,6 @@
 
 
  function updateUser(user) {
-
      firebase.auth().onAuthStateChanged(user1 => {
          if (user1) {
              user1.updateProfile({
