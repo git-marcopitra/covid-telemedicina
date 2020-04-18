@@ -3,6 +3,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { BrowserModule } from '@angular/platform-browser';
 
 declare function statistic():any;
+
 declare var chartStatus:boolean;
 @Component({
   selector: 'app-statistic',
@@ -12,6 +13,7 @@ declare var chartStatus:boolean;
 export class StatisticComponent implements OnInit {
 
   wait: boolean;
+k: boolean;
 
   constructor() { }
 
@@ -21,7 +23,11 @@ export class StatisticComponent implements OnInit {
 
   ngDoCheck() {
     this.wait = chartStatus ? false : true
-    console.log("Wait status ::: ",this.wait);
+    if(this.k){
+      statistic()
+      this.k=true
+    }
+  
   }
 
   async teste(){
