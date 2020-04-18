@@ -72,7 +72,7 @@ export class UserService {
   }
 
   async googleSignUp() {
-    return await googleLogup()
+    return await googleLogin()
     .then(()=>{
       getAllDataUser()
         this.logged = true
