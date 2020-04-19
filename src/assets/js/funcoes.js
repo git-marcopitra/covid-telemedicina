@@ -282,7 +282,8 @@
          month: date.getMonth(),
          day: date.getDay(),
          hour: date.getHours(),
-         minute: date.getMinutes()
+         minute: date.getMinutes(),
+         done: false
      });
 
  }

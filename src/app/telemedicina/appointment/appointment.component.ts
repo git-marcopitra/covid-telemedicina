@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/user';
+import { User,Test } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
-
+declare function setConsulta(test:Test,user:User): any;
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
@@ -18,6 +18,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   ngDoCheck() {
@@ -27,7 +28,14 @@ export class AppointmentComponent implements OnInit {
     } else {
       this.wait = false
     }
-
   }
 
+  async setConsulta(){
+    await setConsulta(this.userService.getLastTest(),this.userService.getCurrentUser()).then(result=>{
+     
+      }).catch(error=>{
+        
+      })
+     
+  }
 }

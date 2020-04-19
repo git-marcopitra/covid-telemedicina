@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
-import { User } from '../user';
+import { User,Test } from '../user';
 
 @Component({
   selector: 'app-daily-test',
@@ -141,7 +141,8 @@ export class DailyTestComponent implements OnInit {
       birthYear: this.user.birthYear !== '' ? this.user.birthYear : (this.fc.age.value).toString(),
       geo: this.user.geo.lat !== 0 ? this.user.geo : this.geoLocation
     }
-    let test={
+    let test: Test
+    test={
     travel: this.fc.travel.value, 
      people: this.fc.people.value, 
      covid: this.fc.covid.value,
@@ -157,33 +158,10 @@ export class DailyTestComponent implements OnInit {
      espirros: this.fc.espirros.value
     }
 
-    /*
-    await getConsulta(user.uid).then((querySnapshot) => {
-      if(querySnapshot.size==0){
-          console.log("nao tem consulta")
-      }else{
-       querySnapshot.forEach((doc) => { 
-        console.log("tem consulta")
-
-       } 
-       );
-      }
-   });
------------------------------------------------------
-       if(level>=65)
-   await setConsulta(test,user).then(result=>{
-    REgistou
-    }).catch(error=>{
-      Não Registou  
-    })
-   ------------------------------------------------------------------ 
-     var regexp = new RegExp('\^([0-9]{9})+([A-Za-z]{2})+([0-9]{3})$');
-     --------------------------------------------------------------
-    cancelarConsulta(uid)
-    */
+  
 
  
-
+    this.userService.setLastTest(test)
     if(await this.userService.updateThisUser(user)){
    
       this.wait = false
