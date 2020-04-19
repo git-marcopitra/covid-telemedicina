@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { User, Test } from 'src/app/user';
+import { UserService } from 'src/app/user.service';
+
+declare function CreatePDF(user:User, test: Test): any;
 
 @Component({
   selector: 'app-resume',
@@ -7,9 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResumeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
+    CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest())
   }
 
 }
