@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent },
   { path: 'statistic', component: StatisticComponent },
   { path: 'dailytest', canActivate: [AuthGuard],component: DailyTestComponent },
-  { path: 'telemedicina', canActivate: [AuthGuard], component: TelemedicinaComponent }
+  { path: 'telemedicina',/* canActivate: [AuthGuard],*/ component: TelemedicinaComponent, loadChildren: () => import('./telemedicina/telemedicina.module').then(mod => mod.TelemedicinaModule)}
 ];
 
 @NgModule({

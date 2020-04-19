@@ -1,1 +1,7 @@
-<p>header works!</p>
+<nav class="top-menu">
+    <li class="top-menu-item go-back" (click)="goBack()"><i class="fas fa-arrow-left"></i></li>
+    <li class="top-menu-item go-back" (click)="goTo('/telemedicina')"><i class="far fa-home"></i></li>
+    <li class="top-menu-item" [class.selected]="selected == 1" (click)="goTo('/telemedicina/calendar')"><i class="icon fal fa-calendar-week"> </i> Agenda</li>
+    <li class="top-menu-item" [class.selected]="selected == 2" (click)="goTo('/telemedicina/appointment')"><i class="icon fal fa-calendar-plus"> </i> Consulta</li>
+    <li class="top-menu-item" [class.selected]="selected == 3" (click)="goTo('/telemedicina/resume')"><i class="icon fal fa-file-medical"> </i> Relatório</li>
+</nav>

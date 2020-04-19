@@ -1,0 +1,55 @@
+.calendar-table {
+    overflow-x: auto;
+    margin: 1rem;
+    width: calc(100% - 2rem);
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    color: var(--font-color-2);
+    border-collapse: collapse;
+}
+
+th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+td:first-child {
+    border-radius: 0 0 0 10px;
+}
+
+td:last-child {
+    border-radius: 0 0 10px 0;
+}
+
+td:only-child {
+    border-radius: 0 0 10px 10px;
+}
+
+th {
+    color: var(--background-color-2);
+    background-color: var(--font-color-3);
+    position: relative;
+    padding: 1rem;
+    text-transform: uppercase;
+    z-index: 0;
+}
+
+td {
+    position: relative;
+    padding: calc(1rem + 10px) 1rem 1rem;
+    text-align: center;
+}
+
+tr:nth-child(odd) td {
+    background-color: var(--background-color-1);
+}
+
+tr:nth-child(even) td {
+    background-color: var(--background-color-4);
+}

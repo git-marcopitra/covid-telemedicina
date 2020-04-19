@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  selected: number
+
+  constructor(private location: Location, private router: Router) { }
 
   ngOnInit(): void {
+    let path = this.location.path()
+    this.selected = path == '/telemedicina/calendar' ? 1 : path == '/telemedicina/appointment' ? 2 : path == '/telemedicina/resume' ? 3 : 0;
+
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  goTo($path: string){
+    this.selected = $path == '/telemedicina/calendar' ? 1 : $path == '/telemedicina/appointment' ? 2 : $path == '/telemedicina/resume' ? 3 : 0;
+    this.router.navigate([$path])
   }
 
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-
-declare function statistic():any;
 declare function charts(): any;
+declare var dataPieChart:any;
 
 declare var chartStatus:boolean;
 @Component({
@@ -13,9 +12,15 @@ declare var chartStatus:boolean;
 export class StatisticComponent implements OnInit {
 
   wait: boolean;
-k: boolean;
+  control: boolean;
+  all:number;
+  low: number;
+  med: number;
+  high: number;
 
-  constructor() { }
+  constructor() {
+    this.control = true
+   }
 
   ngOnInit(): void {  
     charts()
@@ -23,31 +28,12 @@ k: boolean;
 
   ngDoCheck() {
     this.wait = chartStatus ? false : true
+    if(!this.wait && this.control){
+      this.all = dataPieChart['alto'] + dataPieChart['medio'] + dataPieChart['baixo'];
+      this.high = dataPieChart['alto'];
+      this.med = dataPieChart['medio'];
+      this.low = dataPieChart['baixo'];
+      this.control = false;
+    }
   }
-
-  async teste(){
-    let date=new Date()
-    let stateUsers={"baixo":{"F":{}, "M":{}},
-                    "medio": {"F":{}, "M":{}},
-                    "alto":{"F":{}, "M":{}}}
-    await statistic().on('value', snapshot => {
-      snapshot.forEach(childSnapshot => {
-          var user = childSnapshot.val();
-          var level=user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
-          var age= date.getFullYear()-user.birthYear<16 ? "criança" : date.getFullYear()-user.birthYear<20 ? "adolescente": date.getFullYear()-user.birthYear<65 ? "jovem": "adulto"; 
-
-          if(user.level>0)
-          if(stateUsers[level][user.gender][age]!=null)
-          stateUsers[level][user.gender][age]++;
-          else 
-          stateUsers[level][user.gender][age]=1;
-         
-        
-      })
-      //resultado
-      console.log(stateUsers.medio.M)
-      
-  })
-  }
-
 }

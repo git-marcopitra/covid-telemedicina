@@ -8,13 +8,9 @@
     box-sizing: border-box;
 }
 
-html {
-    width: 100vw
-}
-
 body {
+    min-height: 100vh;
     overflow-x: hidden;
-    width: 100vw;
 }
 
 a {
@@ -23,7 +19,8 @@ a {
     cursor: pointer;
 }
 
-ul {
+ul,
+li {
     list-style: none;
 }
 
@@ -88,8 +85,11 @@ button:disabled:hover {
 }
 
 main {
-    margin: 1rem auto;
+    margin: 0 auto;
+    width: 100vw;
+    overflow: hidden;
     max-width: 1440px;
+    min-height: calc(100vh - 20.8rem - 20px);
 }
 
 .main-content {
@@ -255,6 +255,7 @@ main {
 
 :root {
     --primary-color: rgb(95, 202, 68);
+    --primary-color-06: rgba(95, 202, 68, .6);
     --primary-color-04: rgba(95, 202, 68, .4);
     --primary-color-01: rgba(95, 202, 68, .1);
     --yellow-color: rgb(238, 220, 55);
@@ -266,7 +267,10 @@ main {
     --background-color-3: rgb(240, 240, 240);
     --background-color-3: rgba(240, 240, 240, 0.4);
     --background-color-07: rgb(250, 250, 250, .7);
+    --background-color-4: rgb(200, 200, 200);
     --font-color-1: rgb(40, 40, 40);
+    --font-color-2: rgb(60, 60, 60);
+    --font-color-3: rgb(80, 80, 80);
     --font-color-1-05: rgba(40, 40, 40, .5);
 }
 
@@ -288,6 +292,10 @@ h5,
 h6 {
     text-transform: uppercase;
     font-weight: 700;
+}
+
+h1 {
+    font-size: 2rem;
 }
 
 .button-primary {
@@ -432,28 +440,30 @@ h6 {
 /* Let's get this party started */
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
+    background: rgba(194, 194, 194, 0.4);
 }
 
 
 /* Track */
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 0;
+    width: 2px;
     border-radius: 0;
+}
+
+::-webkit-scrollbar-track:window-inactive {
+    background: rgba(255, 255, 255, .3);
 }
 
 
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: rgba(209, 209, 209, 0.8);
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    width: 2px;
+    background: rgba(49, 49, 49, 0.8);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(32, 32, 32, 0.4);
+    background: rgba(49, 49, 49, 0.2);
 }

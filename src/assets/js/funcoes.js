@@ -21,6 +21,8 @@
      "features": []
  };
 
+ var dataPieChart;
+
 
  async function initMap() {
      var mapa = new google.maps.Map(document.getElementById('mapa'), {
@@ -121,11 +123,9 @@
 
  // função para Registar Utilizador
  function logup(user) {
-
      firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(error => {
          var errorCode = error.code;
      });
-
      return firebase.auth().onAuthStateChanged(newUser => {
          if (newUser) {
              currentUser = {
@@ -180,7 +180,6 @@
      });
  }
 
-
  function updateUser(user) {
      firebase.auth().onAuthStateChanged(user1 => {
          if (user1) {
@@ -189,8 +188,6 @@
              });
          }
      });
-
-
      return firebase.database().ref('users/' + this.user.uid).update({
          doc: (user.doc == null) ? '' : user.doc,
          gender: user.gender,
@@ -327,25 +324,24 @@
      firebase.database().ref('/users/').on('value', snapshot => {
          var kids = teenager = young = adult = 0;
          var female = male = 0;
-         var dataPieChart = {
+         dataPieChart = {
              "baixo": 0,
              "medio": 0,
              "alto": 0
          };
          snapshot.forEach(childSnapshot => {
-                 var user = childSnapshot.val();
-                 var level = user.level < 35 ? "baixo" : user.level < 65 ? "medio" : "alto";
-                 if (user.doc !== '') {
+                 const userSnap = childSnapshot.val();
+                 const level = userSnap.level < 35 ? "baixo" : userSnap.level < 65 ? "medio" : "alto";
+                 const age = (new Date().getFullYear() - userSnap.birthYear);
+                 if (userSnap.doc !== '') {
                      dataPieChart[level]++;
-                     if (level == "alto") {
-                         if (user.gender == "F")
-                             female++;
-                         else
-                             male++
-                             user.birthYear < 16 ? kids++ : user.birthYear < 21 ? teenager++ : user.birthYear < 65 ? young++ : adult++;
-                     }
-
+                     if (userSnap.gender == "F")
+                         female++;
+                     else
+                         male++
+                         age < 16 ? kids++ : age < 21 ? teenager++ : age < 65 ? young++ : adult++;
                  }
+
              })
              //resultado
 
@@ -360,35 +356,35 @@
          ]));
 
          data.push(google.visualization.arrayToDataTable([
-             ['Nivel', 'Valor'],
-             ['Até 15', kids],
-             ['16 aos 20', teenager],
-             ['21 aos 65', young],
-             ['65 acima', adult]
+             ['Nivel', 'Valor', { role: "style" }],
+             ['Até 15', kids, '#AAAAFF'],
+             ['16 aos 20', teenager, '#7777FF'],
+             ['21 aos 65', young, '#4444FF'],
+             ['65 acima', adult, '#1111FF']
          ]));
 
          data.push(google.visualization.arrayToDataTable([
              ["Genero", "valor", { role: "style" }],
-             ["Homens", male, "#4444ff"],
-             ["Mulheres", female, "#ff4444"]
+             ["Homens", male, "#5555FF"],
+             ["Mulheres", female, "#ff5555"]
          ]));
 
          options.push({
-             title: 'Representação das avaliações no geral',
-             colors: ['#ff4444', '#ffff44', '#44ff44'],
+             title: 'AVALIAÇÕES EM GERAL',
+             colors: ['#ff4444', '#DDDD44', '#44ff44'],
              backgroundColor: '#E4E4E4',
              legend: 'Representação dos testes no Geral'
          });
 
          options.push({
-             title: 'Representação das avaliações por idades',
+             title: 'AVALIAÇÕES POR IDADES',
              colors: ['#ff0000', '#00ff00', '#0000ff'],
              backgroundColor: '#E4E4E4',
              legend: 'none'
          });
 
          options.push({
-             title: 'Representação dos testes por gênero',
+             title: 'AVALIAÇÕES POR GÊNERO',
              colors: ['#ff0000', '#00ff00', '#0000ff'],
              backgroundColor: '#E4E4E4',
              legend: 'none'

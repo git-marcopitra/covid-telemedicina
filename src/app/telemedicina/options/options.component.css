@@ -1,0 +1,62 @@
+.options {
+    display: flex;
+    justify-content: space-around;
+    align-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+    order: 0;
+}
+
+.option {
+    display: flex;
+    height: 20rem;
+    margin: 1rem 1rem;
+    min-width: 290px;
+    width: calc(45% - 2rem);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgb(0, 0, 0, .5);
+}
+
+.option:hover .option-mask {
+    margin-left: -2%;
+}
+
+.option:hover .option-face {
+    margin-right: -98%;
+}
+
+.option-mask,
+.option-face {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: all 200ms;
+    cursor: pointer;
+}
+
+.option-mask {
+    padding: 2rem 3rem;
+    margin-left: -98%;
+    background-color: var(--primary-color);
+}
+
+.option-face {
+    padding: 2rem;
+    margin-right: -2%;
+    background-color: var(--background-color-2);
+}
+
+.mask-icon {
+    font-size: 5rem;
+    padding-right: 1rem;
+}
+
+.option-desc {
+    width: 100%;
+}
