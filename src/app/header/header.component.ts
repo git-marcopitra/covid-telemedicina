@@ -25,8 +25,8 @@ export class HeaderComponent implements OnInit {
     this.logged = this.userService.getState();
     if(this.logged === true && this.modalService.firstTime && this.welcome){
       this.welcome = false
+      this.changeModal('none')
       if(this.userService.redirectUrl != ''){
-        this.changeModal('none')
         let url = this.userService.redirectUrl
         this.userService.redirectUrl = ''
         this.router.navigate([url])
