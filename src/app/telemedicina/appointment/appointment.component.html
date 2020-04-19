@@ -22,7 +22,18 @@
 </section>
 
 <section class="appointment" *ngIf="!wait && able">
-    <p> As suas informações são privadas</p>
-    Você já é portador de alguma doença?
+    <p class="warning"> As suas informações são privadas</p>
+    <br />
+    <form class="sickForm" [formGroup]="sickForm" (ngSubmit)="onSubmit()">
+        <label class="check-item-block"> Alguma doença pre-existe.
+            <input type="checkbox" formControlName="sick">
+            <span class="checkmark"></span>
+        </label>
+        <label for="sickName" *ngIf="fc.sickName.value.length > 0">Nome da doença pre-existente</label>
+        <input type="text" id="sickName" formControlName="sickName" placeholder="Nome da doença pre-existente" *ngIf="fc.sick.value">
+        <label for="comment" *ngIf="fc.commentvalue.length > 0"> Diga alguma coisa mais... </label>
+        <input type="text" id="comment" formControlName="comment" placeholder="Diga alguma coisa mais...">
+
+    </form>
 
 </section>

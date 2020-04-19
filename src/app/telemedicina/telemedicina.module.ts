@@ -7,13 +7,15 @@ import { HeaderComponent } from './header/header.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ResumeComponent } from './resume/resume.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [OptionsComponent, HeaderComponent, CalendarComponent, AppointmentComponent, ResumeComponent],
   imports: [
     CommonModule,
-    TelemedicinaRoutingModule
+    TelemedicinaRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class TelemedicinaModule { }

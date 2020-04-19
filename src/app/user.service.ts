@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { UserCredential, User,Test } from './user';
-import { RouterStateSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 declare function login(email:string, password: string): any;
-declare function googleLogin(): any;
 declare function logup(user: User): any;
 declare function googleLogup(): any;
 declare function logout(): any;

@@ -21,16 +21,16 @@ export interface User {
 
 export interface Test{
     travel: boolean;
-     people: boolean;
-     covid: boolean;
-     febre: boolean;
-     tosse: boolean;
-     fadiga: boolean;
-     respiracao: boolean; 
-     garganta: boolean;
-     calafrios: boolean;
-     corpo: boolean; 
-     cabeca: boolean;
-     coriza:boolean;
-     espirros: boolean;
+    people: boolean;
+    covid: boolean;
+    febre: boolean;
+    tosse: boolean;
+    fadiga: boolean;
+    respiracao: boolean; 
+    garganta: boolean;
+    calafrios: boolean;
+    corpo: boolean; 
+    cabeca: boolean;
+    coriza:boolean;
+    espirros: boolean;
 }
