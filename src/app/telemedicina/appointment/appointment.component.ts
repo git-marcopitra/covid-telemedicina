@@ -19,7 +19,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest())
+   
   }
 
   ngDoCheck() {
