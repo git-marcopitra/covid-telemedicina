@@ -15,4 +15,8 @@ export class ResumeComponent implements OnInit {
     CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest())
   }
 
+  downloadResume(){
+    
+  }
+
 }

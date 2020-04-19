@@ -1,0 +1,38 @@
+.download-resume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.paper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 7px solid var(--font-color-3);
+    height: 500px;
+    width: 300px;
+    border-radius: 15px 75px 15px 15px;
+}
+
+.pdf {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    width: 150px;
+    height: 150px;
+    flex-direction: column;
+    text-align: center;
+    border: 5px solid var(--font-color-3);
+    border-style: dotted;
+    cursor: pointer;
+    background-color: var(--background-color-3);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, .3);
+    border-radius: 75px;
+}
+
+.pdf i {
+    font-size: 3rem;
+    padding: 1rem;
+}
