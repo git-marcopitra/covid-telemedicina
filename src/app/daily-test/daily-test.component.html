@@ -6,7 +6,7 @@
     </aside>
     <aside class="test-right">
         <div class="test-phases">
-            <div class="test-phase" *ngIf="phase == 0">
+            <div class="test-phase" *ngIf="phase == 0 && !wait">
                 <h1 class="color-primary"> Seja bem-vindo ao teste de COVID-19 </h1><br />
                 <div class="test-phase-text">Para continuar o teste vamos precisar de: <br /><br />
                     <ul>
@@ -20,8 +20,19 @@
                     <button class="button-primary" (click)="firstPhase()">Continuar</button>
                 </div>
             </div>
+            <h2 class="color-primary" *ngIf="phase == 0 && wait"> Verificando informações </h2>
+            <div class="process" *ngIf="phase == 0 && wait">
+                <span class="progressing">
+                <span class="bubble"></span>
+                <span class="bubble-group">
+                    <span class="bubble"></span>
+                <span class="bubble"></span>
+                </span>
+                <span class="bubble"></span>
+                </span>
+            </div>
             <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
-                <div class="test-phase" *ngIf="phase == 1">
+                <div class="test-phase" *ngIf="phase == 1 && !wait">
                     <h2 class="color-primary"> Informações pessoais </h2>
                     <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
                     <select id="gender" formControlName="gender" class="field">

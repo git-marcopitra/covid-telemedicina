@@ -52,11 +52,13 @@ export class DailyTestComponent implements OnInit {
 
   ngDoCheck(): void {
     if(!this.checkPhase){
+      this.wait = true
       this.user = this.userService.getCurrentUser()
-      if(this.user !== undefined){
+      if(this.user !== undefined && this.user !== null && this.user.doc !== undefined){
         this.checkPhase = true
         if(this.user.doc.length > 0){
           this.phase = 2
+          this.wait = false
         }
       }
     }
