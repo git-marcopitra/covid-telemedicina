@@ -18,7 +18,6 @@ import { HeaderComponent } from './header/header.component';
 import { DailyTestComponent } from './daily-test/daily-test.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from './map/map.component';
-import { TelemedicinaComponent } from './telemedicina/telemedicina.component';
 import { TelemedicinaModule } from './telemedicina/telemedicina.module';
 import { ModalProfileComponent } from './modal-profile/modal-profile.component';
 import { ModalPasswordRescueComponent } from './modal-password-rescue/modal-password-rescue.component';
@@ -42,7 +41,6 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     DailyTestComponent,
     MapComponent,
-    TelemedicinaComponent,
     ModalProfileComponent,
     ModalPasswordRescueComponent,
     ToFixedPipe,

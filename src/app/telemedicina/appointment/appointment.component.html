@@ -1,2 +1,28 @@
 <app-header></app-header>
-<p>appointment works!</p>
+<h2 class="main-title color-primary"> Marcação de Consultas </h2>
+
+
+<div class="wait" *ngIf="wait">
+    <div class="process">
+        <span class="progressing">
+        <span class="bubble"></span>
+        <span class="bubble-group">
+            <span class="bubble"></span>
+        <span class="bubble"></span>
+        </span>
+        <span class="bubble"></span>
+        </span>
+    </div>
+</div>
+
+<section class="not-able" *ngIf="!wait && !able">
+    <i class="color-primary sad-emo fal fa-sad-tear"></i><br /><br />
+    <p>Você ainda não fez o seu teste de COVID-19</p><br/>
+    <button class="button-primary" routerLink="/dailytest"> Faça já o teste </button>
+</section>
+
+<section class="appointment" *ngIf="!wait && able">
+    <p> As suas informações são privadas</p>
+    Você já é portador de alguma doença?
+
+</section>

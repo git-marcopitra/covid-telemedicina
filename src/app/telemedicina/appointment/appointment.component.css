@@ -1,0 +1,23 @@
+.sad-emo {
+    font-size: 15rem;
+}
+
+.not-able,
+.appointment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wait {
+    position: absolute;
+    top: 5rem;
+    bottom: 300px;
+    right: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}

@@ -41,3 +41,9 @@
 .selected {
     display: none;
 }
+
+.item-group {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 4.5rem;
+}
