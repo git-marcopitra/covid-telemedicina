@@ -278,12 +278,11 @@
      return firebase.firestore().collection("consultas").add({
          test: test,
          user: user,
-         year: date.getFullYear(),
-         month: date.getMonth(),
-         day: date.getDay(),
-         hour: date.getHours(),
-         minute: date.getMinutes(),
-         done: false
+         dateInit: date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear(),
+         dateClose:'-/-/-',
+         observador: '-',
+         done: false,
+         motivo: test.result<35? "Sintomas leves": test.result<65? "Alguns sintomas":"Avaliação sintomática alta"
      });
 
  }
