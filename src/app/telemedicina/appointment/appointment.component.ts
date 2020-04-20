@@ -31,7 +31,7 @@ export class AppointmentComponent implements OnInit {
   ngDoCheck() {
     if(this.able === undefined) {
       this.patient =  this.userService.getCurrentUser()
-      this.able = (this.patient === undefined || this.patient === null) || this.patient.doc === undefined ? undefined : this.patient.doc.length > 0
+      this.able = this.patient === undefined || this.patient === null || this.patient.doc === undefined || this.patient.doc === null ? undefined : this.patient.doc.length > 0
     } else {
       this.wait = false
     }

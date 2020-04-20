@@ -29,9 +29,9 @@
             <span class="checkmark"></span>
         </label>
         <label for="sickName" *ngIf="fc.sickName.value.length > 0">Nome da doença pre-existente</label>
-        <input type="text" id="sickName" formControlName="sickName" placeholder="Nome da doença pre-existente" *ngIf="fc.sick.value">
-        <label for="comment" *ngIf="fc.commentvalue.length > 0"> Diga alguma coisa mais... </label>
-        <input type="text" id="comment" formControlName="comment" placeholder="Diga alguma coisa mais...">
+        <input class="field" type="text" id="sickName" formControlName="sickName" placeholder="Nome da doença pre-existente" *ngIf="fc.sick.value">
+        <label for="comment" *ngIf="fc.commentvalue.length > 0"> Alguma a acrescentar? </label>
+        <input class="field" type="text" id="comment" formControlName="comment" placeholder="Alguma a acrescentar?">
 
     </form>
 
