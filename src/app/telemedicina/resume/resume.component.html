@@ -3,8 +3,19 @@
 <section class="download-resume">
     <div class="paper">
         <div class="pdf" (click)="downloadResume()">
-            <i class="fal fa-download"></i>
-            <p>BAIXAR</p>
+            <div class="process" *ngIf="wait">
+                <span class="progressing">
+                <span class="bubble"></span>
+                <span class="bubble-group">
+                    <span class="bubble"></span>
+                <span class="bubble"></span>
+                </span>
+                <span class="bubble"></span>
+                </span>
+            </div>
+
+            <i class="fal fa-download" *ngIf="!wait"></i>
+            <p *ngIf="!wait">BAIXAR</p>
         </div>
     </div>
 </section>

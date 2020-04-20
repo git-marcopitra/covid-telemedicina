@@ -9,14 +9,21 @@ declare function CreatePDF(user:User,test:Test): any;
 })
 export class ResumeComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  wait: boolean
 
-  ngOnInit(): void {
-    
+  constructor(private userService: UserService) { 
+    this.wait = false;
   }
 
-  downloadResume(){
-    CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest())
+  ngOnInit(): void {
+  }
+
+  async downloadResume(){
+    this.wait = true
+    if(await CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest()))
+      this.wait = false
+    else
+      this.wait = false 
   }
 
 }
