@@ -14,6 +14,7 @@ export class CalendarComponent implements OnInit {
 
 
   ngOnInit(): void {
+   
   }
   async getAllConsultas(){
     await getConsulta(this.userService.getCurrentUser().uid).then((querySnapshot) => {
@@ -21,7 +22,7 @@ export class CalendarComponent implements OnInit {
           console.log("nao tem consulta")
       }else{
        querySnapshot.forEach((doc) => { 
-        console.log("tem consulta")
+        console.log(doc.data().motivo+" "+doc.data().dateInit+" "+doc.data().dateClose+" "+doc.data().observador+" "+doc.data().done)
 
        } 
        );
