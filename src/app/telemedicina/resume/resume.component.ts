@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User,Test } from 'src/app/user';
+import { User,Test,AppointmentData } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
-declare function CreatePDF(user:User,test:Test): any;
+declare function CreatePDF(user:User,test:Test,details:AppointmentData): any;
 @Component({
   selector: 'app-resume',
   templateUrl: './resume.component.html',
@@ -19,11 +19,14 @@ export class ResumeComponent implements OnInit {
   }
 
   async downloadResume(){
-    this.wait = true
-    if(await CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest()))
+    
+    if(this.userService.getAppointmentData()){
+      this.wait = true
+    if(await CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest(),this.userService.getAppointmentData()))
       this.wait = false
     else
       this.wait = false 
+    }
   }
 
 }

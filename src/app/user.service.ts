@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserCredential, User,Test } from './user';
+import { UserCredential, User,Test,AppointmentData } from './user';
 import { Router } from '@angular/router';
 
 declare function login(email:string, password: string): any;
@@ -22,6 +22,7 @@ export class UserService {
   logged: boolean
   redirectUrl = ''
   test: Test
+  details:AppointmentData
   constructor(private router: Router) {
     this.session()
   }
@@ -136,5 +137,11 @@ export class UserService {
 
   getLastTest():Test{
     return this.test
+  }
+  setAppointmentData(details: AppointmentData){
+  this.details=details
+  }
+  getAppointmentData(): AppointmentData{
+    return this.details
   }
 }

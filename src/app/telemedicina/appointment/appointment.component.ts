@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User,Test } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
 import { FormBuilder } from '@angular/forms';
-declare function setConsulta(user:User,test:Test): any;
+declare function setConsulta(user:User,test:Test,outros:any): any;
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
@@ -39,20 +39,22 @@ export class AppointmentComponent implements OnInit {
     }
   }
 
-  async setConsulta(){
-    await setConsulta(this.userService.getCurrentUser(),this.userService.getLastTest()).then(result=>{
-     
-      }).catch(error=>{
-        
-      })
-  }
+  
   async onSubmit() {
     let appointmentData = {
-      preSick: this.fc.sick.value ? this.fc.sickName : '',
-      comment: this.fc.comm.value ? this.fc.comment : ''
+      preSick: this.fc.sick.value ? this.fc.sickName.value : '',
+      comment: this.fc.comm.value ? this.fc.comment.value : ''
     }
-    /** 
-    *This @apointmentData will be used to sent to database
-    */
+    this.userService.setAppointmentData(appointmentData)
+    if(this.userService.getLastTest()){
+      
+    await setConsulta(this.userService.getCurrentUser(),this.userService.getLastTest(),appointmentData).then(result=>{
+     
+    }).catch(error=>{
+      
+    })
+  }else{
+    
+  }
   }
 }

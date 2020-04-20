@@ -35,3 +35,8 @@ export interface Test{
     coriza:boolean;
     espirros: boolean;
 }
+
+export interface AppointmentData{
+    preSick: string;
+    comment: string;
+}
