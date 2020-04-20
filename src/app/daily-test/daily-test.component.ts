@@ -145,7 +145,7 @@ export class DailyTestComponent implements OnInit {
     }
     let test: Test
     test={
-      result:this.level,
+      result:this.level.toFixed(3),
     travel: this.fc.travel.value, 
      people: this.fc.people.value, 
      covid: this.fc.covid.value,
