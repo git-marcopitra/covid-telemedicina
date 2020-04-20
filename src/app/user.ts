@@ -20,7 +20,7 @@ export interface User {
 }
 
 export interface Test{
-    result: string;
+    result: number;
     travel: boolean;
     people: boolean;
     covid: boolean;

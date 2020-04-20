@@ -407,7 +407,7 @@
     var age=date.getFullYear()-user.birthYear;
     var phone=user.phone;
     var email=user.email;
-    var result=test.result;
+    var result=test.result.toFixed(3);
     var data=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
 
     
