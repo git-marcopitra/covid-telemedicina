@@ -12,11 +12,10 @@ export class ResumeComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest())
   }
 
   downloadResume(){
-    
+    CreatePDF(this.userService.getCurrentUser(),this.userService.getLastTest())
   }
 
 }

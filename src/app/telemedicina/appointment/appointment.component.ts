@@ -16,6 +16,7 @@ export class AppointmentComponent implements OnInit {
   sickForm = this.fb.group({
     sick: [''],
     sickName: [''],
+    comm: [''],
     comment: ['']
   })
 
@@ -32,7 +33,7 @@ export class AppointmentComponent implements OnInit {
   ngDoCheck() {
     if(this.able === undefined) {
       this.patient =  this.userService.getCurrentUser()
-      this.able = this.patient === undefined || this.patient === null || this.patient.doc === undefined || this.patient.doc === null ? undefined : this.patient.doc.length > 0
+      this.able = (this.patient === undefined || this.patient === null || this.patient.doc === undefined || this.patient.doc === null) ? undefined : this.patient.doc > ''
     } else {
       this.wait = false
     }
@@ -45,5 +46,13 @@ export class AppointmentComponent implements OnInit {
         
       })
   }
-  onSubmit() {}
+  async onSubmit() {
+    let appointmentData = {
+      preSick: this.fc.sick.value ? this.fc.sickName : '',
+      comment: this.fc.comm.value ? this.fc.comment : ''
+    }
+    /** 
+    *This @apointmentData will be used to sent to database
+    */
+  }
 }

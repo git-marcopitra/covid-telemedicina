@@ -326,6 +326,14 @@ h1 {
     color: var(--warning-color);
 }
 
+.warning-box {
+    background-color: var(--warning-color);
+    color: var(--background-color-1);
+    padding: .5rem;
+    font-size: .9rem;
+    border-radius: 5px;
+}
+
 .enphase {
     color: var(--primary-color);
 }
