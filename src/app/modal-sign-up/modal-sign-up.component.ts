@@ -23,8 +23,8 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
       Validators.required
     ])],
     phone: ['', Validators.compose([
-      Validators.minLength(9),
-      Validators.required
+      Validators.required,
+      Validators.pattern(/^(\+244)?[9]([12349])([0-9]){7}$/)
     ])],
     password: ['', Validators.compose([
       Validators.minLength(8),

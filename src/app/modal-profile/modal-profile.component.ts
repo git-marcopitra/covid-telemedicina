@@ -22,7 +22,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
   profileForm = this.fb.group({
     name: ['', Validators.minLength(2)],
     email: ['', Validators.email],
-    phone: ['', Validators.minLength(9)]
+    phone: ['', Validators.pattern(/^(\+244)?[9]([12349])([0-9]){7}$/)]
   })
   alter: boolean;
 

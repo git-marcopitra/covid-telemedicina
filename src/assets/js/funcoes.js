@@ -281,7 +281,7 @@
          dateClose: '-/-/-',
          observador: '-',
          done: false,
-         motivo: test.result < 35 ? "Sintomas leves" : test.result < 65 ? "Alguns sintomas" : "Avaliação sintomática alta",
+         motivo: test.result < 35 ? "Probabilidade baixa" : test.result < 65 ? "Probabilidade média" : "Probabilidade alta",
          detalhes:outro
      });
 

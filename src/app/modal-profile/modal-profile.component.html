@@ -15,6 +15,7 @@
             </span>
             <span class="bubble"></span>
             </span>
+
         </div>
 
         <form class="modal-content" [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!wait">
@@ -26,7 +27,7 @@
             <input type="text" placeholder="Email" id="signup-email" [value]="user.email" disabled formControlName="email" class="field">
 
             <label for="signup-phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
-            <input type="text" placeholder="Número de Telefone" id="signup-phone" [value]="user.phone" formControlName="phone" class="field">
+            <input type="text" placeholder="Número de Telefone"  onKeyPress="if(this.value.length==13) return false;" id="signup-phone" [value]="user.phone" formControlName="phone" class="field">
 
             <div class="modal-buttons">
                 <button type="submit" class="modal-button button-primary" [disabled]="!profileForm.valid"> Confirmar </button>

@@ -26,7 +26,7 @@
             <input type="text" placeholder="Email" id="email" formControlName="email" class="field" [class.errorField]="error.email" (blur)="checkError($event, fc.email.invalid)" (keyup)="cleanError($event)">
 
             <label for="phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
-            <input type="text" placeholder="Número de Telefone" id="phone" formControlName="phone" class="field" [class.errorField]="error.phone" (blur)="checkError($event, fc.phone.invalid)" (keyup)="cleanError($event)">
+            <input type="text" onKeyPress="if(this.value.length==13) return false;" placeholder="Número de Telefone" id="phone" formControlName="phone" class="field" [class.errorField]="error.phone" (blur)="checkError($event, fc.phone.invalid)" (keyup)="cleanError($event)">
 
             <label for="password" *ngIf="fc.password.value != ''">Palavra-passe</label>
             <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="password" [class.errorField]="error.password" (blur)="checkError($event, fc.password.invalid)" (keyup)="cleanError($event)">
