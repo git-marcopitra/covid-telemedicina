@@ -24,15 +24,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let consult of consults; index">
-                <td style="top: -10px; z-index:-1">
-                    1
-                </td>
-                <td style="top: -10px; z-index:-1">Teste sintomático alto</td>
-                <td style="top: -10px; z-index:-1">27/03/2020</td>
-                <td style="top: -10px; z-index:-1">05/04/2020</td>
-                <td style="top: -10px; z-index:-1">Dr. Edson Cassindala</td>
-                <td style="top: -10px; z-index:-1">Concluida</td>
+            <tr *ngFor="let consult of consults; index as i">
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{i+1}}</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">Teste sintomático alto</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">27/03/2020</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">05/04/2020</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">Dr. Edson Cassindala</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">Concluida</td>
             </tr>
             <tr *ngIf="!hasConsult">
                 <td style="top: -10px; z-index:-3" colspan="6"> Não foram encontradas consultas</td>

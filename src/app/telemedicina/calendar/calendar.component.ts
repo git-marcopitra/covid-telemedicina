@@ -22,13 +22,13 @@ export class CalendarComponent implements OnInit {
   }
 
   async ngDoCheck() {
-   if(this.wait){
+   if(this.wait === true){
       let user = this.userService.getCurrentUser()
-      console.log("Condition ::::: ", (user === null || user === undefined || user.uid === undefined))
-      /*if(!(user === null || user === undefined || user.uid === undefined) ){
-        await this.getTable(user.uid)
+      console.log("User ::::: ", user, "User UID ::::: ",  user.uid)
+      if(user.uid !== undefined){
+        //await this.getTable(user.uid) //The bug is here
         this.wait = false
-      }*/
+      }
     }
   }
 
