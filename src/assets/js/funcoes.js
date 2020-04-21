@@ -122,14 +122,14 @@
  }
 
  // função para Registar Utilizador
- function logup(user) {
-     firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(error => {
+ function logup($user) {
+     firebase.auth().createUserWithEmailAndPassword($user.email, $user.password).catch(error => {
          var errorCode = error.code;
      });
      return firebase.auth().onAuthStateChanged(newUser => {
          if (newUser) {
              currentUser = {
-                 name: user.name,
+                 name: $user.name,
                  gender: '',
                  phone: (newUser.phoneNumber === null) ? 0 : newUser.numberPhone,
                  email: newUser.email,
@@ -145,58 +145,56 @@
              currentUser["uid"] = newUser.uid;
              setUser(currentUser);
              newUser.updateProfile({
-                 displayName: user.name,
+                 displayName: $user.name,
              });
          }
      })
  }
 
- function googleLogup() {
+ async function googleLogup() {
      var provedor = new firebase.auth.GoogleAuthProvider();
-     firebase.auth().signInWithPopup(provedor);
-     return firebase.auth().onAuthStateChanged(user => {
-         console.log("User Getted ::::: ", user)
-         firebase.database().ref('users/' + user.uid).once('value').then(userVer => {
-             console.log("User Verified :::: ", userVer)
+     await firebase.auth().signInWithPopup(provedor);
+     return firebase.auth().onAuthStateChanged($user => {
+         firebase.database().ref('users/' + $user.uid).once('value').then(userVer => {
              if (userVer.val() == null) {
                  currentUser = {
-                     name: user.displayName,
+                     name: $user.displayName,
                      gender: '',
-                     phone: (user.phoneNumber === null) ? 0 : user.numberPhone,
-                     email: user.email,
+                     phone: ($user.phoneNumber === null) ? 0 : $user.phoneNumber,
+                     email: $user.email,
                      birthYear: '',
-                     level: 0,
+                     level: -1,
                      doc: '',
                      geo: {
                          lat: 0,
                          long: 0
                      }
                  }
-                 firebase.database().ref('users/' + user.uid).set(currentUser);
-                 currentUser["uid"] = user.uid;
+                 firebase.database().ref('users/' + $user.uid).set(currentUser);
+                 currentUser["uid"] = $user.uid;
                  setUser(currentUser);
              }
          })
      });
  }
 
- function updateUser(user) {
+ function updateUser($user) {
      firebase.auth().onAuthStateChanged(user1 => {
          if (user1) {
              user1.updateProfile({
-                 displayName: user.name,
+                 displayName: $user.name,
              });
          }
      });
      return firebase.database().ref('users/' + this.user.uid).update({
-         doc: (user.doc == null) ? '' : user.doc,
-         gender: user.gender,
-         phone: user.phone,
-         email: user.email,
-         name: user.name,
-         birthYear: user.birthYear,
-         level: user.level,
-         geo: user.geo
+         doc: ($user.doc == null) ? '' : $user.doc,
+         gender: $user.gender,
+         phone: $user.phone,
+         email: $user.email,
+         name: $user.name,
+         birthYear: $user.birthYear,
+         level: $user.level,
+         geo: $user.geo
      });
  }
 
@@ -204,6 +202,7 @@
 
  // Terminar a Sessão
  function logout() {
+     this.user = {}
      return firebase.auth().signOut();
  }
 
@@ -214,13 +213,13 @@
  }
 
 
- function getAllDataUser() {
-     firebase.auth().onAuthStateChanged(user => {
-         if (user) {
-             this.user["uid"] = user.uid;
+ async function getAllDataUser() {
+     await firebase.auth().onAuthStateChanged($user => {
+         if ($user) {
+             this.user["uid"] = $user.uid;
              firebase.database().ref('/users/' + this.user.uid).once('value').then(snapshot => {
                  currentUser = {
-                     uid: user.uid,
+                     uid: $user.uid,
                      name: snapshot.val().name,
                      gender: snapshot.val().gender,
                      phone: snapshot.val().phone,
@@ -272,12 +271,12 @@
      });
  }
 
- function setConsulta(user, test,outro) {
+ function setConsulta($user, test,outro) {
      var date = new Date();
 
      return firebase.firestore().collection("consultas").add({
          test: test,
-         user: user,
+         user: $user,
          dateInit: date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear(),
          dateClose: '-/-/-',
          observador: '-',
@@ -307,8 +306,8 @@
      return this.user
  }
 
- function setUser(user) {
-     this.user = user
+ function setUser($user) {
+     this.user = $user
  }
 
  //------------------------------------------Estatistica----------------------------------------
@@ -404,7 +403,6 @@
 
  function CreatePDF(user, test,details) {
      if(test==null){
-         
         return false;
      }
      

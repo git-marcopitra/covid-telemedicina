@@ -18,18 +18,18 @@
         </div>
         <form class="modal-content" [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf="!wait">
 
-            <span class="warning">{{error}}</span>
-            <label for="signup-name" *ngIf="fc.name.value != ''">Nome Completo</label>
-            <input type="text" placeholder="Nome Completo" id="signup-name" formControlName="name" class="field">
+            <span class="warning">{{errorS}}</span>
+            <label for="name" *ngIf="fc.name.value != ''">Nome Completo</label>
+            <input type="text" placeholder="Nome Completo" id="name" formControlName="name" class="field" [class.errorField]="error.name" (blur)="checkError($event, fc.name.invalid)" (keyup)="cleanError($event)">
 
-            <label for="signup-email" *ngIf="fc.email.value != ''">Email</label>
-            <input type="text" placeholder="Email" id="signup-email" formControlName="email" class="field">
+            <label for="email" *ngIf="fc.email.value != ''">Email</label>
+            <input type="text" placeholder="Email" id="email" formControlName="email" class="field" [class.errorField]="error.email" (blur)="checkError($event, fc.email.invalid)" (keyup)="cleanError($event)">
 
-            <label for="signup-phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
-            <input type="text" placeholder="Número de Telefone" id="signup-phone" formControlName="phone" class="field">
+            <label for="phone" *ngIf="fc.phone.value != ''">Número de Telefone</label>
+            <input type="text" placeholder="Número de Telefone" id="phone" formControlName="phone" class="field" [class.errorField]="error.phone" (blur)="checkError($event, fc.phone.invalid)" (keyup)="cleanError($event)">
 
-            <label for="signup-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
-            <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="signup-pass">
+            <label for="password" *ngIf="fc.password.value != ''">Palavra-passe</label>
+            <input type="password" placeholder="Palavra-passe" class="field" formControlName="password" id="password" [class.errorField]="error.password" (blur)="checkError($event, fc.password.invalid)" (keyup)="cleanError($event)">
 
             <div class="modal-buttons">
                 <button class="modal-button button-secondary" (click)="changeModal('sign-in')"> Entrar </button>

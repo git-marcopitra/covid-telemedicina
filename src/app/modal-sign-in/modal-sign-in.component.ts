@@ -14,26 +14,32 @@ import { Router } from '@angular/router';
 export class ModalSignInComponent extends ModalComponent implements OnInit {
 
   signinForm = this.fb.group({
-    email: ['', Validators.email],
-    password: ['', Validators.minLength(8)]
+    email: ['', Validators.compose([
+      Validators.email,
+      Validators.required
+    ])],
+    password: ['', Validators.compose([
+      Validators.minLength(8),
+      Validators.required
+    ])]
   })
-  signinErrors = {
-    email: 'Insira um número de identificação válido',
-    password: 'Insira a sua palavra-passe'
+  error = {
+    email: false,
+    password: false
   }
   googleSigninForm = this.fb.group({})
 
   fc: any
   users: any[]
   google: boolean
-  error: string
+  errorS: string
   wait: boolean
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private router: Router) { 
     super(modalService)
     this.fc = this.signinForm.controls
     this.google = true
-    this.error = ''
+    this.errorS = ''
     this.wait = false
   }
 
@@ -58,20 +64,21 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
       }
     } else {
       this.wait = false;
-      this.error = 'Email ou senha inválido'
+      this.errorS = 'Email ou senha inválido'
     }
   }
 
-  cleanError() {
-    this.error = ''
+  cleanError(event:any) {
+    this.errorS = ''
+    this.checkError(event, false)
   }
 
   async googleLogin() {
-    this.wait = true;
-    if(await this.userService.googleSignIn()){
-      this.wait = false;
-      let phone = this.userService.getCurrentUser().phone;
-      if(parseInt(phone) == 0)
+    this.wait = true
+    if(await this.userService.googleSignUp()){
+      this.wait = false
+      let level = this.userService.getCurrentUser().level;
+      if(parseInt(level) == -1)
         this.changeModal('profile')
       else
         this.changeModal('none')
@@ -80,9 +87,10 @@ export class ModalSignInComponent extends ModalComponent implements OnInit {
         this.userService.redirectUrl = ''
         this.router.navigate([url])
       }
-    } else {
-      this.wait = false;
-      this.error = 'Login inválido'
+    }
+    else{
+      this.wait = false
+      this.errorS = "Erro ao cadastrar tente manualmente"
     }
   }
 

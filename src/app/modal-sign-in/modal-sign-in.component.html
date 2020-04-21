@@ -18,11 +18,11 @@
 
         <form class="modal-content" [formGroup]="signinForm" (ngSubmit)="onSubmit()" *ngIf="!wait">
 
-            <p class="warning">{{ error }}</p>
-            <label for="signin-email" *ngIf="fc.email.value != ''">Email</label>
-            <input type="text" placeholder="Email" class="field" id="signin-email" formControlName="email" (keyup)="cleanError()">
-            <label for="signin-pass" *ngIf="fc.password.value != ''">Palavra-passe</label>
-            <input type="password" placeholder="Palavra-passe" id="signin-pass" class="field" formControlName="password" (keyup)="cleanError()">
+            <p class="warning">{{ errorS }}</p>
+            <label for="email" *ngIf="fc.email.value != ''">Email</label>
+            <input type="text" placeholder="Email" class="field" id="email" formControlName="email" [class.errorField]="error.email" (blur)="checkError($event, fc.email.invalid)" (keyup)="cleanError($event)">
+            <label for="password" *ngIf="fc.password.value != ''">Palavra-passe</label>
+            <input type="password" placeholder="Palavra-passe" id="password" class="field" formControlName="password" [class.errorField]="error.password" (blur)="checkError($event, fc.password.invalid)" (keyup)="cleanError($event)">
             <p class="recuver-login" (click)="changeModal('password-rescue')"> Esqueceu a sua senha? <span class="enphase">Recupere</span></p>
             <div class="modal-buttons">
                 <button class="modal-button button-secondary" (click)="changeModal('sign-up')"> Registar </button>

@@ -15,7 +15,7 @@
                     </ul>
                 </div><br />
                 <p class="test-phase-text"> <i class="fas fa-grin-beam laughing"></i> Por favor... seja sincero e salve vidas, o futuro também depende de si. Juntos somos mais fortes.</p><br />
-                <p class="test-phase-text warning">A sua identificação será utilizada apenas por questões de credibilidade, <b>NÃO SERÁ EXPOSTA</b></p>
+                <p class="test-phase-text warning">A sua identificação será utilizada apenas por questões de credibilidade <b class="warning-box">NÃO SERÁ EXPOSTA</b></p>
                 <div class="test-buttons">
                     <button class="button-primary" (click)="firstPhase()">Continuar</button>
                 </div>
@@ -34,19 +34,21 @@
             <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
                 <div class="test-phase" *ngIf="phase == 1 && !wait">
                     <h2 class="color-primary"> Informações pessoais </h2>
+
+                    <p class="warning-box" [class.button-primary]="fc.docId.valid"> Sua identidade será mantida secreta </p><br />
+                    <label for="docId" *ngIf="fc.docId.value !=''"> Número de BI ou Passaporte </label>
+                    <input id="docId" formControlName="docId" placeholder="Número de BI ou Passaporte" [class.errorField]="error.docId" (blur)="checkError($event, fc.docId.invalid)" (keyup)="checkError($event, false)">
+                    <label for="age" *ngIf="fc.age.value != null">Ano De Nascimento</label>
+                    <input type="number" placeholder="Ano De Nascimento" id="age" formControlName="age" class="field" [class.errorField]="error.age" (blur)="checkError($event, fc.docId.invalid)" (keyup)="checkError($event, false)">
                     <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
-                    <select id="gender" formControlName="gender" class="field">
+                    <select id="gender" formControlName="gender" class="field" [class.errorField]="error.gender" (blur)="checkError($event, fc.gender.invalid)" (keyup)="checkError($event, false)">
                         <option value='' selected disabled> Selecione o seu Gênero </option>
                         <option value="M"> Masculino </option>
                         <option value="F"> Feminino </option>
                     </select>
-                    <label for="age" *ngIf="fc.age.value != null">Ano De Nascimento</label>
-                    <input type="number" placeholder="Ano De Nascimento" id="age" formControlName="age" class="field">
-                    <label for="docId" *ngIf="fc.docId.value !=''"> Número de BI ou Passaporte </label>
-                    <input id="docId" formControlName="docId" placeholder="Número de BI ou Passaporte">
                     <div class="test-buttons">
                         <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
-                        <button class="button-primary" (click)="nextPhase()"> Continuar </button>
+                        <button class="button-primary" (click)="nextPhase()" [disabled]="!testForm.valid"> Continuar </button>
                     </div>
                 </div>
                 <div class="test-phase" *ngIf="phase==2">

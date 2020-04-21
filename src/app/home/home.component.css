@@ -5,6 +5,7 @@
     width: 100%;
     flex-wrap: wrap;
     order: 0;
+    padding-bottom: 4rem;
 }
 
 .option {

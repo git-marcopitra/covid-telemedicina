@@ -14,29 +14,53 @@ import { Router } from '@angular/router';
 export class ModalSignUpComponent extends ModalComponent implements OnInit {
 
   signupForm = this.fb.group({
-    name: ['', Validators.minLength(2)],
-    email: ['', Validators.email],
-    phone: ['', Validators.minLength(9)],
-    password: ['', Validators.minLength(8)]
+    name: ['', Validators.compose([
+      Validators.minLength(2),
+      Validators.required
+    ])],
+    email: ['', Validators.compose([
+      Validators.email,
+      Validators.required
+    ])],
+    phone: ['', Validators.compose([
+      Validators.minLength(9),
+      Validators.required
+    ])],
+    password: ['', Validators.compose([
+      Validators.minLength(8),
+      Validators.required
+    ])]
   })
+
+  error = {
+    name: false,
+    email: false,
+    phone: false,
+    password: false
+  }
 
   googleSignUpForm = this.fb.group({})
 
   google: boolean
   wait: boolean
   fc: any
-  error: string
+  errorS: string
 
   constructor(modalService: ModalService, private fb: FormBuilder, private userService: UserService, private router: Router) { 
     super(modalService)
     this.fc = this.signupForm.controls
     this.google = true
     this.wait = false
-    this.error = ''
+    this.errorS = ''
   }
   
   ngOnInit(): void {
   }  
+
+  cleanError(event:any) {
+    this.errorS = ''
+    this.checkError(event, false)
+  }
 
   async onSubmit() {
     this.wait = true
@@ -61,19 +85,16 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     }
     else{
       this.wait = false
-      this.error = "Erro ao cadastrar"
+      this.errorS = "Erro ao cadastrar"
     }
-    
-    
-    
   }
 
   async googleSignUp() {
     this.wait = true
     if(await this.userService.googleSignUp()){
       this.wait = false
-      let phone = this.userService.getCurrentUser().phone;
-      if(parseInt(phone) == 0)
+      let level = this.userService.getCurrentUser().level;
+      if(parseInt(level) == -1)
         this.changeModal('profile')
       else
         this.changeModal('none')
@@ -85,7 +106,7 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     }
     else{
       this.wait = false
-      this.error = "Erro ao cadastrar tente manualmente"
+      this.errorS = "Erro ao cadastrar tente manualmente"
     }
   }
 

@@ -12,11 +12,26 @@ export class DailyTestComponent implements OnInit {
   checkPhase: boolean
   phase: number
   level: number 
-  
+  error = {
+    docId: false,
+    gender: false,
+    age: false
+  }
   testForm = this.fb.group({
     gender: ['', Validators.required],
-    age: [null, Validators.required],
-    docId: ['', Validators.required],
+    age: [null, Validators.compose([
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(4),
+      Validators.min(1900),
+      Validators.max((new Date().getFullYear()))
+    ])],
+    docId: ['', Validators.compose([
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(15),
+      Validators.pattern('((([0-9]{9})+([A-Za-z]{2})+([0-9]{3}))?)+(([A-Za-z][0-9]{7})?)')
+    ])],
     travel: [false],
     people: [false],
     covid: [false],
@@ -56,12 +71,16 @@ export class DailyTestComponent implements OnInit {
       this.user = this.userService.getCurrentUser()
       if(this.user !== undefined && this.user !== null && this.user.doc !== undefined){
         this.checkPhase = true
-        if(this.user.doc.length > 0){
+        this.wait = false
+        if(this.user.doc.length > 0)
           this.phase = 2
-          this.wait = false
-        }
       }
     }
+  }
+
+  checkError (event:any, status: boolean) {
+    const key = event.srcElement.id;
+    this.error[key] = status;
   }
 
   nextPhase(): void {
@@ -146,27 +165,23 @@ export class DailyTestComponent implements OnInit {
     let test: Test
     test={
       result:this.level,
-    travel: this.fc.travel.value, 
-     people: this.fc.people.value, 
-     covid: this.fc.covid.value,
-     febre: this.fc.febre.value,
-     tosse: this.fc.tosse.value, 
-     fadiga: this.fc.fadiga.value, 
-     respiracao: this.fc.respiracao.value, 
-     garganta: this.fc.garganta.value,
-     calafrios: this.fc.calafrios.value,
-     corpo: this.fc.corpo.value, 
-     cabeca: this.fc.cabeca.value, 
-     coriza: this.fc.coriza.value, 
-     espirros: this.fc.espirros.value
+      travel: this.fc.travel.value, 
+      people: this.fc.people.value, 
+      covid: this.fc.covid.value,
+      febre: this.fc.febre.value,
+      tosse: this.fc.tosse.value, 
+      fadiga: this.fc.fadiga.value, 
+      respiracao: this.fc.respiracao.value, 
+      garganta: this.fc.garganta.value,
+      calafrios: this.fc.calafrios.value,
+      corpo: this.fc.corpo.value, 
+      cabeca: this.fc.cabeca.value, 
+      coriza: this.fc.coriza.value, 
+      espirros: this.fc.espirros.value
     }
 
-  
-
- 
     this.userService.setLastTest(test)
-    if(await this.userService.updateThisUser(user)){
-   
+    if(await this.userService.updateThisUser(user)){   
       this.wait = false
     } else {
       this.wait = false

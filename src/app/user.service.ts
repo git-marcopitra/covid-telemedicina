@@ -23,13 +23,14 @@ export class UserService {
   redirectUrl = ''
   test: Test
   details:AppointmentData
+
   constructor(private router: Router) {
     this.session()
   }
 
   async signIn(user: UserCredential) {
-    return await login(user.email, user.password).then(() => { 
-      getAllDataUser()
+    return await login(user.email, user.password).then(async () => { 
+      await getAllDataUser()
         this.logged = true  
         return  true
       }).catch(() => {  
@@ -40,8 +41,8 @@ export class UserService {
  
   async googleSignIn() {
     return await googleLogup()
-    .then(() => { 
-      getAllDataUser()
+    .then(async () => { 
+      await getAllDataUser()
       this.logged = true  
       return  true
       })
@@ -52,7 +53,7 @@ export class UserService {
   
   async signUp(user: User) {
     if(await logup(user)){
-      
+      await getAllDataUser()
       this.logged = true
       return true
     }else{
@@ -62,8 +63,8 @@ export class UserService {
   }
   async updateThisUser(user: User) {
     return await updateUser(user)
-    .then(() => {
-      
+    .then(async () => {
+      await getAllDataUser()
       return true
     }) 
     .catch(()=> {
@@ -73,9 +74,8 @@ export class UserService {
 
   async googleSignUp() {
     return await googleLogup()
-    .then(()=>{
-      
-      getAllDataUser()
+    .then(async ()=>{
+      await getAllDataUser()
         this.logged = true
         return true
       })
@@ -117,16 +117,14 @@ export class UserService {
   async session(){
     return await conectado().onAuthStateChanged(newUser => {
       if (newUser){
-          getDataUser(newUser.uid)
-          
+        getDataUser(newUser.uid)
         this.logged = true
         return true
       }
-          
-    else {
-      this.logged = false
-      return true
-    }
+      else {
+        this.logged = false
+        return true
+      }
     })
 
   }

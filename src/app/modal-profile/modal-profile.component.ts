@@ -41,10 +41,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
   ngDoCheck(): void{
     this.currentModal = this.modalsService.getModal();
     this.user = this.userService.getCurrentUser();
-  }
-
-  ngAfterContentChecked() {
-    if(this.user !== undefined && this.alter){
+    if(this.user !== undefined && this.user !== null && this.alter){
       this.alter = false
       this.profileForm.setValue({
         name: this.user.name,
@@ -52,8 +49,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
         phone: parseInt(this.user.phone) > 0 ? this.user.phone : null 
       })
     }
-  }
-  
+  }  
 
   async onSubmit() {
     this.wait = true
@@ -63,7 +59,7 @@ export class ModalProfileComponent extends ModalComponent implements OnInit {
       name: this.fc.name.value,
       email: this.fc.email.value,
       phone: this.fc.phone.value,
-      level: this.user.level,
+      level: this.user.level == -1 ? 0 : this.user.level,
       doc: this.user.doc,
       gender: this.user.gender,
       birthYear: this.user.birthYear,

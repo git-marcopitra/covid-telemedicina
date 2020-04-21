@@ -38,7 +38,6 @@ export class AppointmentComponent implements OnInit {
       this.wait = false
     }
   }
-
   
   async onSubmit() {
     let appointmentData = {
