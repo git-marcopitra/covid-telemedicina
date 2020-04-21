@@ -19,6 +19,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+   
   }
 
   async ngDoCheck() {
@@ -32,14 +33,25 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  async getTable(uid:string){
-    await getConsulta(uid).then((querySnapshot) => {
+  async getTable(){
+    let a={}
+    await getConsulta(this.userService.getCurrentUser().uid).then((querySnapshot) => {
+     
       if(querySnapshot.size==0) 
           this.hasConsult = false
        else {
-       querySnapshot.forEach((doc) => { 
+        a=querySnapshot;
+       /*querySnapshot.forEach((doc) => { 
         this.consults.push(doc.data())
-       });
+       });*/
+
+       
+      let i=0
+       while(i<a.size){
+        console.log(a.docs[i].data().motivo)
+        i++
+       }
+       
         this.hasConsult = true
       }
    }).catch(() => {

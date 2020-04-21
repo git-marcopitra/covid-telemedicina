@@ -12,7 +12,7 @@ declare function getUser(): any;
 declare function getAllDataUser(): any;
 declare function getDataUser(uid: string): any;
 declare function resetPassword(email: string): any;
-
+declare function setUser(currentUser: any): any;
 
 @Injectable({
   providedIn: 'root'
@@ -115,17 +115,44 @@ export class UserService {
   }
 
   async session(){
-    return await conectado().onAuthStateChanged(newUser => {
+    let uid
+     await conectado().onAuthStateChanged(async newUser => {
       if (newUser){
-        getDataUser(newUser.uid)
-        this.logged = true
-        return true
+       uid=newUser.uid 
+       
+       await getDataUser(uid).once('value').then(snapshot => {
+        if (snapshot.val().name !== null) {
+          this.logged = true
+            let currentUser = {
+                uid: uid,
+                name: snapshot.val().name,
+                gender: snapshot.val().gender,
+                phone: snapshot.val().phone,
+                email: snapshot.val().email,
+                doc: snapshot.val().doc,
+                birthYear: snapshot.val().birthYear,
+                level: snapshot.val().level,
+                geo: snapshot.val().geo
+            }
+            setUser(currentUser)
+            this.logged = true
+        }
+    }).catch(error => {
+        console.log(error)
+    });
       }
       else {
         this.logged = false
-        return true
+        
       }
     })
+
+    
+           
+     
+    
+    
+
 
   }
 

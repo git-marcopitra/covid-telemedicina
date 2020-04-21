@@ -238,24 +238,7 @@
  }
 
  function getDataUser(uid) {
-     firebase.database().ref('/users/' + uid).once('value').then(snapshot => {
-         if (snapshot.val().name !== null) {
-             currentUser = {
-                 uid: uid,
-                 name: snapshot.val().name,
-                 gender: snapshot.val().gender,
-                 phone: snapshot.val().phone,
-                 email: snapshot.val().email,
-                 doc: snapshot.val().doc,
-                 birthYear: snapshot.val().birthYear,
-                 level: snapshot.val().level,
-                 geo: snapshot.val().geo
-             }
-             setUser(currentUser);
-         }
-     }).catch(error => {
-         console.log(error);
-     });
+     return firebase.database().ref('/users/' + uid);
  }
 
 
