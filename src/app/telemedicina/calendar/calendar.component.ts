@@ -9,24 +9,41 @@ declare function getConsulta(uid:string)
 })
 export class CalendarComponent implements OnInit {
 
+  hasConsult: boolean
+  consults: [{}]
+  wait: boolean
+
   constructor(private userService: UserService) { 
+    this.hasConsult = undefined
+    this.wait = true
   }
 
+  ngOnInit() {
+  }
 
-  ngOnInit() {}
+  async ngDoCheck() {
+   if(this.wait){
+      let user = this.userService.getCurrentUser()
+      console.log("Condition ::::: ", (user === null || user === undefined || user.uid === undefined))
+      /*if(!(user === null || user === undefined || user.uid === undefined) ){
+        await this.getTable(user.uid)
+        this.wait = false
+      }*/
+    }
+  }
 
-  async ngAfterContentInit(){
-    console.log("After Content Init")
-    await getConsulta(this.userService.getCurrentUser().uid).then((querySnapshot) => {
-      
-    console.log("Query :::: ", querySnapshot)
-      if(querySnapshot.size==0) {
-          console.log("nao tem consulta")
-      } else {
+  async getTable(uid:string){
+    await getConsulta(uid).then((querySnapshot) => {
+      if(querySnapshot.size==0) 
+          this.hasConsult = false
+       else {
        querySnapshot.forEach((doc) => { 
-        console.log(doc.data().motivo+" "+doc.data().dateInit+" "+doc.data().dateClose+" "+doc.data().observador+" "+doc.data().done)
+        this.consults.push(doc.data())
        });
+        this.hasConsult = true
       }
+   }).catch(() => {
+    this.hasConsult = false
    });
   }
 
