@@ -94,7 +94,7 @@ export class ModalSignUpComponent extends ModalComponent implements OnInit {
     if(await this.userService.googleSignUp()){
       this.wait = false
       let level = this.userService.getCurrentUser().level;
-      if(parseInt(level) == -1)
+      if(level == -1)
         this.changeModal('profile')
       else
         this.changeModal('none')

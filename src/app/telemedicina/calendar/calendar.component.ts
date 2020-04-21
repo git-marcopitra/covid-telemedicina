@@ -13,19 +13,19 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-   
-  }
-  async getAllConsultas(){
+  ngOnInit() {}
+
+  async ngAfterContentInit(){
+    console.log("After Content Init")
     await getConsulta(this.userService.getCurrentUser().uid).then((querySnapshot) => {
-      if(querySnapshot.size==0){
+      
+    console.log("Query :::: ", querySnapshot)
+      if(querySnapshot.size==0) {
           console.log("nao tem consulta")
-      }else{
+      } else {
        querySnapshot.forEach((doc) => { 
         console.log(doc.data().motivo+" "+doc.data().dateInit+" "+doc.data().dateClose+" "+doc.data().observador+" "+doc.data().done)
-
-       } 
-       );
+       });
       }
    });
   }
