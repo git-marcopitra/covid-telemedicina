@@ -27,15 +27,15 @@ export class CalendarComponent implements OnInit {
       let user = this.userService.getCurrentUser()
       console.log("User ::::: ", user, "User UID ::::: ",  user.uid)
       if(user.uid !== undefined){
-        //await this.getTable(user.uid) //The bug is here
+        this.getTable(user.uid) 
         this.wait = false
       }
     }
   }
 
-  async getTable(){
+  async getTable(uid){
     let a={}
-    await getConsulta(this.userService.getCurrentUser().uid).then((querySnapshot) => {
+    await getConsulta(uid).then((querySnapshot) => {
      
       if(querySnapshot.size==0) 
           this.hasConsult = false
@@ -49,6 +49,7 @@ export class CalendarComponent implements OnInit {
       let i=0
        while(i<a.size){
         console.log(a.docs[i].data().motivo)
+        this.consults.push(a.docs[i].data())
         i++
        }
        
