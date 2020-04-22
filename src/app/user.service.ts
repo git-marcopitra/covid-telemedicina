@@ -184,7 +184,8 @@ export class UserService {
               if(querySnapshot.size==0) {  
             }else {
                 querySnapshot.forEach(doc => {
-                  this.test=doc.data().test; 
+                  this.test=doc.data().test
+                  this.details=doc.data().detalhes
                 });    
                 this.logged = true
               }

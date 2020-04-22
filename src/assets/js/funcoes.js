@@ -258,13 +258,10 @@
  }
 
 
- function cancelarConsulta(uid) {
-     firebase.firestore().collection("consultas")
-         .where('user.uid', '==', uid).get().then(function(querySnapshot) {
-             querySnapshot.forEach(function(doc) {
-                 firebase.firestore().collection("consultas").doc(doc.id).delete().then(function() {}).catch(function(error) {});
-             });
-         });
+ function cancelarConsulta(uid,id) {
+  
+                 firebase.firestore().collection("consultas").doc(uid).collection("lista").doc(doc.id).delete().then(function() {}).catch(function(error) {});
+           
  }
  //--------------------------------------Dados utilizador ----------------------------------
  function getUser() {
