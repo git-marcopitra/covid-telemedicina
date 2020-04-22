@@ -14,7 +14,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
-
+ var test = {};
  var user = {};
  var geoJson = {
      "type": "FeatureCollection",
@@ -206,6 +206,7 @@
                      geo: snapshot.val().geo
                  }
                  setUser(currentUser);
+
              }).catch(error => {
                  console.log(error);
              });
@@ -232,7 +233,7 @@
 
  function setConsulta($user, test, outro) {
      var date = new Date();
-     return firebase.firestore().collection("consultas").add({
+     return firebase.firestore().collection("consultas").doc($user.uid).collection("lista").add({
          test: test,
          user: $user,
          dateInit: date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear(),
@@ -240,14 +241,22 @@
          observador: 'Indefinido',
          done: "Pendente",
          motivo: test.result < 35 ? "Probabilidade baixa" : test.result < 65 ? "Probabilidade média" : "Probabilidade alta",
-         detalhes: outro
+         detalhes: outro,
+         times: date.getTime()
      });
 
  }
 
  async function getConsulta(uid) {
-     return await firebase.firestore().collection("consultas").where("user.uid", "==", uid).get();
+
+     return await firebase.firestore().collection("consultas").doc(uid).collection("lista").get();
  }
+
+ function getLastTest(uid) {
+
+     return firebase.firestore().collection("consultas").doc(uid).collection("lista").orderBy("times", "desc").limit(1).get();
+ }
+
 
  function cancelarConsulta(uid) {
      firebase.firestore().collection("consultas")
