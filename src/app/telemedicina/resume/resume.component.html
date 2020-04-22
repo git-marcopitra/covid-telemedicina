@@ -14,8 +14,8 @@
                 </span>
             </div>
 
-            <i class="fal fa-download" *ngIf="!wait"></i>
-            <p *ngIf="!wait">BAIXAR</p>
+            <i [class]="'fal fa-' + icon" *ngIf="!wait"></i>
+            <p *ngIf="!wait">{{ info }}</p>
         </div>
     </div>
 </section>

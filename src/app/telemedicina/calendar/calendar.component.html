@@ -26,7 +26,7 @@
         <tbody>
             <tr *ngFor="let consult of consults; index as i">
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{i+1}}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.motivo}}</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.motivo}}{{ consult.detalhes.preSick != '' ? ' ('+consult.detalhes.preSick+')' : '' }}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.dateInit}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.dateClose}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.observador}}</td>
