@@ -39,14 +39,14 @@ export class CalendarComponent implements OnInit {
       if(querySnapshot.empty) 
           this.hasConsult = false
        else {
-        const a = querySnapshot
-        let i = 0
-        while(i < a.size){
-          console.log(a.docs[i].data().motivo)
-          this.consults.push(a.docs[i].data())
-          i++
-        }
+        querySnapshot.forEach(doc => {
+          this.consults.push(doc.data())
+        });   
+      
         
+      
+       
+       
         this.hasConsult = true
       }
    }).catch(() => {

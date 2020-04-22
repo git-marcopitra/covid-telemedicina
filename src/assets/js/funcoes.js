@@ -154,50 +154,27 @@
  async function googleLogup() {
      var provedor = new firebase.auth.GoogleAuthProvider();
      await firebase.auth().signInWithPopup(provedor);
-     return firebase.auth().onAuthStateChanged($user => {
-         firebase.database().ref('users/' + $user.uid).once('value').then(userVer => {
-             if (userVer.val() == null) {
-                 currentUser = {
-                     name: $user.displayName,
-                     gender: '',
-                     phone: ($user.phoneNumber === null) ? 0 : $user.phoneNumber,
-                     email: $user.email,
-                     birthYear: '',
-                     level: -1,
-                     doc: '',
-                     geo: {
-                         lat: 0,
-                         long: 0
-                     }
-                 }
-                 firebase.database().ref('users/' + $user.uid).set(currentUser);
-                 currentUser["uid"] = $user.uid;
-                 setUser(currentUser);
-             }
-         })
-     });
+     
  }
 
- function updateUser($user) {
-     firebase.auth().onAuthStateChanged(user1 => {
-         if (user1) {
-             user1.updateProfile({
-                 displayName: $user.name,
-             });
-         }
-     });
-     return firebase.database().ref('users/' + this.user.uid).update({
-         doc: ($user.doc == null) ? '' : $user.doc,
-         gender: $user.gender,
-         phone: $user.phone,
-         email: $user.email,
-         name: $user.name,
-         birthYear: $user.birthYear,
-         level: $user.level,
-         geo: $user.geo
-     });
- }
 
+function googleLogup1(){
+    return firebase.auth();
+}
+
+function googleLogup2(){
+return firebase.database();
+}
+
+
+
+ function updateUser() {
+     return firebase.auth();
+     
+ }
+function updateUser1(){
+    return firebase.database();
+}
 
 
  // Terminar a Sessão
@@ -229,6 +206,7 @@
                      level: snapshot.val().level,
                      geo: snapshot.val().geo
                  }
+                 console.log(currentUser.uid)
                  setUser(currentUser);
              }).catch(error => {
                  console.log(error);

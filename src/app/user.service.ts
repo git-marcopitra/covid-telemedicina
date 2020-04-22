@@ -5,8 +5,11 @@ import { Router } from '@angular/router';
 declare function login(email:string, password: string): any;
 declare function logup(user: User): any;
 declare function googleLogup(): any;
+declare function googleLogup1(): any;
+declare function googleLogup2(): any;
 declare function logout(): any;
-declare function updateUser(User: any): any;
+declare function updateUser(): any;
+declare function updateUser1(): any;
 declare function conectado(): any;
 declare function getUser(): any;
 declare function getAllDataUser(): any;
@@ -62,22 +65,66 @@ export class UserService {
 
   }
   async updateThisUser(user: User) {
-    return await updateUser(user)
-    .then(async () => {
-      await getAllDataUser()
-      return true
-    }) 
-    .catch(()=> {
-      return false
-    })
+    return await updateUser().onAuthStateChanged(async user1 => {
+      if (user1) {
+       
+        
+
+          user1.updateProfile({
+              displayName: user.name
+          })
+          let currentUser={
+            doc: (user.doc == null) ? '' : user.doc,
+            gender: user.gender,
+            phone: user.phone== null? '':user.doc,
+            email: user.email,
+            name: user.name,
+            birthYear: user.birthYear,
+            level: user.level,
+            geo: user.hasOwnProperty('geo.long')? user.geo: {lat:0,long:0}
+        }
+        
+          await updateUser1().ref('users/' + user1.uid).update(currentUser).then(()=>{
+            currentUser["uid"]=user1.uid
+            setUser(currentUser)
+        return true
+        })
+      }else{
+        return false
+      }
+  })
+    
   }
 
   async googleSignUp() {
     return await googleLogup()
     .then(async ()=>{
-      await getAllDataUser()
-        this.logged = true
-        return true
+      await googleLogup1().onAuthStateChanged( async $user => {
+        if ($user) {
+          
+           let currentUser = {
+                name: $user.displayName,
+                gender: '',
+                phone: ($user.phoneNumber === null) ? 0 : $user.phoneNumber,
+                email: $user.email,
+                birthYear: '',
+                level: -1,
+                doc: '',
+                geo: {
+                    lat: 0,
+                    long: 0
+                }
+            };
+           await googleLogup2().ref('users/' + $user.uid).set(currentUser).then(result=>{
+            currentUser["uid"] = $user.uid
+            setUser(currentUser)
+           })
+           this.logged = true
+           return true
+        }
+    })
+      
+        
       })
     .catch(error => {
       console.log(error)
@@ -134,6 +181,7 @@ export class UserService {
                 level: snapshot.val().level,
                 geo: snapshot.val().geo
             }
+            
             setUser(currentUser)
             this.logged = true
         }
