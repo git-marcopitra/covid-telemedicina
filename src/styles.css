@@ -89,7 +89,7 @@ main {
     width: 100vw;
     overflow: hidden;
     max-width: 1440px;
-    min-height: calc(100vh - 20.8rem - 20px);
+    min-height: calc(100vh - 19.8rem - 20px);
 }
 
 .main-content {
