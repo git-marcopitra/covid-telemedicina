@@ -189,8 +189,8 @@ export class UserService {
            await getLastTest(uid).then((querySnapshot) => {
               if(!querySnapshot.empty) {
                 querySnapshot.forEach(doc => {
-                  this.uid = doc.uid;
-                  this.test = doc.data().test; 
+                  this.test=doc.data().test
+                  this.details=doc.data().detalhes
                 });    
                 this.logged = true
               }

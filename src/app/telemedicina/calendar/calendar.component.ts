@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/user.service';
-declare function cancelarConsulta(uid: string);
+declare function cancelarConsulta(uid: string, id:any);
 declare function getConsulta(uid: string);
 @Component({
   selector: 'app-calendar',
@@ -41,7 +41,11 @@ export class CalendarComponent implements OnInit {
         } else {
           querySnapshot.docs.map(doc => {
             console.log('Query Snapshot ::::: ', doc.data());
-            this.consults.push(doc.data());
+            let data={
+              id: doc.id,
+              data: doc.data()
+            }
+            this.consults.push(data);
           });
           console.log('Have Consult');
           this.hasConsult = true;
@@ -54,7 +58,7 @@ export class CalendarComponent implements OnInit {
     this.wait = false;
   }
 
-  cancelarConsulta() {
-    cancelarConsulta(this.userService.getCurrentUser().uid);
+  cancelarConsulta(id) {
+    cancelarConsulta(this.userService.getCurrentUser().uid,id);
   }
 }
