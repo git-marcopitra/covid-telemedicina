@@ -76,7 +76,7 @@ export class UserService {
           let currentUser={
             doc: (user.doc == null) ? '' : user.doc,
             gender: user.gender,
-            phone: user.phone== null? '':user.doc,
+            phone: user.phone== null? '':user.phone,
             email: user.email,
             name: user.name,
             birthYear: user.birthYear,
@@ -118,13 +118,11 @@ export class UserService {
            await googleLogup2().ref('users/' + $user.uid).set(currentUser).then(result=>{
             currentUser["uid"] = $user.uid
             setUser(currentUser)
-           })
-           this.logged = true
-           return true
+            this.logged = true
+            return true
+           })  
         }
-    })
-      
-        
+    })    
       })
     .catch(error => {
       console.log(error)
