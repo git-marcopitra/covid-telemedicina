@@ -36,23 +36,17 @@ export class CalendarComponent implements OnInit {
   async getTable(uid){
     let a={}
     await getConsulta(uid).then((querySnapshot) => {
-     
-      if(querySnapshot.size==0) 
+      if(querySnapshot.empty) 
           this.hasConsult = false
        else {
-        a=querySnapshot;
-       /*querySnapshot.forEach((doc) => { 
-        this.consults.push(doc.data())
-       });*/
-
-       
-      let i=0
-       while(i<a.size){
-        console.log(a.docs[i].data().motivo)
-        this.consults.push(a.docs[i].data())
-        i++
-       }
-       
+        const a = querySnapshot
+        let i = 0
+        while(i < a.size){
+          console.log(a.docs[i].data().motivo)
+          this.consults.push(a.docs[i].data())
+          i++
+        }
+        
         this.hasConsult = true
       }
    }).catch(() => {
