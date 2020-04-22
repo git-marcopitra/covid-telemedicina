@@ -34,14 +34,15 @@ export class CalendarComponent implements OnInit {
   }
 
   async getTable(uid){
-    let a={}
+   
     await getConsulta(uid).then((querySnapshot) => {
-      if(querySnapshot.empty) 
+      if(querySnapshot.size==0) {
+      
           this.hasConsult = false
-       else {
+    }else {
         querySnapshot.forEach(doc => {
-
-          this.consults.push(doc.data())
+          
+        this.consults.push(doc.data())
           
         });    
         this.hasConsult = true
@@ -55,4 +56,5 @@ export class CalendarComponent implements OnInit {
     cancelarConsulta(this.userService.getCurrentUser().uid)
   }
    
+
 }

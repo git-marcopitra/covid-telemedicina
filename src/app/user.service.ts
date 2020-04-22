@@ -16,7 +16,7 @@ declare function getAllDataUser(): any;
 declare function getDataUser(uid: string): any;
 declare function resetPassword(email: string): any;
 declare function setUser(currentUser: any): any;
-
+declare function getLastTest(uid:any): any;
 @Injectable({
   providedIn: 'root'
 })
@@ -165,7 +165,7 @@ export class UserService {
       if (newUser){
        uid=newUser.uid 
        
-       await getDataUser(uid).once('value').then(snapshot => {
+       await getDataUser(uid).once('value').then( async snapshot => {
         if (snapshot.val().name !== null) {
           this.logged = true
             let currentUser = {
@@ -181,7 +181,18 @@ export class UserService {
             }
             
             setUser(currentUser)
+           await getLastTest(uid).then((querySnapshot) => {
+              if(querySnapshot.size==0) {  
+            }else {
+                querySnapshot.forEach(doc => {
+                  this.test=doc.data().test; 
+                });    
+                this.logged = true
+              }
+           }).catch(() => {
             this.logged = true
+           });
+           
         }
     }).catch(error => {
         console.log(error)
