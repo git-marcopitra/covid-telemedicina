@@ -41,13 +41,10 @@ export class CalendarComponent implements OnInit {
           this.hasConsult = false
        else {
         querySnapshot.forEach(doc => {
+
           this.consults.push(doc.data())
-        });   
-      
-        
-      
-       
-       
+          
+        });    
         this.hasConsult = true
       }
    }).catch(() => {
