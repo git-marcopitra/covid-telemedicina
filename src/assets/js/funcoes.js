@@ -206,7 +206,7 @@ function updateUser1(){
                      level: snapshot.val().level,
                      geo: snapshot.val().geo
                  }
-                 console.log(currentUser.uid)
+                 
                  setUser(currentUser);
              }).catch(error => {
                  console.log(error);
