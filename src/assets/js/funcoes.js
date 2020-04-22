@@ -154,27 +154,26 @@
  async function googleLogup() {
      var provedor = new firebase.auth.GoogleAuthProvider();
      await firebase.auth().signInWithPopup(provedor);
-     
+
  }
 
 
-function googleLogup1(){
-    return firebase.auth();
-}
+ function googleLogup1() {
+     return firebase.auth();
+ }
 
-function googleLogup2(){
-return firebase.database();
-}
-
-
+ function googleLogup2() {
+     return firebase.database();
+ }
 
  function updateUser() {
      return firebase.auth();
-     
+
  }
-function updateUser1(){
-    return firebase.database();
-}
+
+ function updateUser1() {
+     return firebase.database();
+ }
 
 
  // Terminar a Sessão
@@ -206,7 +205,6 @@ function updateUser1(){
                      level: snapshot.val().level,
                      geo: snapshot.val().geo
                  }
-                 
                  setUser(currentUser);
              }).catch(error => {
                  console.log(error);
@@ -234,16 +232,15 @@ function updateUser1(){
 
  function setConsulta($user, test, outro) {
      var date = new Date();
-
      return firebase.firestore().collection("consultas").add({
          test: test,
          user: $user,
          dateInit: date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear(),
-         dateClose: '-/-/-',
-         observador: '-',
-         done: false,
+         dateClose: 'Indeterminado',
+         observador: 'Indefinido',
+         done: "Pendente",
          motivo: test.result < 35 ? "Probabilidade baixa" : test.result < 65 ? "Probabilidade média" : "Probabilidade alta",
-         detalhes:outro
+         detalhes: outro
      });
 
  }

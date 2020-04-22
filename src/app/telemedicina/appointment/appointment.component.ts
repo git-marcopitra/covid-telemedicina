@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User,Test } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 declare function setConsulta(user:User,test:Test,outros:any): any;
 @Component({
   selector: 'app-appointment',
@@ -11,7 +12,9 @@ declare function setConsulta(user:User,test:Test,outros:any): any;
 export class AppointmentComponent implements OnInit {
   able: boolean
   wait: boolean
+  action: string
   patient: User
+  submitText: string
   fc:any
   sickForm = this.fb.group({
     sick: [''],
@@ -20,10 +23,12 @@ export class AppointmentComponent implements OnInit {
     comment: ['']
   })
 
-  constructor(private fb: FormBuilder, private userService: UserService) { 
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { 
     this.able = undefined
     this.wait = true
     this.fc = this.sickForm.controls
+    this.submitText = "Marcar Consulta"
+    this.action = "consult"
   }
 
   ngOnInit(): void {
@@ -40,20 +45,31 @@ export class AppointmentComponent implements OnInit {
   }
   
   async onSubmit() {
-    let appointmentData = {
-      preSick: this.fc.sick.value ? this.fc.sickName.value : '',
-      comment: this.fc.comm.value ? this.fc.comment.value : ''
+    if(this.action == "consult"){
+      console.log("Submiting...")
+      this.submitText = "Aguarde..."
+      let appointmentData = {
+        preSick: this.fc.sick.value ? this.fc.sickName.value : '',
+        comment: this.fc.comm.value ? this.fc.comment.value : ''
+      }
+      this.userService.setAppointmentData(appointmentData)
+      if(this.userService.getLastTest()){
+        await setConsulta(this.userService.getCurrentUser(),this.userService.getLastTest(),appointmentData)
+        .then(() =>{
+          this.action = "show"
+          this.submitText = "Consulta Marcada, Ver Consulta"
+        })
+        .catch(() => {
+          this.submitText = "Erro! tente noutra altura"
+        })
+      } else {
+        this.submitText = "Tem que fazer um teste Antes"
+        this.action = "test"
+      }
+    } else if(this.action == "test") {
+      this.router.navigate(['/dailytest'])
+    } else if(this.action == "show") {
+      this.router.navigate(['/telemedicina/calendar'])
     }
-    this.userService.setAppointmentData(appointmentData)
-    if(this.userService.getLastTest()){
-      
-    await setConsulta(this.userService.getCurrentUser(),this.userService.getLastTest(),appointmentData).then(result=>{
-     
-    }).catch(error=>{
-      
-    })
-  }else{
-    
-  }
   }
 }

@@ -36,7 +36,7 @@
         </label>
         <label for="comment" *ngIf="fc.comment.value.length > 0"> Alguma a acrescentar? </label>
         <input class="field" type="text" id="comment" formControlName="comment" placeholder="Alguma a acrescentar?" *ngIf="fc.comm.value">
-        <button type="submit" class="field button-primary">Marcar a consulta</button>
+        <button type="submit" class="w-100 button-primary">{{submitText}}</button>
     </form>
 
 </section>

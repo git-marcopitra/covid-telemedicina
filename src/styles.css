@@ -335,6 +335,14 @@ h1 {
     text-align: center;
 }
 
+.w-100 {
+    width: 100%;
+}
+
+.errorField {
+    border: 2px solid var(--warning-color);
+}
+
 .enphase {
     color: var(--primary-color);
 }
@@ -475,8 +483,4 @@ h1 {
 
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(49, 49, 49, 0.2);
-}
-
-.errorField {
-    border: 2px solid var(--warning-color);
 }
