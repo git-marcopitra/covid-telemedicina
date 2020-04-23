@@ -46,9 +46,10 @@
                         <option value="M"> Masculino </option>
                         <option value="F"> Feminino </option>
                     </select>
+                    <button type="button" *ngIf="geoLocationGetted === false" class="button-facebook w-100" (click)="findMe()"> Permitir Localização </button>
                     <div class="test-buttons">
                         <button class="button-secondary" (click)="prevPhase()"> Voltar </button>
-                        <button class="button-primary" (click)="nextPhase()" [disabled]="!testForm.valid"> Continuar </button>
+                        <button class="button-primary" (click)="nextPhase()" [disabled]="!testForm.valid || !geoLocationGetted"> Continuar </button>
                     </div>
                 </div>
                 <div class="test-phase" *ngIf="phase==2">

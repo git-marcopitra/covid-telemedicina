@@ -30,5 +30,4 @@ export class ModalComponent {
     console.log('Key :::: ', key, ' Status :::: ', status)
     this.error[key] = status;
   }
-
 }

@@ -53,6 +53,7 @@ export class DailyTestComponent implements OnInit {
   }
   user: User
   fc: any
+  geoLocationGetted: boolean;
   wait: boolean;
 
   constructor(private fb: FormBuilder, private userService: UserService) { 
@@ -60,6 +61,7 @@ export class DailyTestComponent implements OnInit {
     this.fc = this.testForm.controls
     this.wait = false
     this.checkPhase = false
+    this.geoLocationGetted = false;
   }
 
   ngOnInit(): void {
@@ -98,12 +100,21 @@ export class DailyTestComponent implements OnInit {
 
   findMe() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(position => {
         this.setPosition(position);
       });
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
+
+  }
+
+  revokePermission() {
+    if(navigator.permissions){
+    navigator.permissions.query({name:'geolocation'}).then(result => {
+      console.log(result.state);
+    });
+  }
   }
 
   setPosition(position: any) {
@@ -111,6 +122,7 @@ export class DailyTestComponent implements OnInit {
       lat: position.coords.latitude,
       long: position.coords.longitude
     }
+    this.geoLocationGetted = true;
   }
   async onSubmit() {
     this.nextPhase()
