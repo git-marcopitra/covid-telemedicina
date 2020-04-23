@@ -89,7 +89,7 @@ main {
     width: 100vw;
     overflow: hidden;
     max-width: 1440px;
-    min-height: calc(100vh - 20.8rem - 20px);
+    min-height: calc(100vh - 19.8rem - 20px);
 }
 
 .main-content {
@@ -327,9 +327,10 @@ h1 {
 }
 
 .warning-box {
+    margin: 0 auto;
     background-color: var(--warning-color);
     color: var(--background-color-1);
-    padding: .5rem;
+    padding: .2rem 1rem;
     font-size: .9rem;
     border-radius: 5px;
     text-align: center;

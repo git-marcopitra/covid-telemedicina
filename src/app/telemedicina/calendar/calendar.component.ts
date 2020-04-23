@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit {
     this.wait = false;
   }
 
-  cancelarConsulta() {
+  cancelarConsulta(id) {
     cancelarConsulta(this.userService.getCurrentUser().uid,id);
   }
 }

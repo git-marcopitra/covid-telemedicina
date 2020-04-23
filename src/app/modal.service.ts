@@ -24,13 +24,12 @@ export class ModalService {
   getFirstTime(): boolean {
     return this.firstTime
   }
-
   
   getModals(): string[] {
     return this.modals
   }
+
   noMoreFirstTime(): void {
     this.firstTime = true;
   }
-
 }

@@ -25,8 +25,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let consult of consults; index as i">
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{i+1}}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.motivo}}</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">
+                    <div class="cancel"><i class="fal fa-trash"></i></div>
+                    {{i+1}}
+                </td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.motivo}}{{ consult.data.detalhes.preSick != '' ? ' ('+consult.data.detalhes.preSick+')' : '' }}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.dateInit}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.dateClose}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.observador}}</td>

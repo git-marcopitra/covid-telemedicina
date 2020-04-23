@@ -17,6 +17,8 @@ declare function getDataUser(uid: string): any;
 declare function resetPassword(email: string): any;
 declare function setUser(currentUser: any): any;
 declare function getLastTest(uid:any): any;
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +28,7 @@ export class UserService {
   redirectUrl = ''
   test: Test
   details:AppointmentData
+  uid: string
 
   constructor(private router: Router) {
     this.session()
@@ -34,6 +37,7 @@ export class UserService {
   async signIn(user: UserCredential) {
     return await login(user.email, user.password).then(async () => { 
       await getAllDataUser()
+      this.session()
         this.logged = true  
         return  true
       }).catch(() => {  
@@ -46,6 +50,7 @@ export class UserService {
     return await googleLogup()
     .then(async () => { 
       await getAllDataUser()
+      this.session()
       this.logged = true  
       return  true
       })
@@ -57,6 +62,7 @@ export class UserService {
   async signUp(user: User) {
     if(await logup(user)){
       await getAllDataUser()
+      this.session()
       this.logged = true
       return true
     }else{
@@ -67,9 +73,6 @@ export class UserService {
   async updateThisUser(user: User) {
     return await updateUser().onAuthStateChanged(async user1 => {
       if (user1) {
-       
-        
-
           user1.updateProfile({
               displayName: user.name
           })
@@ -86,6 +89,7 @@ export class UserService {
         
           await updateUser1().ref('users/' + user1.uid).update(currentUser).then(()=>{
             currentUser["uid"]=user1.uid
+            this.uid = user1.uid
             setUser(currentUser)
         return true
         })
@@ -117,6 +121,7 @@ export class UserService {
             };
            await googleLogup2().ref('users/' + $user.uid).set(currentUser).then(result=>{
             currentUser["uid"] = $user.uid
+            this.uid = $user.uid
             setUser(currentUser)
             this.logged = true
             return true
@@ -133,6 +138,7 @@ export class UserService {
   async signOut() {
     return await logout()
     .then(() => {
+      this.uid = null
       this.logged = false
       this.router.navigate(['/home'])
       return true;
@@ -181,8 +187,7 @@ export class UserService {
             }
             setUser(currentUser)
            await getLastTest(uid).then((querySnapshot) => {
-              if(querySnapshot.size==0) {  
-            }else {
+              if(!querySnapshot.empty) {
                 querySnapshot.forEach(doc => {
                   this.test=doc.data().test
                   this.details=doc.data().detalhes
@@ -203,16 +208,17 @@ export class UserService {
       }
     })
   }
-
-  setLastTest(test: Test ){
+  downLastTest():Test {
+    return getLastTest(this.uid);
+  }
+  setLastTest(test: Test){
     this.test=test
   }
-
   getLastTest():Test{
-    return this.test
+    return this.test === undefined || this.test === null ? this.downLastTest() : this.test ;
   }
   setAppointmentData(details: AppointmentData){
-  this.details=details
+    this.details = details
   }
   getAppointmentData(): AppointmentData{
     return this.details

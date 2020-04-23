@@ -47,12 +47,15 @@ export class DailyTestComponent implements OnInit {
     espirros: [false]
   })
 
+  findMeText: string
+  findMeAux: string
   geoLocation: {
     lat: number,
     long: number
   }
   user: User
   fc: any
+  geoLocationGetted: boolean;
   wait: boolean;
 
   constructor(private fb: FormBuilder, private userService: UserService) { 
@@ -60,6 +63,9 @@ export class DailyTestComponent implements OnInit {
     this.fc = this.testForm.controls
     this.wait = false
     this.checkPhase = false
+    this.geoLocationGetted = false;
+    this.findMeText = "Permitir Localização"
+    this.findMeAux = ""
   }
 
   ngOnInit(): void {
@@ -96,14 +102,31 @@ export class DailyTestComponent implements OnInit {
     this.phase--
   }
 
+  findMeBtn () {
+    this.findMe()
+    this.revokePermission()
+  } 
+
   findMe() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(position => {
         this.setPosition(position);
       });
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
+
+  }
+
+  revokePermission() {
+    if(navigator.permissions){
+    navigator.permissions.query({name:'geolocation'}).then(result => {
+      if(result.state == 'denied'){
+        this.findMeText = 'Não é possível localizar'
+        this.findMeAux = 'Verifique as configurações do dispostivo'
+      }
+    });
+  }
   }
 
   setPosition(position: any) {
@@ -111,6 +134,7 @@ export class DailyTestComponent implements OnInit {
       lat: position.coords.latitude,
       long: position.coords.longitude
     }
+    this.geoLocationGetted = true;
   }
   async onSubmit() {
     this.nextPhase()

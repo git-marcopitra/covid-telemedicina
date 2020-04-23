@@ -35,14 +35,14 @@ th {
     color: var(--background-color-2);
     background-color: var(--font-color-3);
     position: relative;
-    padding: 1rem;
+    padding: 1%;
     text-transform: uppercase;
     z-index: 0;
 }
 
 td {
     position: relative;
-    padding: calc(1rem + 10px) 1rem 1rem;
+    padding: calc(1rem + 10px) 1% 1rem;
     text-align: center;
 }
 
@@ -52,4 +52,16 @@ tr:nth-child(odd) td {
 
 tr:nth-child(even) td {
     background-color: var(--background-color-4);
+}
+
+.cancel {
+    position: absolute;
+    margin-left: -2rem;
+    color: rgb(255, 100, 100);
+    transition: all 300ms;
+    cursor: pointer;
+}
+
+tr:hover .cancel {
+    margin-left: 1rem;
 }

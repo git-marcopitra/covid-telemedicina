@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../modal.service';
-import { User } from '../user';
 
 @Component({ template: ''})
 export class ModalComponent {
@@ -31,5 +30,4 @@ export class ModalComponent {
     console.log('Key :::: ', key, ' Status :::: ', status)
     this.error[key] = status;
   }
-
 }

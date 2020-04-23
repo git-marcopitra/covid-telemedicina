@@ -1,0 +1,10 @@
+.about-us {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+}
+
+.about-us-item {
+    min-width: 310px;
+    padding: 2rem;
+}

@@ -218,7 +218,6 @@
      return firebase.database().ref('/users/' + uid);
  }
 
-
  function resetPassword(email) {
      return firebase.auth().sendPasswordResetEmail(email)
  }
@@ -253,15 +252,12 @@
  }
 
  function getLastTest(uid) {
-
      return firebase.firestore().collection("consultas").doc(uid).collection("lista").orderBy("times", "desc").limit(1).get();
  }
 
 
- function cancelarConsulta(uid,id) {
-  
-                 firebase.firestore().collection("consultas").doc(uid).collection("lista").doc(doc.id).delete().then(function() {}).catch(function(error) {});
-           
+ function cancelarConsulta(uid, id) {
+     firebase.firestore().collection("consultas").doc(uid).collection("lista").doc(doc.id).delete().then(function() {}).catch(function(error) {});
  }
  //--------------------------------------Dados utilizador ----------------------------------
  function getUser() {
@@ -274,7 +270,6 @@
 
  //------------------------------------------Estatistica----------------------------------------
  function statistic() {
-
      return firebase.database().ref('/users/');
  }
 
@@ -364,7 +359,7 @@
  }
 
  function CreatePDF(user, test, details) {
-     if (test == null) {
+     if (test == null || test == undefined) {
          return false;
      }
 
@@ -396,9 +391,9 @@
 
      questoes += test.covid ? "<li style=' list-style: none;margin-left: -22px;'>Esteve em contacto com pessoas infectadas com o COVID-19?</li><li style=' list-style: none;margin-left:-22px;'><b>Sim</b></li> " : "";
 
-     questoes += details.preSick != '' ? "<li style=' list-style: none;margin-left: -22px;'>Alguma doença pré-existe?</li><li style=' list-style: none;margin-left:-22px;'><b>" + details.preSick + "</b></li> " : "";
+     questoes += !details ? '' : details.preSick != '' ? "<li style=' list-style: none;margin-left: -22px;'>Alguma doença pré-existe?</li><li style=' list-style: none;margin-left:-22px;'><b>" + details.preSick + "</b></li> " : "";
 
-     questoes += details.comment != '' ? "<li style=' list-style: none;margin-left: -22px;'>Informação Adicional</li><li style=' list-style: none;margin-left:-22px;'><b>" + details.comment + "</b></li> " : "";
+     questoes += !details ? '' : details.comment != '' ? "<li style=' list-style: none;margin-left: -22px;'>Informação Adicional</li><li style=' list-style: none;margin-left:-22px;'><b>" + details.comment + "</b></li> " : "";
 
      var k = document.createElement("div");
      k.setAttribute("id", "teste");
@@ -415,5 +410,5 @@
              doc.save('Ficha médica.pdf');
          }
      })
-
+     return true;
  }
