@@ -47,6 +47,8 @@ export class DailyTestComponent implements OnInit {
     espirros: [false]
   })
 
+  findMeText: string
+  findMeAux: string
   geoLocation: {
     lat: number,
     long: number
@@ -62,6 +64,8 @@ export class DailyTestComponent implements OnInit {
     this.wait = false
     this.checkPhase = false
     this.geoLocationGetted = false;
+    this.findMeText = "Permitir Localização"
+    this.findMeAux = ""
   }
 
   ngOnInit(): void {
@@ -98,6 +102,11 @@ export class DailyTestComponent implements OnInit {
     this.phase--
   }
 
+  findMeBtn () {
+    this.findMe()
+    this.revokePermission()
+  } 
+
   findMe() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -112,7 +121,10 @@ export class DailyTestComponent implements OnInit {
   revokePermission() {
     if(navigator.permissions){
     navigator.permissions.query({name:'geolocation'}).then(result => {
-      console.log(result.state);
+      if(result.state == 'denied'){
+        this.findMeText = 'Não é possível localizar'
+        this.findMeAux = 'Verifique as configurações do dispostivo'
+      }
     });
   }
   }
