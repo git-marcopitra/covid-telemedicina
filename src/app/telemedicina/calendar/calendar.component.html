@@ -25,20 +25,15 @@
         </thead>
         <tbody>
             <tr *ngFor="let consult of consults; index as i">
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{i+1}}</td>
-<<<<<<< HEAD
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.motivo}}{{ consult.detalhes.preSick != '' ? ' ('+consult.detalhes.preSick+')' : '' }}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.dateInit}}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.dateClose}}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.observador}}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.done}}</td>
-=======
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.motivo}}</td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">
+                    <div class="cancel"><i class="fal fa-trash"></i></div>
+                    {{i+1}}
+                </td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.motivo}}{{ consult.data.detalhes.preSick != '' ? ' ('+consult.data.detalhes.preSick+')' : '' }}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.dateInit}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.dateClose}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.observador}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.done}}</td>
->>>>>>> 454e5246e341a459ff6eeb8c1d37ea128ffc1739
             </tr>
             <tr *ngIf="!hasConsult">
                 <td style="top: -10px; z-index:-3" colspan="6"> Não foram encontradas consultas</td>

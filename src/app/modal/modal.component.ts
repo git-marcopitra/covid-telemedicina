@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../modal.service';
-import { User } from '../user';
 
 @Component({ template: ''})
 export class ModalComponent {

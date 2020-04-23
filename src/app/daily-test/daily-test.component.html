@@ -39,7 +39,7 @@
                     <label for="docId" *ngIf="fc.docId.value !=''"> Número de BI ou Passaporte </label>
                     <input id="docId" formControlName="docId" placeholder="Número de BI ou Passaporte" [class.errorField]="error.docId" (blur)="checkError($event, fc.docId.invalid)" (keyup)="checkError($event, false)">
                     <label for="age" *ngIf="fc.age.value != null">Ano De Nascimento</label>
-                    <input type="number" placeholder="Ano De Nascimento" id="age" formControlName="age" class="field" [class.errorField]="error.age" (blur)="checkError($event, fc.docId.invalid)" (keyup)="checkError($event, false)">
+                    <input type="number" placeholder="Ano De Nascimento" id="age" formControlName="age" class="field" [class.errorField]="error.age" (blur)="checkError($event, fc.age.invalid)" (keyup)="checkError($event, false)">
                     <label for="gender" *ngIf="fc.gender.value != ''">Gênero</label>
                     <select id="gender" formControlName="gender" class="field" [class.errorField]="error.gender" (blur)="checkError($event, fc.gender.invalid)" (keyup)="checkError($event, false)">
                         <option value='' selected disabled> Selecione o seu Gênero </option>

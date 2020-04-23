@@ -24,6 +24,7 @@ import { ModalPasswordRescueComponent } from './modal-password-rescue/modal-pass
 import { ToFixedPipe } from './to-fixed.pipe';
 import { StatisticComponent } from './statistic/statistic.component';
 import { FooterComponent } from './footer/footer.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FooterComponent } from './footer/footer.component';
     ModalPasswordRescueComponent,
     ToFixedPipe,
     StatisticComponent,
-    FooterComponent
+    FooterComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
