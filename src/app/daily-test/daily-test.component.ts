@@ -184,7 +184,7 @@ export class DailyTestComponent implements OnInit {
       doc: this.user.doc.length > 0 ? this.user.doc : this.fc.docId.value,
       gender: this.user.gender.length > 0 ? this.user.gender : this.fc.gender.value,
       birthYear: this.user.birthYear !== '' ? this.user.birthYear : (this.fc.age.value).toString(),
-      geo: this.user.geo.lat !== 0? this.user.geo : this.geoLocation
+      geo: this.geoLocationGetted?  this.geoLocation: {lat: 0,long: 0}
       
     }
     let test: Test
