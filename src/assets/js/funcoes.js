@@ -18,22 +18,18 @@
  messaging.usePublicVapidKey("BCm4Cr1Dou3HrI7Gn9hd8-2vLaA_a4BZzusS_c9FCFe2C8DGPUmrePosqbRZ-Smz-Zj4Eh4LCwxIPrrMSuRklY0");
 
  messaging.requestPermission().then((permission) => {
-    messaging.getToken().then((currentToken) => {
-        console.log(currentToken);
-        firebase.database().ref("tokens").set({
-          token: currentToken
-        });
-
+  
+messaging.getToken().then((currentToken) => {
 }).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  showToken('Error retrieving Instance ID token. ', err);
   setTokenSentToServer(false);
 });
-
+ 
 }).catch((error)=>{
-    console.log("test" +error);
 });
 
+ messaging.onMessage((payload) => {
+
+});
  var test = {};
  var user = {};
  var geoJson = {
