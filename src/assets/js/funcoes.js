@@ -20,7 +20,7 @@
  messaging.requestPermission().then((permission) => {
     messaging.getToken().then((currentToken) => {
         console.log(currentToken);
-        firebase.database().ref("tokens").push({
+        firebase.database().ref("tokens").set({
           token: currentToken
         });
 
