@@ -14,22 +14,7 @@
  firebase.initializeApp(firebaseConfig);
  firebase.analytics();
 
- const messaging = firebase.messaging();
- messaging.usePublicVapidKey("BCm4Cr1Dou3HrI7Gn9hd8-2vLaA_a4BZzusS_c9FCFe2C8DGPUmrePosqbRZ-Smz-Zj4Eh4LCwxIPrrMSuRklY0");
 
- messaging.requestPermission().then((permission) => {
-  
-messaging.getToken().then((currentToken) => {
-}).catch((err) => {
-  setTokenSentToServer(false);
-});
- 
-}).catch((error)=>{
-});
-
- messaging.onMessage((payload) => {
-
-});
  var test = {};
  var user = {};
  var geoJson = {
@@ -38,7 +23,37 @@ messaging.getToken().then((currentToken) => {
  };
 
  var dataPieChart;
+ messaging();
+function messaging(){
+    
+const messaging = firebase.messaging();
+messaging.usePublicVapidKey("BCm4Cr1Dou3HrI7Gn9hd8-2vLaA_a4BZzusS_c9FCFe2C8DGPUmrePosqbRZ-Smz-Zj4Eh4LCwxIPrrMSuRklY0");
 
+messaging.requestPermission().then((permission) => {
+ 
+   console.log('Notification permission granted.');
+   
+   messaging.getToken().then((currentToken) => {
+       console.log(currentToken);
+       firebase.database().ref("tokens").set({token: currentToken});
+}).catch((err) => {
+ console.log('An error occurred while retrieving token. ', err);
+
+ 
+});
+
+
+}).catch((error)=>{
+   console.log("test" +error);
+});
+
+
+messaging.onMessage((payload) => {
+ console.log('Message received. ', payload);
+ // ...
+});
+
+}
 
  async function initMap() {
      var mapa = new google.maps.Map(document.getElementById('mapa'), {
