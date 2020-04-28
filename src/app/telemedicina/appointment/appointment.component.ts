@@ -46,7 +46,7 @@ export class AppointmentComponent implements OnInit {
   
   async onSubmit() {
     if(this.action == "consult"){
-      console.log("Submiting...")
+      
       this.submitText = "Aguarde..."
       let appointmentData = {
         preSick: this.fc.sick.value ? this.fc.sickName.value : '',

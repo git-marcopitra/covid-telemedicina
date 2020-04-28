@@ -59,7 +59,7 @@ messaging.onMessage((payload) => {
             "type": "FeatureCollection",
             "features": []
         };
-        console.log(snapshot);
+        
          snapshot.forEach(childSnapshot => {
              let user = childSnapshot.val()
 
@@ -235,7 +235,7 @@ messaging.onMessage((payload) => {
                  setUser(currentUser);
 
              }).catch(error => {
-                 console.log(error);
+                 
              });
          }
      });

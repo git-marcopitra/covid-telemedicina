@@ -113,7 +113,7 @@ export class DailyTestComponent implements OnInit {
         this.setPosition(position);
       });
     } else {
-      console.log("Geolocation is not supported by this browser.");
+      
     }
 
   }

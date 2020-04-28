@@ -37,23 +37,23 @@ export class CalendarComponent implements OnInit {
     await getConsulta(uid)
       .then(querySnapshot => {
         if (querySnapshot.empty === true) {
-          console.log('Is Empty');
+          
           this.hasConsult = false;
         } else {
           querySnapshot.docs.map(doc => {
-            console.log('Query Snapshot ::::: ', doc.data());
+           
             let data={
               id: doc.id,
               data: doc.data()
             }
             this.consults.push(data);
           });
-          console.log('Have Consult');
+      
           this.hasConsult = true;
         }
       })
       .catch(error => {
-        console.log('Have Error : Erro ::::', error);
+     
         this.hasConsult = false;
       });
     this.wait = false;

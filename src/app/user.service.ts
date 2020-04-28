@@ -130,7 +130,7 @@ export class UserService {
     })    
       })
     .catch(error => {
-      console.log(error)
+     
         return false
       })
     }
@@ -200,7 +200,7 @@ export class UserService {
            
         }
     }).catch(error => {
-        console.log(error)
+     
         });
       }
       else {
