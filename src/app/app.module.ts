@@ -26,6 +26,7 @@ import { StatisticComponent } from './statistic/statistic.component';
 import { FooterComponent } from './footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AlertComponent } from './alert/alert.component';
+import { ModalLinkComponent } from './modal-link/modal-link.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AlertComponent } from './alert/alert.component';
     StatisticComponent,
     FooterComponent,
     NotFoundComponent,
-    AlertComponent
+    AlertComponent,
+    ModalLinkComponent
   ],
   imports: [
     BrowserModule,

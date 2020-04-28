@@ -1,0 +1,25 @@
+<section class="modal" *ngIf="currentModal == 'password-rescue'">
+    <header class="modal-header">
+        <i id="modal-info" class="fal fa-info-circle modal-icon"></i>
+        <h4 class="modal-title">Recuperar senha</h4>
+        <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
+    </header>
+
+    <div class="modal-body">
+        <div class="process" *ngIf="wait">
+            <span class="progressing">
+            <span class="bubble"></span>
+            <span class="bubble-group">
+                <span class="bubble"></span>
+            <span class="bubble"></span>
+            </span>
+            <span class="bubble"></span>
+            </span>
+        </div>
+        <div class="modal-content" *ngIf="!wait">
+            <p class="modal-text">
+                <a [href]="link">{{link}}</a>
+            </p>
+        </div>
+    </div>
+</section>

@@ -14,8 +14,14 @@ export class AlertComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(Notification.permission == "granted")
+  }
+
+  ngAfterViewChecked() {
+    const perm = Notification.permission
+    if(perm == "granted")
       this.visible = false
+    else if(perm == "denied")
+      this.visible = false 
     else
       this.visible = true
   }
