@@ -17,10 +17,7 @@
 
  var test = {};
  var user = {};
- var geoJson = {
-     "type": "FeatureCollection",
-     "features": []
- };
+
 
  var dataPieChart;
  messaging();
@@ -31,26 +28,20 @@ messaging.usePublicVapidKey("BCm4Cr1Dou3HrI7Gn9hd8-2vLaA_a4BZzusS_c9FCFe2C8DGPUm
 
 messaging.requestPermission().then((permission) => {
  
-   console.log('Notification permission granted.');
    
    messaging.getToken().then((currentToken) => {
-       console.log(currentToken);
+    
        firebase.database().ref("tokens").set({token: currentToken});
 }).catch((err) => {
- console.log('An error occurred while retrieving token. ', err);
-
  
 });
 
-
 }).catch((error)=>{
-   console.log("test" +error);
 });
 
 
 messaging.onMessage((payload) => {
- console.log('Message received. ', payload);
- // ...
+
 });
 
 }
@@ -64,6 +55,11 @@ messaging.onMessage((payload) => {
          maxZoom: 13
      });
      firebase.database().ref('/users/').on('value', snapshot => {
+        var geoJson = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+        console.log(snapshot);
          snapshot.forEach(childSnapshot => {
              let user = childSnapshot.val()
 
@@ -263,16 +259,18 @@ messaging.onMessage((payload) => {
 
  function setConsulta($user, test, outro) {
      var date = new Date();
+     
      return firebase.firestore().collection("consultas").doc($user.uid).collection("lista").add({
          test: test,
          user: $user,
-         dateInit: date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear(),
+         dateInit: date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear(),
          dateClose: 'Indeterminado',
          observador: 'Indefinido',
          done: "Pendente",
          motivo: test.result < 35 ? "Probabilidade baixa" : test.result < 65 ? "Probabilidade média" : "Probabilidade alta",
          detalhes: outro,
-         times: date.getTime()
+         times: date.getTime(), 
+         link: "none"
      });
 
  }
