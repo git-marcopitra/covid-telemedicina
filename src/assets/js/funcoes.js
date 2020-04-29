@@ -270,7 +270,7 @@ messaging.onMessage((payload) => {
          motivo: test.result < 35 ? "Probabilidade baixa" : test.result < 65 ? "Probabilidade média" : "Probabilidade alta",
          detalhes: outro,
          times: date.getTime(), 
-         link: "none"
+         link: ''
      });
 
  }
