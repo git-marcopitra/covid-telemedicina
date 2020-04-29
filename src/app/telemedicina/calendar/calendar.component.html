@@ -33,7 +33,7 @@
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.dateInit}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.dateClose}}</td>
                 <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.observador}}</td>
-                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.done}} <i class="link-icon color-primary fal fa-link" (click)="setModal('link')"></i></td>
+                <td [style]="'top: -'+ 10*(i+1) +'px; z-index:-'+ (i+1) ">{{consult.data.done}} <a [href]="consult.data.link" *ngIf="consult.data.link !== ''"><i class="link-icon color-primary fal fa-link" ></i></a></td>
             </tr>
             <tr *ngIf="!hasConsult">
                 <td style="top: -10px; z-index:-3" colspan="6"> Não foram encontradas consultas</td>
