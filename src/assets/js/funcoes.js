@@ -358,21 +358,21 @@ messaging.onMessage((payload) => {
          options.push({
              title: 'AVALIAÇÕES EM GERAL',
              colors: ['#ff4444', '#DDDD44', '#44ff44'],
-             backgroundColor: '#E4E4E4',
+             backgroundColor: '#FFFFFF',
              legend: 'Representação dos testes no Geral'
          });
 
          options.push({
              title: 'AVALIAÇÕES POR IDADES',
              colors: ['#ff0000', '#00ff00', '#0000ff'],
-             backgroundColor: '#E4E4E4',
+             backgroundColor: '#FFFFFF',
              legend: 'none'
          });
 
          options.push({
              title: 'AVALIAÇÕES POR GÊNERO',
              colors: ['#ff0000', '#00ff00', '#0000ff'],
-             backgroundColor: '#E4E4E4',
+             backgroundColor: '#FFFFFF',
              legend: 'none'
          });
 
