@@ -26,12 +26,12 @@ export class DailyTestComponent implements OnInit {
       Validators.min(1900),
       Validators.max((new Date().getFullYear()))
     ])],
-    docId: ['', Validators.compose([
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(15),
-      Validators.pattern('((([0-9]{9})+([A-Za-z]{2})+([0-9]{3}))?)+(([A-Za-z][0-9]{7})?)')
-    ])],
+    // docId: ['', Validators.compose([
+    //   Validators.required,
+    //   Validators.minLength(8),
+    //   Validators.maxLength(15),
+    //   Validators.pattern('((([0-9]{9})+([A-Za-z]{2})+([0-9]{3}))?)+(([A-Za-z][0-9]{7})?)')
+    // ])],
     travel: [false],
     people: [false],
     covid: [false],
@@ -75,10 +75,10 @@ export class DailyTestComponent implements OnInit {
     if(!this.checkPhase){
       this.wait = true
       this.user = this.userService.getCurrentUser()
-      if(this.user !== undefined && this.user !== null && this.user.doc !== undefined){
+      if(this.user !== undefined && this.user !== null && this.user.birthYear !== undefined && this.user.birthYear !== null){
         this.checkPhase = true
         this.wait = false
-        if(this.user.doc.length > 0)
+        if(this.user.birthYear.length > 0)
           this.phase = 2
       }
     }
@@ -181,7 +181,7 @@ export class DailyTestComponent implements OnInit {
       email: this.user.email,
       phone: this.user.phone,
       level: level,
-      doc: this.user.doc.length > 0 ? this.user.doc : this.fc.docId.value,
+      doc: this.user.doc.length > 0 ? this.user.doc : '',
       gender: this.user.gender.length > 0 ? this.user.gender : this.fc.gender.value,
       birthYear: this.user.birthYear !== '' ? this.user.birthYear : (this.fc.age.value).toString(),
       geo: this.geoLocationGetted?  this.geoLocation: this.user.geo.lat!=0?this.user.geo :{lat: 0,long: 0}
@@ -207,10 +207,8 @@ export class DailyTestComponent implements OnInit {
 
     this.userService.setLastTest(test)
     if(await this.userService.updateThisUser(user)){   
-    
       this.wait = false
     } else {
-      
       this.wait = false
     }
   }
