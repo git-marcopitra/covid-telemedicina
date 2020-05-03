@@ -85,7 +85,7 @@ button:disabled:hover {
 }
 
 main {
-    margin: 0 auto;
+    margin: 5rem auto 0;
     width: 100vw;
     overflow: hidden;
     max-width: 1440px;
