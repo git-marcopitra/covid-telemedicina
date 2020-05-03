@@ -77,12 +77,12 @@
 }
 
 .head-image img {
+    position: static;
     height: 80%;
     animation: rotateVirus 10s linear 0s infinite;
 }
 
 .head-text {
-    position: static;
     display: flex;
     width: 60vh;
     min-width: 300px;
