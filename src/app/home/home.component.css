@@ -82,6 +82,7 @@
 }
 
 .head-text {
+    position: static;
     display: flex;
     width: 60vh;
     min-width: 300px;
