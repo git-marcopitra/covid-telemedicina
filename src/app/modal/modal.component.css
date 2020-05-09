@@ -1,6 +1,6 @@
 .modal {
     position: relative;
-    background-color: var(--background-color-3);
+    background-color: var(--background-color-1);
     color: var(--font-color-1);
     box-shadow: 0 0 15px var(--font-color-1);
     border-radius: 10px;
@@ -16,7 +16,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 .5rem 1rem;
-    border-bottom: 2px solid var(--font-color-1-05);
+    border-bottom: 2px solid var(--background-color-2);
 }
 
 .modal-icon {
@@ -58,69 +58,4 @@
 .field {
     display: block;
     width: calc(320px - 4rem);
-}
-
-@media only screen and (max-width: 480px) {
-    .modal {
-        position: relative;
-        background-color: var(--background-color-3);
-        color: var(--font-color-1);
-        box-shadow: 0 0 15px var(--font-color-1);
-        border-radius: 10px;
-        width: 320px;
-        padding: 1rem;
-        min-height: 200px;
-        max-height: 90vh;
-        z-index: 101;
-    }
-    
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 .5rem 1rem;
-        border-bottom: 2px solid var(--font-color-1-05);
-    }
-    
-    .modal-icon {
-        cursor: pointer;
-        padding: .5rem
-    }
-    
-    .modal-body {
-        display: flex;
-        text-align: center;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-        padding: 2rem 1rem 1rem;
-        max-height: calc(90vh - 5.5rem);
-        height: 100%;
-        overflow-y: auto;
-    }
-    
-    .modal-content {
-        padding: 1rem 0;
-        height: 100%;
-    }
-    
-    .modal-text {
-        line-height: 1.4rem;
-        padding: .5rem 0;
-    }
-    
-    .modal-buttons {
-        display: flex;
-        width: 100%;
-    }
-    
-    .modal-button {
-        width: 100%;
-    }
-    
-    .field {
-        display: block;
-        width: calc(320px - 4rem);
-    }
-    
 }

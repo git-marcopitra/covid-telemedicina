@@ -8,6 +8,7 @@
         align-items: center;
         justify-content: center;
         background-color: var(--background-color-07);
+        z-index: 100;
     }
     
     .modal-mask {

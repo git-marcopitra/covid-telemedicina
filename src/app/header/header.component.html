@@ -1,7 +1,7 @@
 <header class="main-header">
     <i class="fas fa-bars main-header-item" (click)="toggleMenu(true)" *ngIf="!menu"></i>
     <i class="fas fa-times main-header-item" (click)="toggleMenu(false)" *ngIf="menu"></i>
-    <h2 class="main-header-brand">COVIDANGO Telemedicina</h2>
+    <h2 class="main-header-brand">COVID Telemedicina</h2>
     <i id="user-icon" class="fal fa-user-circle main-header-item" (click)="changeModal('sign-in')" *ngIf="!logged"></i>
     <i id="user-icon" class="fas fa-user-circle main-header-item" (click)="changeModal('account-settings')" *ngIf="logged"></i>
 

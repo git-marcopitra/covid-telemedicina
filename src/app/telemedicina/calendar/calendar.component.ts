@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/user.service';
-import { ModalService } from 'src/app/modal.service';
 declare function cancelarConsulta(uid: string, id:any);
 declare function getConsulta(uid: string);
 @Component({
@@ -14,7 +13,7 @@ export class CalendarComponent implements OnInit {
   wait: boolean;
   enter: boolean;
 
-  constructor(private userService: UserService, private modalService: ModalService) {
+  constructor(private userService: UserService) {
     this.hasConsult = undefined;
     this.wait = true;
     this.enter = true;
@@ -37,30 +36,26 @@ export class CalendarComponent implements OnInit {
     await getConsulta(uid)
       .then(querySnapshot => {
         if (querySnapshot.empty === true) {
-          
+          console.log('Is Empty');
           this.hasConsult = false;
         } else {
           querySnapshot.docs.map(doc => {
-           
+            console.log('Query Snapshot ::::: ', doc.data());
             let data={
               id: doc.id,
               data: doc.data()
             }
             this.consults.push(data);
           });
-      
+          console.log('Have Consult');
           this.hasConsult = true;
         }
       })
       .catch(error => {
-     
+        console.log('Have Error : Erro ::::', error);
         this.hasConsult = false;
       });
     this.wait = false;
-  }
-
-  setModal(modal: string) {
-    this.modalService.setModal(modal);
   }
 
   cancelarConsulta(id) {

@@ -25,8 +25,6 @@ import { ToFixedPipe } from './to-fixed.pipe';
 import { StatisticComponent } from './statistic/statistic.component';
 import { FooterComponent } from './footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { AlertComponent } from './alert/alert.component';
-import { ModalBiComponent } from './modal-bi/modal-bi.component';
 
 @NgModule({
   declarations: [
@@ -49,9 +47,7 @@ import { ModalBiComponent } from './modal-bi/modal-bi.component';
     ToFixedPipe,
     StatisticComponent,
     FooterComponent,
-    NotFoundComponent,
-    AlertComponent,
-    ModalBiComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
