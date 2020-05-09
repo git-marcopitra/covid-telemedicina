@@ -4,6 +4,7 @@
     position: sticky;
     position: -webkit-sticky;
     padding: 1rem 2rem;
+    z-index: 101;
 }
 
 .main-header-brand {
