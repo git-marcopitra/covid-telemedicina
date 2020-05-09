@@ -3,6 +3,7 @@ import { User,Test } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalService } from 'src/app/modal.service';
 declare function setConsulta(user:User,test:Test,outros:any): any;
 @Component({
   selector: 'app-appointment',
@@ -22,13 +23,16 @@ export class AppointmentComponent implements OnInit {
     comm: [''],
     comment: ['']
   })
+  idDought: boolean
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { 
+
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private modalService: ModalService) { 
     this.able = undefined
     this.wait = true
     this.fc = this.sickForm.controls
     this.submitText = "Marcar Consulta"
     this.action = "consult"
+    this.idDought = false
   }
 
   ngOnInit(): void {
@@ -36,9 +40,22 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngDoCheck() {
-    if(this.able === undefined) {
+    if(this.able === undefined || this.idDought) {
       this.patient =  this.userService.getCurrentUser()
-      this.able = (this.patient === undefined || this.patient === null || this.patient.doc === undefined || this.patient.doc === null) ? undefined : this.patient.doc > ''
+      if(this.patient === undefined || this.patient === null || this.patient.birthYear === undefined || this.patient.birthYear === null){
+        this.able = undefined;
+      } else {
+        this.able =  this.patient.birthYear > ''
+        if(this.patient.doc == ''){
+          this.submitText = "Confirmar Identidade"
+          this.action = "identity"
+          this.idDought = false
+        } else {
+          this.submitText = "Marcar Consulta"
+          this.action = "consult"
+          this.idDought = false
+        }
+      }
     } else {
       this.wait = false
     }
@@ -46,7 +63,6 @@ export class AppointmentComponent implements OnInit {
   
   async onSubmit() {
     if(this.action == "consult"){
-      console.log("Submiting...")
       this.submitText = "Aguarde..."
       let appointmentData = {
         preSick: this.fc.sick.value ? this.fc.sickName.value : '',
@@ -70,6 +86,9 @@ export class AppointmentComponent implements OnInit {
       this.router.navigate(['/dailytest'])
     } else if(this.action == "show") {
       this.router.navigate(['/telemedicina/calendar'])
+    } else if(this.action == "identity") {
+      this.modalService.setModal('bi')
+      this.idDought = true
     }
   }
 }
