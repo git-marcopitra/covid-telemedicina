@@ -5,6 +5,7 @@
         bottom: 0;
         display: flex;
         position: fixed;
+        position: device-fixed;
         align-items: center;
         justify-content: center;
         background-color: var(--background-color-07);
