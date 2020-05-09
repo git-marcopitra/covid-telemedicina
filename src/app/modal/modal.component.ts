@@ -6,6 +6,8 @@ export class ModalComponent {
 
   error: {}
 
+  modals: string[] = this.modalService.getModals()
+
   currentModal: string
   constructor(private modalService: ModalService) { }
 
@@ -19,7 +21,6 @@ export class ModalComponent {
   
   firstTime = (): boolean => this.modalService.getFirstTime();
 
-  modals = (): string[] => this.modalService.getModals()
 
   endFirstTime(): void {
     this.modalService.noMoreFirstTime();
