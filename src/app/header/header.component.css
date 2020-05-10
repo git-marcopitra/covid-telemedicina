@@ -2,9 +2,8 @@
     top: 0;
     display: flex;
     position: sticky;
-    position: -webkit-sticky;
     padding: 1rem 2rem;
-    z-index: 101;
+    z-index: 99;
 }
 
 .main-header-brand {
@@ -27,6 +26,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.9);
+    z-index: 999;
     color: var(--font-color-1)
 }
 

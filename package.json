@@ -4,8 +4,8 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve --aot -o",
+        "component": "ng g c ",
         "build": "ng build --prod",
-        "deploy": "ng deploy",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"

@@ -77,7 +77,6 @@
 }
 
 .head-image img {
-    position: static;
     height: 80%;
     animation: rotateVirus 10s linear 0s infinite;
 }

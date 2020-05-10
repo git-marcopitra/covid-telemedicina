@@ -17,15 +17,8 @@
 }
 
 .footer-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     max-height: 300px;
     width: 300px;
-}
-.footer-logo a {
-    text-align: center;
 }
 
 .footer-logo img {

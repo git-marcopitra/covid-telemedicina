@@ -1,18 +1,10 @@
-.map {
-    position: absolute;
-    width: 100%;
-    right: 0;
-    left: 0;
-}
-.map-mask {
-    height: calc(100vh - 5rem);
-}
 #mapa {
     display: flex;
     justify-content: center;
     align-items: flex-end;
     height: calc(100vh - 5rem);
     z-index: 0;
+    margin-bottom: 2rem;
 }
 
 .map-legend {

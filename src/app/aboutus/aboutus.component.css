@@ -1,29 +1,10 @@
 .about-us {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: stretch;
 }
 
 .about-us-item {
     min-width: 310px;
-    max-width: calc(1400px / 3);
     padding: 2rem;
-}
-
-.about-us-title,
-.about-us-icon {
-    text-align: center;
-}
-
-.about-us-icon {
-    display: block;
-    font-size: 10rem;
-    padding: 2rem;
-}
-
-.about-us-content {
-    line-height: 1.5rem;
-    font-size: 1.1rem;
-    padding: .5rem;
-    color: var(--font-color-2);
 }
