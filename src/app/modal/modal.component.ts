@@ -27,7 +27,7 @@ export class ModalComponent {
 
   checkError (event:any, status: boolean) {
     const key = event.srcElement.id;
-    console.log('Key :::: ', key, ' Status :::: ', status)
+   
     this.error[key] = status;
   }
 }

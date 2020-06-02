@@ -1,0 +1,27 @@
+<section class="modal" *ngIf="currentModal == 'bi'">
+    <header class="modal-header">
+        <i id="modal-info" class="fal fa-info-circle modal-icon"></i>
+        <h4 class="modal-title">Identificação</h4>
+        <i class="fal fa-times modal-icon" (click)="changeModal('none')"></i>
+    </header>
+    <div class="modal-body">
+        <div class="process" *ngIf="wait">
+            <span class="progressing">
+            <span class="bubble"></span>
+            <span class="bubble-group">
+                <span class="bubble"></span>
+            <span class="bubble"></span>
+            </span>
+            <span class="bubble"></span>
+            </span>
+        </div>
+        <form class="modal-content" [formGroup]="formDoc" (ngSubmit)="onSubmit()" *ngIf="!wait">
+            <p class="warning">{{ errorS }}</p>
+            <label for="doc" *ngIf="fc.doc.value != ''">Bilhete de Identidade</label>
+            <input type="text" placeholder="Nº De Bilhete De Identidade" class="field" id="doc" formControlName="doc" [class.errorField]="error.doc" (blur)="checkError($event, fc.doc.invalid)" (keyup)="cleanError($event)">
+            <div class="modal-buttons">
+                <button class="modal-button button-primary" type="submit" [disabled]="!formDoc.valid"> Entrar </button>
+            </div>
+        </form>
+    </div>
+</section>

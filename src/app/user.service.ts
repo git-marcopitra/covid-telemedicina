@@ -84,7 +84,7 @@ export class UserService {
             name: user.name,
             birthYear: user.birthYear,
             level: user.level,
-            geo: user.hasOwnProperty('geo.long')? user.geo: {lat:0,long:0}
+            geo: user.geo
         }
         
           await updateUser1().ref('users/' + user1.uid).update(currentUser).then(()=>{
@@ -130,7 +130,7 @@ export class UserService {
     })    
       })
     .catch(error => {
-      console.log(error)
+     
         return false
       })
     }
@@ -200,7 +200,7 @@ export class UserService {
            
         }
     }).catch(error => {
-        console.log(error)
+     
         });
       }
       else {

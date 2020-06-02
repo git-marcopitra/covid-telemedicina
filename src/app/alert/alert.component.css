@@ -1,0 +1,19 @@
+.alert {
+    position: fixed;
+    top: 7rem;
+    right: -8rem;
+    width: 11rem;
+    padding: 1rem;
+    display: flex;
+    transition: all 300ms;
+    border-radius: 10px 0 0 10px;
+}
+
+.alert:hover {
+    right: 0;
+}
+
+.alert-text {
+    padding-left: 1.2rem;
+    cursor: pointer;
+}
