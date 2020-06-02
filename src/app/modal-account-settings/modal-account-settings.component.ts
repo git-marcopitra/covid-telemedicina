@@ -24,6 +24,7 @@ export class ModalAccountSettingsComponent extends ModalComponent  implements On
     this.wait = true
 
     if(await this.userService.signOut()) {
+      
       this.wait = false
       this.changeModal('none')
     }
